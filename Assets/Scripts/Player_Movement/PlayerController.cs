@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public float horizontalInput;
+    public float verticalInput;
     public float speed;
 
     public Rigidbody rb;
@@ -26,7 +27,18 @@ public class PlayerController : MonoBehaviour
     {
         //move left and right
         horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
+
+        if (Camera.main.orthographic)
+        {
+            transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
+        }
+        else
+        {
+            verticalInput = Input.GetAxis("Vertical");
+            transform.Translate(Vector3.back * speed * horizontalInput * Time.deltaTime); //TODO: change scene so i can use the right vectors
+            transform.Translate(Vector3.right * speed * verticalInput * Time.deltaTime);
+        }
+       
 
         //Jump
         if (Input.GetKey(KeyCode.Space) && isGrounded)
