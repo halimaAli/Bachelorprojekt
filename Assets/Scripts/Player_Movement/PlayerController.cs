@@ -13,10 +13,13 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10.0f;
     public bool isGrounded;
 
+    Animator animator;
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         isGrounded = true;
     }
 
@@ -26,6 +29,14 @@ public class PlayerController : MonoBehaviour
     {
         //move left and right
         horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput == 0 )
+        {
+            animator.SetBool("isMoving", false);
+        }
+        else
+        {
+            animator.SetBool("isMoving", true);
+        }
 
         if (Camera.main.orthographic)
         {

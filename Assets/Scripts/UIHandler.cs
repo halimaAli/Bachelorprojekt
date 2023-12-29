@@ -7,17 +7,20 @@ using UnityEngine;
 public class UIHandler : MonoBehaviour
 {
     private bool change  = false;
-    public GameObject player;
     public Vector3 camera2DPos = new Vector3(1.05999994f, 1.57000005f, -12);
+    public float offset = 10;
 
     public void OnChangeClick()
     {
-        change = !change;
+        change = !change; //vorläufig! unbedingt umändern
         if (change)
         {
             Camera.main.orthographic = false;
+
             Camera.main.transform.position = new Vector3(-22, -0.14f, -8);
+            // Camera.main.transform.position = Vector3.Lerp(new Vector3(-22, -0.14f, -8),camera2DPos, offset*Time.deltaTime);
             Camera.main.transform.eulerAngles -= new Vector3(5, -90, 0);
+           // Camera.main.transform.eulerAngles = Quaternion.Lerp(new Vector3(5, -90, 0), Camera.main.transform.rotation, offset * Time.deltaTime);
         }
         else
         {
