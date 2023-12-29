@@ -11,16 +11,19 @@ public class UIHandler : MonoBehaviour
     public float offset = 10;
     public GameObject player;
 
-    public void OnChangeClick()
+    void Update()
     { 
-        change = !change; //Toggles between the modes;
-        if (change)
+        if (Input.GetKeyUp(KeyCode.Q))
         {
-            Set3DView();
-        }
-        else
-        {
-            Set2DView();
+            change = !change;    //Toggles between the modes
+            if (change)
+            {
+                Set3DView();
+            }
+            else
+            {
+                Set2DView();
+            }
         }
     }
 
