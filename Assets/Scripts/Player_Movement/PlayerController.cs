@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     Animator animator;
     SpriteRenderer spriteRenderer;
+    public BoxCollider crouchCollider;
+    public BoxCollider standingCollider;
 
 
     private void Awake()
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         //move left and right
         horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
 
         //changes animation
         if (horizontalInput == 0 )
@@ -56,7 +59,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            verticalInput = Input.GetAxis("Vertical");
             transform.Translate(Vector3.back * speed * horizontalInput * Time.deltaTime); //TODO: change scene so i can use the right vectors
             transform.Translate(Vector3.right * speed * verticalInput * Time.deltaTime);
         }
@@ -68,7 +70,24 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isJumping", true);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
-        } 
+        }
+
+        //duck
+        if (verticalInput < 0)
+        {
+            animator.SetBool("isCrouching", true);
+            standingCollider.enabled = false;
+
+            crouchCollider.enabled = true;
+
+        }
+        else if (verticalInput == 0) //TODO:  Bug: animation stops when player stops pressing S key down
+        {
+            animator.SetBool("isCrouching", false);
+            standingCollider.enabled = true;
+
+            crouchCollider.enabled = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
