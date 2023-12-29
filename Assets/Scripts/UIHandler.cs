@@ -9,25 +9,35 @@ public class UIHandler : MonoBehaviour
     private bool change  = false;
     public Vector3 camera2DPos = new Vector3(1.05999994f, 1.57000005f, -12);
     public float offset = 10;
+    public GameObject player;
 
     public void OnChangeClick()
-    {
-        change = !change; //vorläufig! unbedingt umändern
+    { 
+        change = !change; //Toggles between the modes;
         if (change)
         {
-            Camera.main.orthographic = false;
-
-            Camera.main.transform.position = new Vector3(-22, -0.14f, -8);
-            // Camera.main.transform.position = Vector3.Lerp(new Vector3(-22, -0.14f, -8),camera2DPos, offset*Time.deltaTime);
-            Camera.main.transform.eulerAngles -= new Vector3(5, -90, 0);
-           // Camera.main.transform.eulerAngles = Quaternion.Lerp(new Vector3(5, -90, 0), Camera.main.transform.rotation, offset * Time.deltaTime);
+            Set3DView();
         }
         else
         {
-            Camera.main.orthographic = true;
-            Camera.main.transform.position = camera2DPos;
-            Camera.main.transform.eulerAngles -= new Vector3(-5, 90, 0);
+            Set2DView();
         }
+    }
+
+    private void Set3DView()
+    {
+        Camera.main.orthographic = false;
+        Camera.main.transform.position = new Vector3(-22, -0.14f, -8);
+        Camera.main.transform.eulerAngles -= new Vector3(5, -90, 0);
+        player.transform.eulerAngles -= new Vector3(0, -90, 0);
+    }
+
+    private void Set2DView()
+    {
+        Camera.main.orthographic = true;
+        Camera.main.transform.position = camera2DPos;
+        Camera.main.transform.eulerAngles -= new Vector3(-5, 90, 0);
+        player.transform.eulerAngles -= new Vector3(0, 90, 0);
     }
 
     public void onExitClick()

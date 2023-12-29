@@ -35,58 +35,69 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
-        //changes animation
-        if (horizontalInput == 0 )
-        {
-            animator.SetBool("isMoving", false);
-        }
-        else
-        {
-            animator.SetBool("isMoving", true);
-        }
+
+        TriggerWalkAnimation(Camera.main.orthographic);
 
         if (Camera.main.orthographic)
         {
-            if (horizontalInput < 0)
-            {
-                spriteRenderer.flipX = true;
-            } else
-            {
-                spriteRenderer.flipX = false;
-            }
-
             transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
         }
         else
         {
-            transform.Translate(Vector3.back * speed * horizontalInput * Time.deltaTime); //TODO: change scene so i can use the right vectors
-            transform.Translate(Vector3.right * speed * verticalInput * Time.deltaTime);
+            transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
+            transform.Translate(Vector3.forward * speed * verticalInput * Time.deltaTime);
         }
-       
+
 
         //Jump
+        Jump();
+        Crouch();
+    }
+
+    private void TriggerWalkAnimation(bool is2D)
+    {
+        animator.SetBool("isMoving", is2D ? horizontalInput != 0 : horizontalInput != 0 || verticalInput != 0);
+
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            spriteRenderer.flipX = true;
+        }
+    }
+
+    private void Jump()
+    {
         if (Input.GetKey(KeyCode.Space) && isGrounded)
         {
             animator.SetBool("isJumping", true);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
+    }
 
-        //duck
-        if (verticalInput < 0)
+    private void Crouch() 
+    {
+        if (Camera.main.orthographic)
         {
-            animator.SetBool("isCrouching", true);
-            standingCollider.enabled = false;
+            if (verticalInput < 0)
+            {
+                animator.SetBool("isCrouching", true);
+                standingCollider.enabled = false;
 
-            crouchCollider.enabled = true;
+                crouchCollider.enabled = true;
 
-        }
-        else if (verticalInput == 0) //TODO:  Bug: animation stops when player stops pressing S key down
-        {
-            animator.SetBool("isCrouching", false);
-            standingCollider.enabled = true;
+            }
+            else if (verticalInput == 0) //TODO:  Bug: animation stops when player stops pressing S key down
+            {
+                animator.SetBool("isCrouching", false);
+                standingCollider.enabled = true;
 
-            crouchCollider.enabled = false;
+                crouchCollider.enabled = false;
+            }
         }
     }
 
