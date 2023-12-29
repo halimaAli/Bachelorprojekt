@@ -65,9 +65,10 @@ public class PlayerController : MonoBehaviour
         //Jump
         if (Input.GetKey(KeyCode.Space) && isGrounded)
         {
+            animator.SetBool("isJumping", true);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
-        }
+        } 
     }
 
     private void OnTriggerEnter(Collider other)
@@ -75,6 +76,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag.Equals("ground"))
         {
             isGrounded = true;
+            animator.SetBool("isJumping", false);
         }
     }
 }

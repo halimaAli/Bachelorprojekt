@@ -1169,6 +1169,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4633153978896128116, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6148625986171172765, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
       propertyPath: m_Name
       value: Mario_0
