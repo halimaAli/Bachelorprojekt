@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public float jumpForce = 10.0f;
     public bool isGrounded;
+    public bool isCrouched;
 
     Animator animator;
     SpriteRenderer spriteRenderer;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         isGrounded = true;
+        isCrouched = false;
     }
 
 
@@ -34,7 +36,6 @@ public class PlayerController : MonoBehaviour
         //move left and right
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-
 
         TriggerWalkAnimation(Camera.main.orthographic);
 
@@ -47,7 +48,6 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
             transform.Translate(Vector3.forward * speed * verticalInput * Time.deltaTime);
         }
-
 
         //Jump
         Jump();
@@ -81,23 +81,24 @@ public class PlayerController : MonoBehaviour
 
     private void Crouch() 
     {
-        if (Camera.main.orthographic)
+        if (Input.GetKeyDown(KeyCode.LeftShift)) 
         {
-            if (verticalInput < 0)
+            if (!isCrouched)
             {
                 animator.SetBool("isCrouching", true);
                 standingCollider.enabled = false;
 
                 crouchCollider.enabled = true;
-
-            }
-            else if (verticalInput == 0) //TODO:  Bug: animation stops when player stops pressing S key down
+                isCrouched = true;
+            } else
             {
                 animator.SetBool("isCrouching", false);
                 standingCollider.enabled = true;
 
                 crouchCollider.enabled = false;
+                isCrouched = false;
             }
+            
         }
     }
 
@@ -107,6 +108,14 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             animator.SetBool("isJumping", false);
+        }
+
+        if  (other.gameObject.tag.Equals("Enemy"))
+        {
+            animator.SetBool("isDead", true);
+            standingCollider.enabled = false;
+            crouchCollider.enabled = false;
+            transform.position = Vector3.Lerp(new Vector3(transform.position.x, 1, transform.position.z), transform.position, 1 * Time.deltaTime);
         }
     }
 }
