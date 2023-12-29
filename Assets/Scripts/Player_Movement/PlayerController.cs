@@ -14,12 +14,14 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
 
     Animator animator;
+    SpriteRenderer spriteRenderer;
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         isGrounded = true;
     }
 
@@ -29,6 +31,8 @@ public class PlayerController : MonoBehaviour
     {
         //move left and right
         horizontalInput = Input.GetAxis("Horizontal");
+
+        //changes animation
         if (horizontalInput == 0 )
         {
             animator.SetBool("isMoving", false);
@@ -40,6 +44,14 @@ public class PlayerController : MonoBehaviour
 
         if (Camera.main.orthographic)
         {
+            if (horizontalInput < 0)
+            {
+                spriteRenderer.flipX = true;
+            } else
+            {
+                spriteRenderer.flipX = false;
+            }
+
             transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
         }
         else
