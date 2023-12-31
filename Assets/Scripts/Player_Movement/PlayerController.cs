@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,26 +9,33 @@ public class PlayerController : MonoBehaviour
     public BoxCollider crouchCollider;
     public BoxCollider standingCollider;
 
+    private Vector3 playerSize = new Vector3(1.25f, 2.25f, 1);
+
     private bool active = true;
 
     private Vector3 respawnPoint;
+    [SerializeField] private LayerMask respawnPointMask;
+    private Collider[] respawnPointCollider = new Collider[1];
 
 
-    private void Awake()
+    private void Start()
     {
-
         animator = GetComponent<Animator>();
         SetRespawnPoint(transform.position);
     }
 
-
     // Update is called once per frame
     void Update()
     {
+        bool hitRespawnPoint = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(playerSize.x / 2, playerSize.y / 2, playerSize.z / 2), respawnPointCollider, new Quaternion(0, 0, 0, 0), respawnPointMask) > 0;
+        if (hitRespawnPoint)
+        {
+            SetRespawnPoint(new Vector3(respawnPointCollider[0].transform.position.x + 1.5f, transform.position.y, transform.position.z));
+        }
 
         if (!active)
         {
-            SetRespawnPoint(new Vector3(transform.position.x - 10, transform.position.y, transform.position.z));
+            // SetRespawnPoint(new Vector3(transform.position.x - 10, transform.position.y, transform.position.z));
             return;
         }
 
@@ -38,6 +46,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        //draws a sphere at the feet of player; helpful in scene view
+        Gizmos.DrawWireCube(transform.position, playerSize);
     }
 
     private void MiniJump()
@@ -70,10 +85,20 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1);
         transform.position = respawnPoint;
         active = true;
-        crouchCollider.enabled = true;
         standingCollider.enabled = true;
-        animator.SetBool("isMoving", false);
+        animator.SetBool("isWalking", false);
         animator.SetBool("isDead", false);
         MiniJump();
     }
+
+   /* private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("kommt in die methode");
+        Debug.Log(other.gameObject.tag);
+        if (other.gameObject.tag.Equals("RespawnPoint"))
+        {
+            SetRespawnPoint(new Vector3(other.transform.position.x + 1.5f, transform.position.y, transform.position.z));
+            Debug.Log("set respawnpoint");
+        }
+    }*/
 }

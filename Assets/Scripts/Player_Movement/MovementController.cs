@@ -13,7 +13,7 @@ public class MovementController : MonoBehaviour
 
      [SerializeField] private LayerMask groundMask;
      private float grounderOffset = -1;
-     private float grounderRadius = 0.5f;
+     private float grounderRadius = 0.2f;
      private Collider[] _ground = new Collider[1];
        
      private Rigidbody rb;
