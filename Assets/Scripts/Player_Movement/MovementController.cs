@@ -51,7 +51,6 @@ public class MovementController : MonoBehaviour
      {
          animator.SetBool("isWalking", Camera.main.orthographic ? horizontalInput != 0 : horizontalInput != 0 || verticalInput != 0);
 
-
          if (Input.GetKey(KeyCode.D))
          {
              spriteRenderer.flipX = false;
@@ -88,7 +87,6 @@ public class MovementController : MonoBehaviour
         else if (IsGrounded && !grounded) //if player is not grounded but IsGround variable is still true
         {
             IsGrounded = false;
-            animator.SetBool("isJumping", true);
             transform.SetParent(null);
         }
     }
@@ -105,12 +103,13 @@ public class MovementController : MonoBehaviour
     #region Jump
 
     private void HandleJumping()
-       {
-           if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
-           {
-               rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
-           }
-       }
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
+        {
+            animator.SetBool("isJumping", true);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
+        }
+    }
     #endregion
 
     #region Crouch
