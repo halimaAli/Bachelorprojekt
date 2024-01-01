@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Animator animator;
-    public BoxCollider crouchCollider;
     public BoxCollider standingCollider;
 
     private Vector3 playerSize = new Vector3(1.25f, 2.25f, 1);
@@ -72,7 +71,6 @@ public class PlayerController : MonoBehaviour
     {
         active = false;
         standingCollider.enabled = false;
-        crouchCollider.enabled = false;
         animator.SetBool("isDead", true);
         if (!falling)
         {

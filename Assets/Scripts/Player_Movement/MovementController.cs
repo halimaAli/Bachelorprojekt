@@ -6,33 +6,44 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-     private float horizontalInput;
-     private float verticalInput;
-     private float walkingSpeed = 5.0f;
-     private float jumpForce = 40.0f;
+    private float horizontalInput;
+    private float verticalInput;
+    private float walkingSpeed = 5.0f;
+    private float jumpForce = 40.0f;
 
-     [SerializeField] private Vector3 boxSize = new Vector3(1,0.2f,0);
-     private float maxDistance = 1;
-     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private Vector3 boxSize = new Vector3(1,0.2f,0);
+    private float maxDistance = 1;
+    [SerializeField] private LayerMask groundMask;
        
-     private Rigidbody rb;
-     private Animator animator;
-     private SpriteRenderer spriteRenderer;
-     [SerializeField] private BoxCollider crouchCollider;
-     [SerializeField] private BoxCollider standingCollider;
+    private Rigidbody rb;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private BoxCollider boxCollider;
 
-     [SerializeField] private bool isCrouched;
-     [SerializeField] private bool IsGrounded;
-    
+    [SerializeField] private bool isCrouched;
+    [SerializeField] private bool IsGrounded;
+    private Vector3 crouchedCenter;
+    private Vector3 crouchedSize;
+    private Vector3 standingCenter;
+    private Vector3 standingSize;
+
 
 
     void Start()
      {
-         rb = GetComponent<Rigidbody>();
-         animator = GetComponent<Animator>();
-         spriteRenderer = GetComponent<SpriteRenderer>();
-         isCrouched = false;
-         IsGrounded = true;
+        rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider>();
+        isCrouched = false;
+        IsGrounded = true;
+
+        //Set Colliders stats for normal and crouched state
+        standingCenter = boxCollider.center;
+        crouchedCenter = new Vector3(standingCenter.x, -0.04298978f, standingCenter.z);
+
+        standingSize = boxCollider.size;
+        crouchedSize = new Vector3(standingSize.x, 0.2340206f, standingSize.z);
      }
 
      void Update()
@@ -121,19 +132,21 @@ public class MovementController : MonoBehaviour
          {
              if (!isCrouched)
              {
-                 animator.SetBool("isCrouching", true);
-                 standingCollider.enabled = false;
+                animator.SetBool("isCrouching", true);
 
-                 crouchCollider.enabled = true;
-                 isCrouched = true;
+                boxCollider.size = crouchedSize;
+                boxCollider.center = crouchedCenter;
+
+
+                isCrouched = true;
              }
              else
              {
-                 animator.SetBool("isCrouching", false);
-                 standingCollider.enabled = true;
+                animator.SetBool("isCrouching", false);
+                boxCollider.size = standingSize;
+                boxCollider.center = standingCenter;
 
-                 crouchCollider.enabled = false;
-                 isCrouched = false;
+                isCrouched = false;
              }
 
          }
