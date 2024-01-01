@@ -11,10 +11,9 @@ public class MovementController : MonoBehaviour
      private float walkingSpeed = 5.0f;
      private float jumpForce = 40.0f;
 
+     [SerializeField] private Vector3 boxSize = new Vector3(1,0.2f,0);
+     private float maxDistance = 1;
      [SerializeField] private LayerMask groundMask;
-     private float grounderOffset = -1;
-     private float grounderRadius = 0.2f;
-     private Collider[] _ground = new Collider[1];
        
      private Rigidbody rb;
      private Animator animator;
@@ -23,7 +22,8 @@ public class MovementController : MonoBehaviour
      [SerializeField] private BoxCollider standingCollider;
 
      [SerializeField] private bool isCrouched;
-     [SerializeField] private bool IsGrounded;  
+     [SerializeField] private bool IsGrounded;
+    
 
 
     void Start()
@@ -77,14 +77,17 @@ public class MovementController : MonoBehaviour
 
     private void CheckIfGrounded()
     {
-        bool grounded = Physics.OverlapSphereNonAlloc(transform.position + new Vector3(0, grounderOffset), grounderRadius, _ground, groundMask) > 0; //checks if player hits a collider on layer "Ground"
 
-        if (!IsGrounded && grounded) //if player hits Ground Layer but IsGround variable is still false
+        // bool grounded = Physics.OverlapSphereNonAlloc(transform.position + new Vector3(0, grounderOffset), grounderRadius, _ground, groundMask) > 0;// allowed wall jumping
+
+         bool grounded = Physics.BoxCast(transform.position, boxSize, Vector3.down, new Quaternion(0, 0, 0, 0), maxDistance, groundMask); 
+
+        if (!IsGrounded && grounded)
         {
             IsGrounded = true;
             animator.SetBool("isJumping", false);
         }
-        else if (IsGrounded && !grounded) //if player is not grounded but IsGround variable is still true
+        else if (IsGrounded && !grounded) 
         {
             IsGrounded = false;
             transform.SetParent(null);
@@ -93,9 +96,8 @@ public class MovementController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        //draws a sphere at the feet of player; helpful in scene view
-        Gizmos.DrawWireSphere(transform.position + new Vector3(0, grounderOffset), grounderRadius); 
+        Gizmos.color = Color.red; 
+        Gizmos.DrawWireCube(transform.position + Vector3.down * maxDistance, boxSize);
     }
 
     #endregion
