@@ -6,22 +6,24 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    private float horizontalInput;
-    private float verticalInput;
-    private float walkingSpeed = 5.0f;
-    private float jumpForce = 40.0f;
-
-    [SerializeField] private Vector3 boxSize = new Vector3(1,0.2f,0);
-    private float maxDistance = 1;
-    [SerializeField] private LayerMask groundMask;
-       
     private Rigidbody rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
 
-    [SerializeField] private bool isCrouched;
-    [SerializeField] private bool IsGrounded;
+    [Header("Movement")]
+    private float horizontalInput;
+    private float verticalInput;
+    private float walkingSpeed = 5.0f;
+    private float jumpForce = 40.0f;
+
+    [Header("GroundCheck")]
+    [SerializeField] private Vector3 boxSize = new Vector3(1.2f,0.2f,0);
+    private float maxDistance = 1;
+    [SerializeField] private LayerMask groundMask;
+    private bool IsGrounded;
+
+    [Header("Crouching")]
     private Vector3 crouchedCenter;
     private Vector3 crouchedSize;
     private Vector3 standingCenter;
@@ -35,7 +37,6 @@ public class MovementController : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider>();
-        isCrouched = false;
         IsGrounded = true;
 
         //Set Colliders stats for normal and crouched state
@@ -127,29 +128,20 @@ public class MovementController : MonoBehaviour
 
     #region Crouch
     private void HandleCrouching()
-     {
-         if (Input.GetKeyDown(KeyCode.LeftShift))
-         {
-             if (!isCrouched)
-             {
-                animator.SetBool("isCrouching", true);
-
-                boxCollider.size = crouchedSize;
-                boxCollider.center = crouchedCenter;
-
-
-                isCrouched = true;
-             }
-             else
-             {
-                animator.SetBool("isCrouching", false);
-                boxCollider.size = standingSize;
-                boxCollider.center = standingCenter;
-
-                isCrouched = false;
-             }
-
-         }
-     }
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.SetBool("isCrouching", true);
+            boxCollider.size = crouchedSize;
+            boxCollider.center = crouchedCenter;
+        }  
+        else
+        {
+                
+            animator.SetBool("isCrouching", false);
+            boxCollider.size = standingSize;
+            boxCollider.center = standingCenter;
+        } 
+    }
     #endregion
 }
