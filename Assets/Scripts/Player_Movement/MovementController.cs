@@ -111,7 +111,6 @@ public class MovementController : MonoBehaviour
         Gizmos.color = Color.red; 
         Gizmos.DrawWireCube(transform.position + Vector3.down * maxDistance, boxSize);
     }
-
     #endregion
 
     #region Jump
