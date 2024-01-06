@@ -97,4 +97,13 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isDead", false);
         MiniJump();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Coin"))
+        {
+            UIHandler.instance.onCoinCollected();
+            Destroy(other.gameObject);
+        }
+    }
 }

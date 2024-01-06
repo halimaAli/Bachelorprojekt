@@ -1,14 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
 {
+    public static UIHandler instance;
 
-    
-    public void onExitClick()
+    [SerializeField] private Text amountOfCoins;
+    private int coins;
+
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        coins = 0;
+      
+    }
+
+    public void OnExitClick()
     { 
     #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
@@ -18,5 +27,10 @@ public class UIHandler : MonoBehaviour
         
     }
 
-
+    public void onCoinCollected()
+    {
+        coins += 1;
+        amountOfCoins.text = coins + " x";
+    }
+   
 }
