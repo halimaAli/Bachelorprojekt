@@ -38,6 +38,7 @@ public class CameraManager : MonoBehaviour
         Camera.main.orthographic = false;
         _2DCamera.Priority = 0;
         _3DCamera.Priority = 1;
+        UIHandler.instance.EnableText(false);
 
         player.transform.eulerAngles -= new Vector3(0, -90, 0);
     }
@@ -47,6 +48,7 @@ public class CameraManager : MonoBehaviour
         Camera.main.orthographic = true;
         _2DCamera.Priority = 1;
         _3DCamera.Priority = 0;
+        UIHandler.instance.EnableText(true);
 
         player.transform.eulerAngles -= new Vector3(0, 90, 0);
         player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -8);
