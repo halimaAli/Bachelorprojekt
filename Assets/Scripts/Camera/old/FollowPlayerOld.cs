@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class FollowPlayer : MonoBehaviour
+public class FollowPlayerOld : MonoBehaviour
 {
     public GameObject player;
     public float offset2D;
