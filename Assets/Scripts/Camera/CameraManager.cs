@@ -11,6 +11,11 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject player;
 
 
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+    }
+
     // Update is called once per frame
     void Update()
     {

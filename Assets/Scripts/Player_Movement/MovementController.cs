@@ -30,7 +30,6 @@ public class MovementController : MonoBehaviour
     private Vector3 standingSize;
 
 
-
     void Start()
      {
         rb = GetComponent<Rigidbody>();
@@ -47,41 +46,41 @@ public class MovementController : MonoBehaviour
         crouchedSize = new Vector3(standingSize.x, 0.2340206f, standingSize.z);
      }
 
-     void Update()
+    void Update()
      {
-         horizontalInput = Input.GetAxis("Horizontal"); // A and D Input
-         verticalInput = Input.GetAxis("Vertical"); //// W and S Input
-
-         HandleWalking();
-         CheckIfGrounded();
-         HandleJumping();
-         HandleCrouching();
+        horizontalInput = Input.GetAxis("Horizontal"); // A and D Input
+        verticalInput = Input.GetAxis("Vertical"); //// W and S Input
+        if (!PlayerController.instance.active) return;
+        HandleWalking();
+        CheckIfGrounded();
+        HandleJumping();
+        HandleCrouching();
      }
+
 
     #region Walk
     private void HandleWalking()
      {
-         animator.SetBool("isWalking", Camera.main.orthographic ? horizontalInput != 0 : horizontalInput != 0 || verticalInput != 0);
+        animator.SetBool("isWalking", Camera.main.orthographic? horizontalInput != 0 : horizontalInput != 0 || verticalInput != 0);
 
-         if (Input.GetKey(KeyCode.D))
-         {
-             spriteRenderer.flipX = false;
-         }
-         else if (Input.GetKey(KeyCode.A))
-         {
-             spriteRenderer.flipX = true;
-         }
+        if (Input.GetKey(KeyCode.D))
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            spriteRenderer.flipX = true;
+        }
 
-         if (Camera.main.orthographic)
-         {
-             transform.Translate(Vector3.right * walkingSpeed * horizontalInput * Time.deltaTime);
-
-         }
-         else
-         {
-             transform.Translate(Vector3.right * walkingSpeed * horizontalInput * Time.deltaTime);
-             transform.Translate(Vector3.forward * walkingSpeed * verticalInput * Time.deltaTime);
-         }
+        if (Camera.main.orthographic)
+        {
+            transform.Translate(Vector3.right * walkingSpeed * horizontalInput * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(Vector3.right * walkingSpeed * horizontalInput * Time.deltaTime);
+            transform.Translate(Vector3.forward * walkingSpeed * verticalInput * Time.deltaTime);
+        }
      }
     #endregion
 
@@ -136,7 +135,6 @@ public class MovementController : MonoBehaviour
         }  
         else
         {
-                
             animator.SetBool("isCrouching", false);
             boxCollider.size = standingSize;
             boxCollider.center = standingCenter;

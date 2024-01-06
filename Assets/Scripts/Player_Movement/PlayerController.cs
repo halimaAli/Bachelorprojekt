@@ -5,23 +5,29 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
     Animator animator;
     public BoxCollider standingCollider;
 
     private Vector3 playerSize = new Vector3(1.25f, 2.25f, 1);
 
-    private bool active = true;
+    public bool active {get; set;}
     public bool is2D;
 
     private Vector3 respawnPoint;
     [SerializeField] private LayerMask respawnPointMask;
     private Collider[] respawnPointCollider = new Collider[1];
 
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+    }
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         SetRespawnPoint(transform.position);
+        active = true;
     }
 
     // Update is called once per frame
@@ -41,9 +47,7 @@ public class PlayerController : MonoBehaviour
             Die(true);
             return;
         }
-
     }
-
 
     private void HandleRespawnPoint()
     {
