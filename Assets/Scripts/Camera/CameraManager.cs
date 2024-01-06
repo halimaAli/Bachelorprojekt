@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.Q) && PlayerController.instance.canChangeView) //placeholder
         {
             change = !change;    //Toggles between the modes
             if (change)

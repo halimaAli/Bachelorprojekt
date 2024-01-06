@@ -945,8 +945,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1503858615}
   - {fileID: 1216047748}
+  - {fileID: 1503858615}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &594345640
@@ -1202,7 +1202,7 @@ Transform:
   m_GameObject: {fileID: 759496029}
   serializedVersion: 2
   m_LocalRotation: {x: 0.096872896, y: 0.70043963, z: -0.09687288, w: 0.70043963}
-  m_LocalPosition: {x: -2.3114204, y: 4.560421, z: 1.5102272}
+  m_LocalPosition: {x: 60.118584, y: 4.560421, z: 1.5102272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1929,7 +1929,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Maybe Try Changing your Perspective
+  m_text: Try to Jump over this
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2072,7 +2072,7 @@ Transform:
   m_GameObject: {fileID: 952885489}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2344208, y: 5.3978214, z: -6.159773}
+  m_LocalPosition: {x: 61.19558, y: 5.3978214, z: -6.159773}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2215,7 +2215,7 @@ Transform:
   m_GameObject: {fileID: 1002571589}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2344303, y: 5.3265495, z: -6.159773}
+  m_LocalPosition: {x: 61.19557, y: 5.326554, z: -6.159773}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2839,6 +2839,53 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2da270f8332d2fa43bfb42e7c6d6963f, type: 3}
+--- !u!1 &1420710302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1420710304}
+  - component: {fileID: 1420710303}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1420710303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420710302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4127a4401f7096f43bcbfeb35df74cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayedText: {fileID: 941714071}
+  pressButtonText: {fileID: 1753061905}
+  phase: 0
+--- !u!4 &1420710304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420710302}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 107.417, y: 3.4679935, z: -7.574198}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1460126502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2857,7 +2904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1036041783116113563, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.6
+      value: 36.83
       objectReference: {fileID: 0}
     - target: {fileID: 1036041783116113563, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2977,6 +3024,7 @@ MonoBehaviour:
   respawnPointMask:
     serializedVersion: 2
     m_Bits: 1024
+  canChangeView: 0
 --- !u!54 &1460126507
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3634,7 +3682,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press Q
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4141,7 +4189,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3764345271604278266, guid: b31a34b4b1f987348a5b97784bf93f79, type: 3}
       propertyPath: m_Name
-      value: RespawnPoint (1)
+      value: FirstRespawnPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764345271604278266, guid: b31a34b4b1f987348a5b97784bf93f79, type: 3}
+      propertyPath: m_TagString
+      value: RespawnPoint
       objectReference: {fileID: 0}
     - target: {fileID: 7372885209520415612, guid: b31a34b4b1f987348a5b97784bf93f79, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4202,7 +4254,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3764345271604278266, guid: b31a34b4b1f987348a5b97784bf93f79, type: 3}
       propertyPath: m_Name
-      value: RespawnPoint
+      value: SecondRespawnPoint
       objectReference: {fileID: 0}
     - target: {fileID: 7372885209520415612, guid: b31a34b4b1f987348a5b97784bf93f79, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4467,3 +4519,4 @@ SceneRoots:
   - {fileID: 1460126502}
   - {fileID: 303242631}
   - {fileID: 887317528}
+  - {fileID: 1420710304}

@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask respawnPointMask;
     private Collider[] respawnPointCollider = new Collider[1];
 
+    public bool canChangeView;//placeholder
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         SetRespawnPoint(transform.position);
         active = true;
+        canChangeView = false;//placeholder
     }
 
     // Update is called once per frame
@@ -55,6 +58,7 @@ public class PlayerController : MonoBehaviour
         if (hitRespawnPoint)
         {
             SetRespawnPoint(new Vector3(respawnPointCollider[0].transform.position.x + 1.5f, transform.position.y, transform.position.z));
+           
         }
     }
 
@@ -96,6 +100,7 @@ public class PlayerController : MonoBehaviour
         standingCollider.enabled = true;
         animator.SetBool("isDead", false);
         MiniJump();
+        LevelManager.instance.ChangePhase();
     }
 
     private void OnTriggerEnter(Collider other)
