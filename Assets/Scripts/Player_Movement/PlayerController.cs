@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerSize = new Vector3(1.25f, 2.25f, 1);
 
     public bool active {get; set;}
-    public bool is2D;
 
     private Vector3 respawnPoint;
     [SerializeField] private LayerMask respawnPointMask;
@@ -36,7 +33,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        is2D = Camera.main.orthographic;
         if (!active)
         {
             return;
