@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
         if (hitRespawnPoint)
         {
             SetRespawnPoint(new Vector3(respawnPointCollider[0].transform.position.x + 1.5f, transform.position.y, transform.position.z));
-           
         }
     }
 

@@ -106,6 +106,7 @@ public class MovementController : MonoBehaviour
     {
         Gizmos.color = Color.red; 
         Gizmos.DrawWireCube(transform.position + Vector3.down * maxDistance, boxSize);
+        Gizmos.DrawWireCube(transform.position + Vector3.up * maxDistance, boxSize);
     }
     #endregion
 
@@ -124,6 +125,8 @@ public class MovementController : MonoBehaviour
     #region Crouch
     private void HandleCrouching()
     {
+        // check if there is a smth above the player while crouched
+       bool hitAbove = Physics.BoxCast(transform.position, boxSize, Vector3.up, new Quaternion(0, 0, 0, 0), maxDistance);
         if (Input.GetKey(KeyCode.LeftShift))
         {
             animator.SetBool("isCrouching", true);
@@ -132,9 +135,13 @@ public class MovementController : MonoBehaviour
         }  
         else
         {
-            animator.SetBool("isCrouching", false);
-            boxCollider.size = standingSize;
-            boxCollider.center = standingCenter;
+            if (!hitAbove)
+            {
+                animator.SetBool("isCrouching", false);
+                boxCollider.size = standingSize;
+                boxCollider.center = standingCenter;
+            }
+            
         } 
     }
     #endregion
