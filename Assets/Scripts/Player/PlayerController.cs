@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         SetRespawnPoint(transform.position);
         active = true;
-        canChangeView = false;//placeholder
+        canChangeView = true;//placeholder
     }
 
     // Update is called once per frame

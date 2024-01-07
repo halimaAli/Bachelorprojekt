@@ -13,4 +13,6 @@ public class KillPlayer : MonoBehaviour
             player.Die(false);
         }
     }
+
+   
 }
