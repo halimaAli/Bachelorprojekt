@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class _2DObject : MonoBehaviour
 {
+    [SerializeField] int numberOfChildren;
     void Update()
     {
-        //doesnt work because gameobject will be made inactive and updae wont be called
         if (Camera.main.orthographic)
         {
-            gameObject.SetActive(true);
+            ToggleVisibility(true); 
         }
         else
         {
-            gameObject.SetActive(false);
+            ToggleVisibility(false);
+        }
+    }
+
+    void ToggleVisibility(bool active)
+    {
+        for (int i = 0; i < numberOfChildren; i++)
+        {
+            gameObject.transform.GetChild(i).gameObject.SetActive(active);
         }
     }
 }
