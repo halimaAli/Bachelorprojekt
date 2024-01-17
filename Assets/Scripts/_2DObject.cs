@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class _2DObject : MonoBehaviour
 {
-    [SerializeField] int numberOfChildren;
+    public int numberOfChildren;
     void Update()
     {
         if (Camera.main.orthographic)
@@ -19,9 +19,15 @@ public class _2DObject : MonoBehaviour
 
     void ToggleVisibility(bool active)
     {
+        numberOfChildren = transform.childCount;
         for (int i = 0; i < numberOfChildren; i++)
         {
-            gameObject.transform.GetChild(i).gameObject.SetActive(active);
+            GameObject obj = gameObject.transform.GetChild(i).gameObject;
+            if (obj != null)
+            {
+                obj.SetActive(active);
+            }
+            
         }
     }
 }
