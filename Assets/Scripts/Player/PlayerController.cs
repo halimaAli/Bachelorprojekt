@@ -15,8 +15,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask respawnPointMask;
     private Collider[] respawnPointCollider = new Collider[1];
 
-    public bool canChangeView;//placeholder
-
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -27,7 +25,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         SetRespawnPoint(transform.position);
         active = true;
-        canChangeView = true;//placeholder
     }
 
     // Update is called once per frame
@@ -104,6 +101,15 @@ public class PlayerController : MonoBehaviour
         {
             UIHandler.instance.onCoinCollected();
             Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.tag.Equals("ThirdRespawnPoint"))
+        {
+            LevelManager.instance.phase = 4;
+            if (!Camera.main.orthographic)
+            {
+                CameraManager.instance.Set2DView();
+            }
         }
     }
 }

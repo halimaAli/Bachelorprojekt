@@ -7,7 +7,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera _2DCamera;
     [SerializeField] private CinemachineVirtualCamera _3DCamera;
-    private bool change = false;
+    public bool change = false;
     [SerializeField] private GameObject player;
 
 
@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Q) && PlayerController.instance.canChangeView) //placeholder
+        if (Input.GetKeyUp(KeyCode.Q) && LevelManager.instance.canChangeView)
         {
             change = !change;    //Toggles between the modes
             if (change)
@@ -43,7 +43,7 @@ public class CameraManager : MonoBehaviour
         player.transform.eulerAngles -= new Vector3(0, -90, 0);
     }
 
-    private void Set2DView()
+    public void Set2DView()
     {
         Camera.main.orthographic = true;
         _2DCamera.Priority = 1;

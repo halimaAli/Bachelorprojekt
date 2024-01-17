@@ -7,7 +7,6 @@ using UnityEngine.PlayerLoop;
 
 public class CombatController : MonoBehaviour
 {
-
     [SerializeField] GameObject projectilePrefab;
 
 
