@@ -1,51 +1,48 @@
 using UnityEngine;
 
 public class Enemy_Movement : MonoBehaviour
-{
+{ 
+    
+    [SerializeField]
     private int speed = 1;
-    [SerializeField] private int jumpForce = 3;
-
     private int direction = 1;
-    private bool isGrounded = true;
 
-    private Rigidbody rb;
+    private SpriteRenderer spriteRenderer;
 
-    private void Start()
+
+    private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Jump();
-
+        MoveLeftandRight();
+        
     }
-
-    #region Jump
-    private void Jump()
-    {
-        if (isGrounded)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-        }
-    }
-    #endregion
 
     #region Left and Right Movement
     private void MoveLeftandRight()
     {
+        if (direction < 0)
+        {
+            spriteRenderer.flipX = true;
+        } else
+        {
+            spriteRenderer.flipX = false;
+        }
+
         transform.Translate(Vector3.right * speed * direction *  Time.deltaTime);
     }
- #endregion
-  
+    #endregion
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag.Equals("ground"))
         {
             direction *= -1;
-            isGrounded = true;
-        } 
+        }
     }
+
 }
