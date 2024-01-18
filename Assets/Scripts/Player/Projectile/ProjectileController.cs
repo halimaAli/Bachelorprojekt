@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-
     [Range(1, 20)]
     [SerializeField] private float speed = 20.0f;
-    private float lifeTime = 1.0f;
-
+    [SerializeField] private float lifeTime = 1.0f;
+    [SerializeField] private float direction = 1.0f;
     SpriteRenderer spriteRenderer;
 
     private void Start()
@@ -20,10 +19,10 @@ public class ProjectileController : MonoBehaviour
     {
         if (Camera.main.orthographic)
         {
-            transform.Translate(Vector3.right * Time.deltaTime * speed);
+            transform.Translate(Vector3.right * Time.deltaTime * speed * direction);
         } else
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed * direction);
         }
 
         if (!spriteRenderer.isVisible)
