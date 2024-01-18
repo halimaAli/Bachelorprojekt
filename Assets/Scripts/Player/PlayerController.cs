@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         standingCollider.enabled = true;
         animator.SetBool("isDead", false);
         MiniJump();
-        LevelManager.instance.MinusOneLife();
+       // LevelManager.instance.MinusOneLife();
     }
 
     private void OnTriggerEnter(Collider other)

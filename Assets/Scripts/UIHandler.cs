@@ -17,8 +17,8 @@ public class UIHandler : MonoBehaviour
         if (instance == null) instance = this;
 
         coins = 0;
-        _3DTutorialText.SetActive(false);
-        _2DTutorialText.SetActive(true);
+      /*  _3DTutorialText.SetActive(false);
+        _2DTutorialText.SetActive(true);*/
     }
 
     public void OnExitClick()
@@ -39,7 +39,7 @@ public class UIHandler : MonoBehaviour
 
     public void EnableText(bool is2D)
     {
-        if (!is2D)
+      /*  if (!is2D)
         {
             _3DTutorialText.SetActive(true);
             _2DTutorialText.SetActive(false);
@@ -47,7 +47,7 @@ public class UIHandler : MonoBehaviour
         {
             _3DTutorialText.SetActive(false);
             _2DTutorialText.SetActive(true);
-        }
+        }*/
     }
    
 }
