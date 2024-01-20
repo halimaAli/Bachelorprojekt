@@ -8,11 +8,16 @@ public class ProjectileController : MonoBehaviour
     [SerializeField] private float speed = 20.0f;
     [SerializeField] private float lifeTime = 1.0f;
     [SerializeField] private float direction = 1.0f;
+    [SerializeField] private bool isPlayer;
     SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (isPlayer)
+        {
+            direction = PlayerController.instance.direction;
+        }
     }
 
     void Update()

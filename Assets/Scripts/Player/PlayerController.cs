@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerSize = new Vector3(1.25f, 2.25f, 1);
 
     public bool active {get; set;}
+    public int direction { get; set; }
 
     private Vector3 respawnPoint;
     [SerializeField] private LayerMask respawnPointMask;

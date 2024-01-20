@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 public class Archer_Combat : CombatController
 {
     private Animator animator;
-    int i = 0;
 
     void Start()
     {

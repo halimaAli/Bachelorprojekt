@@ -63,10 +63,12 @@ public class MovementController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             spriteRenderer.flipX = false;
+            PlayerController.instance.direction = 1;
         }
         else if (Input.GetKey(KeyCode.A))
         {
             spriteRenderer.flipX = true;
+            PlayerController.instance.direction = -1;
         }
 
         if (Camera.main.orthographic)
