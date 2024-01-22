@@ -42,7 +42,7 @@ public class FollowPlayerOld : MonoBehaviour
         {
             newPos.y = currentPlayerPosition.y;
         }
-        transform.position = Vector3.Lerp(transform.position, newPos, offsetSmoothing * Time.deltaTime);*/
+        transform.position = Vector3.Lerp(transform.position, newPos, speed * Time.deltaTime);*/
 
 
         playerPosition = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);

@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask respawnPointMask;
     private Collider[] respawnPointCollider = new Collider[1];
 
+     
+
     private void Awake()
     {
         if (instance == null) instance = this;

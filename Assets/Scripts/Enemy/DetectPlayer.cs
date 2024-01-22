@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,41 +6,57 @@ using UnityEngine;
 
 public class DetectPlayer : MonoBehaviour
 {
-    [SerializeField] private LayerMask playerDetectionMask;
-    private Collider[] playerCollider = new Collider[1];
-    [SerializeField] private Transform playerTransform;
-    [SerializeField] private float offsetSmoothing = 5.0f;
+    [SerializeField] private Transform player;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+   
+    private float chaseSpeed = 3f;
+    private float returnSpeed = 1.5f;
     private Animator ani;
-    private Vector3 startPosition;
+    public Vector3 startPosition;
+    public float detectionRadius = 5f;
+    public float maxChaseDistance = 10f;
 
-    private Vector3 size;
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         ani = GetComponent<Animator>();
-        size = new Vector3(4 * 2, 4 * 2, 1);
+        spriteRenderer = GetComponent<SpriteRenderer>();
         startPosition = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        bool playerDetected = Physics.OverlapBoxNonAlloc(transform.position, size, playerCollider, new Quaternion(0, 0, 0, 0), playerDetectionMask) > 0;
-        if (playerDetected)
+
+        if (!PlayerController.instance.active)     // Player is dead, do not continue chasing
         {
-            transform.position = Vector3.Lerp(transform.position, playerTransform.position, offsetSmoothing * Time.deltaTime);
-            ani.SetBool("isAttacking", true);
-        } else
+            ReturnToStartPosition();
+            return;
+        }
+
+        float distance = Vector3.Distance(player.position, transform.position);
+
+
+        if (distance < detectionRadius) // Player is within detection radius, start chasing
         {
-            transform.position = Vector3.Lerp(transform.position, startPosition, offsetSmoothing * Time.deltaTime);
-            ani.SetBool("isAttacking", false);
+            ChasePlayer();
+        }
+        else if (distance > maxChaseDistance) // Player is too far, return to start position
+        {
+            ReturnToStartPosition();
         }
     }
 
-    private void OnDrawGizmos()
+    private void ChasePlayer()
     {
-        Gizmos.color = Color.red;
-        
-        Gizmos.DrawWireCube(transform.position, size);
+        transform.position = Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
+        ani.SetBool("isAttacking", true);
+        spriteRenderer.flipX = true;
+    }
+
+    private void ReturnToStartPosition()
+    {
+        transform.position = Vector3.Lerp(transform.position, startPosition, returnSpeed * Time.deltaTime);
+        ani.SetBool("isAttacking", false);
+        spriteRenderer.flipX = false;
     }
 }
