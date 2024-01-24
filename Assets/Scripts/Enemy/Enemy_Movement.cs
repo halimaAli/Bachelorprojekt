@@ -4,8 +4,8 @@ public class Enemy_Movement : MonoBehaviour
 { 
     
     [SerializeField]
-    private int speed = 1;
-    private int direction = 1;
+    private float speed = 1;
+    public int direction = 1;
 
     private SpriteRenderer spriteRenderer;
 
@@ -13,6 +13,7 @@ public class Enemy_Movement : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        direction = 1;
     }
 
     // Update is called once per frame
@@ -27,13 +28,14 @@ public class Enemy_Movement : MonoBehaviour
     {
         if (direction < 0)
         {
-            spriteRenderer.flipX = true;
-        } else
-        {
             spriteRenderer.flipX = false;
         }
+        else
+        {
+            spriteRenderer.flipX = true;
+        }
 
-        transform.Translate(Vector3.right * speed * direction *  Time.deltaTime);
+        transform.Translate(Vector3.left * speed * direction *  Time.deltaTime);
     }
     #endregion
 
