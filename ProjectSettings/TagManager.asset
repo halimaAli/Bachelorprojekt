@@ -10,6 +10,7 @@ TagManager:
   - Pikes
   - Coin
   - ThirdRespawnPoint
+  - Wall
   layers:
   - Default
   - TransparentFX

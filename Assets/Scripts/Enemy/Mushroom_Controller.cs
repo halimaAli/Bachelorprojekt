@@ -9,6 +9,7 @@ public class MushroomController : MonoBehaviour
     [SerializeField] private float chaseSpeed = 4.0f;
     [SerializeField] private float returnSpeed = 15.0f;
 
+    private float treshold;
     private float distance;
     private float attackDistance;
     private bool atStartPos;
@@ -26,7 +27,8 @@ public class MushroomController : MonoBehaviour
         atStartPos = true;
         playerDetected = false;
         isAttackAnimationComplete = true;
-        attackDistance = 2;
+        attackDistance = 2.0f;
+        treshold = 0.4f;
     }
 
     void Update()
@@ -63,7 +65,7 @@ public class MushroomController : MonoBehaviour
         spriteRenderer.flipX = false;
         transform.position = Vector3.MoveTowards(transform.position, startPosition, returnSpeed * Time.deltaTime);
 
-        bool isCloseToStart = Vector3.Distance(transform.position, startPosition) < 0.4f; //due to float accuracy, I will just check if the gameObject is close enough to the startPos
+        bool isCloseToStart = Vector3.Distance(transform.position, startPosition) < treshold; //due to float accuracy, I will just check if the gameObject is close enough to the startPos
 
         UpdateAnimatorState(isCloseToStart, !isCloseToStart, false);
 
@@ -92,7 +94,9 @@ public class MushroomController : MonoBehaviour
     public void AttackAnimationEnded()
     {
         // Check if the player is still close after the attack animation
-        if (distance <= attackDistance)
+        print(distance);
+        distance = Vector3.Distance(player.position, transform.position);
+        if (distance <= attackDistance + treshold)
         {
              PlayerController.instance.Die(false);
              playerDetected = false;

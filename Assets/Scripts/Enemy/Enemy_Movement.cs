@@ -8,12 +8,13 @@ public class Enemy_Movement : MonoBehaviour
     public int direction = 1;
 
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
 
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        direction = 1;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
     #region Left and Right Movement
-    private void MoveLeftandRight()
+    public void MoveLeftandRight()
     {
         if (direction < 0)
         {
@@ -36,15 +37,16 @@ public class Enemy_Movement : MonoBehaviour
         }
 
         transform.Translate(Vector3.left * speed * direction *  Time.deltaTime);
+        animator.SetBool("isWalking", true);
     }
     #endregion
 
-    private void OnCollisionEnter(Collision other)
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("ground"))
+        if (other.gameObject.tag.Equals("Wall"))
         {
             direction *= -1;
         }
     }
-
 }

@@ -103,6 +103,7 @@ MonoBehaviour:
   speed: 4
   lifeTime: 6.9
   direction: -1
+  isPlayer: 0
 --- !u!114 &-1887335465937107284
 MonoBehaviour:
   m_ObjectHideFlags: 0
