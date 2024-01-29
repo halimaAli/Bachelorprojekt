@@ -12,7 +12,11 @@ public class MovementController : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     private float walkingSpeed = 5.0f;
-    private float jumpForce = 40.0f;
+
+    [Header("Jumping")]
+    public float jumpForce = 40.0f;
+    public float fallMultiplier = 1.5f;
+    public float lowJumpMultiplier = 2f;
 
     [Header("GroundCheck")]
     [SerializeField] private Vector3 boxSize = new Vector3(1.2f,0.2f,0);
@@ -25,7 +29,6 @@ public class MovementController : MonoBehaviour
     private Vector3 crouchedSize;
     private Vector3 standingCenter;
     private Vector3 standingSize;
-
 
     void Start()
      {
@@ -119,7 +122,18 @@ public class MovementController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
             animator.SetBool("isJumping", true);
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
+            rb.velocity = Vector3.up * jumpForce;
+        }
+
+        //High Jump when  Jump Key is pressed down
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime; //increases fall speed
+        }
+        //LowJump when Jump Key is pressed once
+        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * Time.deltaTime;
         }
     }
     #endregion
