@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DeleteEnemy : MonoBehaviour
 {
-
     [SerializeField] FlyingEyeController[] controllers;
 
     private void OnTriggerEnter(Collider other)

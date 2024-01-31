@@ -1,20 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DetectPlayer : MonoBehaviour
 {
     [SerializeField] private Transform player;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-   
-    private float chaseSpeed = 3f;
-    private float returnSpeed = 1.5f;
+
+
+    private SpriteRenderer spriteRenderer;
+    private float moveSpeed = 3f;
     private Animator ani;
-    public Vector3 startPosition;
-    public float detectionRadius = 5f;
-    public float maxChaseDistance = 10f;
+    private Vector3 startPosition;
+    private float detectionRadius = 5f;
+    private bool canChase;
 
 
     void Awake()
@@ -22,6 +18,7 @@ public class DetectPlayer : MonoBehaviour
         ani = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         startPosition = transform.position;
+        canChase = false;
     }
 
     void Update()
@@ -30,33 +27,38 @@ public class DetectPlayer : MonoBehaviour
         if (!PlayerController.instance.active)     // Player is dead, do not continue chasing
         {
             ReturnToStartPosition();
+            canChase = false;
             return;
         }
 
         float distance = Vector3.Distance(player.position, transform.position);
 
-
         if (distance < detectionRadius) // Player is within detection radius, start chasing
         {
-            ChasePlayer();
+            canChase = true;
         }
-        else if (distance > maxChaseDistance) // Player is too far, return to start position
+
+        if (canChase)
         {
-            ReturnToStartPosition();
+            ChasePlayer();
         }
     }
 
     private void ChasePlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
-        ani.SetBool("isAttacking", true);
-        spriteRenderer.flipX = true;
+        MoveTo(player.position, true);
     }
 
     private void ReturnToStartPosition()
     {
-        transform.position = Vector3.Lerp(transform.position, startPosition, returnSpeed * Time.deltaTime);
-        ani.SetBool("isAttacking", false);
-        spriteRenderer.flipX = false;
+        MoveTo(startPosition, false);
+    }
+
+    private void MoveTo(Vector3 targetPos, bool isChasing)
+    {
+        float distance = Vector3.Distance(transform.position, targetPos);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, distance * moveSpeed * Time.deltaTime);
+        ani.SetBool("isAttacking", isChasing);
+        spriteRenderer.flipX = isChasing;
     }
 }
