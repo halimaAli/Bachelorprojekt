@@ -48,6 +48,7 @@ public class PatrollingEnemy : EnemyMovements
         float pointB = startPosX - patrolRange;
 
         MoveLeftandRight();
+        animator.SetBool("isStanding", false);
 
         if (Mathf.Abs(transform.position.x) >= pointA || Mathf.Abs(transform.position.x) <= pointB)
         {   

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class KillPlayer : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision) // player collides with enemy -> dies
     {
         var player = collision.collider.GetComponent<PlayerController>();
 
@@ -14,7 +14,7 @@ public class KillPlayer : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) // player collides with projectile (e.g. arrow) -> dies
     {
         var player = other.GetComponent<PlayerController>();
 

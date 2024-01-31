@@ -94,7 +94,6 @@ public class MushroomController : MonoBehaviour
     public void AttackAnimationEnded()
     {
         // Check if the player is still close after the attack animation
-        print(distance);
         distance = Vector3.Distance(player.position, transform.position);
         if (distance <= attackDistance + treshold)
         {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyMovements : MonoBehaviour
@@ -23,7 +24,7 @@ public class EnemyMovements : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // MoveLeftandRight();
+        MoveLeftandRight();
         
     }
 
@@ -36,8 +37,19 @@ public class EnemyMovements : MonoBehaviour
         //Move forward in the direction of movement
         transform.Translate(Vector3.left * speed * direction *  Time.deltaTime);
         animator.SetBool("isWalking", true);
-        animator.SetBool("isStanding", false);
+       // animator.SetBool("isStanding", false);
     }
+    #endregion
+
+    #region Move to specific position
+    public void MoveTo(Vector3 targetPos, bool isChasing)
+    {
+        float distance = Vector3.Distance(transform.position, targetPos);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, distance * speed * Time.deltaTime);
+        animator.SetBool("isAttacking", isChasing);
+        spriteRenderer.flipX = isChasing;
+    }
+    #endregion
 
     private void DisableMovement(bool enable)
     {
@@ -61,7 +73,7 @@ public class EnemyMovements : MonoBehaviour
         }
     }
 
-    #endregion
+   
 
     public IEnumerator Idle(float duration)
     {
