@@ -33,12 +33,12 @@ public class FollowPlayerOld : MonoBehaviour
         Vector3 newPos = transform.position;
 
         //if player goes beyond treshould, adjust camera pos
-        if (Mathf.Abs(xDifference) >= treshold.x)
+        if (Mathf.Abs(xDifference) >= threshold.x)
         {
             newPos.x = currentPlayerPosition.x;
         }
 
-        if (Mathf.Abs(yDifference) >= treshold.y)
+        if (Mathf.Abs(yDifference) >= threshold.y)
         {
             newPos.y = currentPlayerPosition.y;
         }
@@ -69,12 +69,12 @@ public class FollowPlayerOld : MonoBehaviour
 
         Vector3 newPos = transform.position;
 
-        if (Mathf.Abs(xDifference) >= treshold.x)
+        if (Mathf.Abs(xDifference) >= threshold.x)
         {
             newPos.x = follow.x;
         }
 
-        if (Mathf.Abs(yDifference) >= treshold.y)
+        if (Mathf.Abs(yDifference) >= threshold.y)
         {
             newPos.y = follow.y;
         }

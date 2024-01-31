@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class MovementController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
     private Animator animator;

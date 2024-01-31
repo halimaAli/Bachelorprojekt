@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
         standingCollider.enabled = true;
         animator.SetBool("isDead", false);
         MiniJump();
-       // LevelManager.instance.MinusOneLife();
+        //LevelManager.instance.MinusOneLife();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag.Equals("ThirdRespawnPoint"))
         {
-            LevelManager.instance.phase = 4;
+           // LevelManager.instance.phase = 4;
             if (!Camera.main.orthographic)
             {
                 CameraManager.instance.Set2DView();

@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    [Range(1, 20)]
-    [SerializeField] private float speed = 20.0f;
+    [Range(1, 20), SerializeField] private float speed = 20.0f;
     [SerializeField] private float lifeTime = 1.0f;
     [SerializeField] private float direction = 1.0f;
     [SerializeField] private bool isPlayer;
@@ -38,9 +37,9 @@ public class ProjectileController : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
-    //Destroy if it hits wall or ground
     private void OnTriggerEnter(Collider other)
     {
+        //Destroy if it hits wall or ground
         if (other.gameObject.tag.Equals("ground"))
         {
             Destroy(gameObject);
