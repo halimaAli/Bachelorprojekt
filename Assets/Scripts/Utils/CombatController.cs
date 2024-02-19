@@ -18,10 +18,4 @@ public class CombatController : MonoBehaviour
         }
         Instantiate(projectilePrefab, projectilePosition.position, projectilePrefab.transform.rotation);    
     }
-
-    public void MeleeAttack()
-    {
-        //TODO: Melee Attack Code Here
-
-    }
 }

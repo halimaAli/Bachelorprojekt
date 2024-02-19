@@ -414,6 +414,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Normal_Flying_Eye 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3645474488273457805, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -811,6 +815,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369482307}
   m_CullTransparentMesh: 1
+--- !u!1 &380187005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 380187006}
+  m_Layer: 3
+  m_Name: Attack Location
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &380187006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380187005}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0748, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1460126519}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &395894221 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
@@ -929,6 +964,10 @@ PrefabInstance:
     - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_Name
       value: Skeleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3645474488273457805, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_FlipX
@@ -1342,6 +1381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mushroom
       objectReference: {fileID: 0}
+    - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3645474488273457805, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_FlipX
       value: 1
@@ -1523,7 +1566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 676323789}
   - component: {fileID: 676323790}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ArrowPlacement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1624,7 +1667,7 @@ Transform:
   m_GameObject: {fileID: 759496029}
   serializedVersion: 2
   m_LocalRotation: {x: 0.096872896, y: 0.70043963, z: -0.09687288, w: 0.70043963}
-  m_LocalPosition: {x: 120.92857, y: 5.061421, z: 1.5102272}
+  m_LocalPosition: {x: 0.46858025, y: 5.061421, z: 1.5102272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1996,7 +2039,7 @@ GameObject:
   - component: {fileID: 910199485}
   - component: {fileID: 910199484}
   - component: {fileID: 910199483}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DetectPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2229,7 +2272,7 @@ Transform:
   m_GameObject: {fileID: 952885489}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 122.00558, y: 5.3978214, z: -6.159773}
+  m_LocalPosition: {x: 1.5455799, y: 5.3978214, z: -6.159773}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2341,7 +2384,7 @@ Transform:
   m_GameObject: {fileID: 1002571589}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 122.00558, y: 5.3265557, z: -6.159773}
+  m_LocalPosition: {x: 1.5455551, y: 5.3265495, z: -6.159773}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2595,7 +2638,7 @@ GameObject:
   - component: {fileID: 1152758503}
   - component: {fileID: 1152758502}
   - component: {fileID: 1152758504}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Detect and Delete Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2878,6 +2921,10 @@ PrefabInstance:
     - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_Name
       value: Normal_Flying_Eye 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3645474488273457805, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_FlipX
@@ -3220,6 +3267,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Normal_Flying_Eye 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3645474488273457805, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -3322,7 +3373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1036041783116113563, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 97.64
+      value: -22.82
       objectReference: {fileID: 0}
     - target: {fileID: 1036041783116113563, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3394,6 +3445,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1036041783116113563, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1662700306}
+    - targetCorrespondingSourceObject: {fileID: 1036041783116113563, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 380187006}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6148625986171172765, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
       insertIndex: -1
@@ -3542,6 +3596,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1229706946701605224, guid: cf7b3d0168f6ac749be64467344589f3, type: 3}
   projectilePosition: {fileID: 1460126519}
+  attackTime: 0
+  startTimeAttack: 0.3
+  attackLocation: {fileID: 1460126519}
+  attackRange: 1.5
+  enemies:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1001 &1478553076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3565,6 +3626,10 @@ PrefabInstance:
     - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_Name
       value: Chasing_Flying_Eye
+      objectReference: {fileID: 0}
+    - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3645474488273457805, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_FlipX
@@ -3864,6 +3929,10 @@ PrefabInstance:
     - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_Name
       value: Archer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3026317396836858904, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3645474488273457805, guid: 86502f699b09c0d4e9d9580507abff9a, type: 3}
       propertyPath: m_FlipX
@@ -4248,7 +4317,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1781374078}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4393,7 +4462,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1822882553}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FlyingEyesArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4807,6 +4876,10 @@ PrefabInstance:
     - target: {fileID: 1139078973004681719, guid: a000e67986e11dc4ba31cbb77c5a89b1, type: 3}
       propertyPath: m_Name
       value: Goblin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139078973004681719, guid: a000e67986e11dc4ba31cbb77c5a89b1, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1139078973004681719, guid: a000e67986e11dc4ba31cbb77c5a89b1, type: 3}
       propertyPath: m_TagString
