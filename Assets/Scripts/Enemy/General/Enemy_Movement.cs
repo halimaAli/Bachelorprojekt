@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyMovements : MonoBehaviour
@@ -14,6 +12,8 @@ public class EnemyMovements : MonoBehaviour
     [SerializeField]
     protected Animator animator;
     protected bool idle;
+    public Vector3 axis;
+
 
     private void Awake()
     {
@@ -24,20 +24,22 @@ public class EnemyMovements : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveLeftandRight();
-        
+        MoveLeftandRight(); 
     }
 
     #region Basic Left and Right Movement
     public void MoveLeftandRight()
     {
-       // if (idle) { return; }
-
         FlipSprite();
-        //Move forward in the direction of movement
-        transform.Translate(Vector3.left * speed * direction *  Time.deltaTime);
+        if (Camera.main.orthographic)
+        {
+            axis = Vector3.left;
+        } else
+        {
+            axis = Vector3.back;
+        }
+        transform.Translate(axis * speed * direction *  Time.deltaTime);
         animator.SetBool("isWalking", true);
-       // animator.SetBool("isStanding", false);
     }
     #endregion
 
