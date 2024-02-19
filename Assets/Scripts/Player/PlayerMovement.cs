@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 crouchedSize;
     private Vector3 standingCenter;
     private Vector3 standingSize;
+    private bool hasDoubleJumped;
 
     void Start()
      {
@@ -98,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
         if (!IsGrounded && grounded)
         {
             IsGrounded = true;
+          
             animator.SetBool("isJumping", false);
         }
         else if (IsGrounded && !grounded) 
@@ -119,24 +122,46 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJumping()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            animator.SetBool("isJumping", true);
-            rb.velocity = Vector3.up * jumpForce;
-        }
+            if (IsGrounded) //start normal jump
+            {
+                animator.SetBool("isJumping", true);
+                rb.velocity = Vector3.up * jumpForce;
+                hasDoubleJumped = false; 
 
+            } else if(!hasDoubleJumped)
+            {
+                animator.SetBool("doubleJump", true);
+            }
+        }
+        Fall(); ;
+
+    }
+
+    private void Fall()
+    {
+      
         //High Jump when  Jump Key is pressed down
         if (rb.velocity.y < 0)
         {
+           // animator.SetBool("isFalling", true);
             rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime; //increases fall speed
         }
         //LowJump when Jump Key is pressed once
-        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && !hasDoubleJumped)
         {
             rb.velocity += Vector3.up * Physics.gravity.y * Time.deltaTime;
         }
     }
     #endregion
+
+    public void DoubleJumpEnd()
+    {
+        animator.SetBool("doubleJump", false);
+        rb.velocity = Vector3.up * (jumpForce + 2f);
+        hasDoubleJumped = true;
+    }
 
     #region Crouch
     private void HandleCrouching()
