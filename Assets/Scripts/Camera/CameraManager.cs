@@ -9,11 +9,18 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _3DCamera;
     public bool change = false;
     [SerializeField] private GameObject player;
+    private GameObject[] enemies;
 
 
     private void Awake()
     {
         if (instance == null) instance = this;
+    }
+
+    private void Start()
+    {
+        // Find all enemies in the scene based on their tags
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
     // Update is called once per frame
@@ -41,6 +48,11 @@ public class CameraManager : MonoBehaviour
         UIHandler.instance.EnableText(false);
 
         player.transform.eulerAngles -= new Vector3(0, -90, 0);
+
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.transform.eulerAngles -= new Vector3(0, -90, 0);
+        }
     }
 
     public void Set2DView()
@@ -52,5 +64,11 @@ public class CameraManager : MonoBehaviour
 
         player.transform.eulerAngles -= new Vector3(0, 90, 0);
         player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -8);
+     
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.transform.eulerAngles -= new Vector3(0, 90, 0);
+            enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y, -8);
+        }
     }
 }
