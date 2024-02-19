@@ -7,19 +7,18 @@ public class DetectPlayerInArea : MonoBehaviour
 {
     [SerializeField]
     private MushroomController mushroomController;
+
     private void OnTriggerEnter(Collider other)
     {
        
         if (other.gameObject.tag.Equals("Player"))
         {
-            print("Enter");
             mushroomController.playerDetected = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        print("Exit");
         if (other.gameObject.tag.Equals("Player"))
         {
             mushroomController.playerDetected = false;

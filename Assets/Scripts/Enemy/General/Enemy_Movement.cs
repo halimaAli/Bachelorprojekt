@@ -42,12 +42,12 @@ public class EnemyMovements : MonoBehaviour
     #endregion
 
     #region Move to specific position
-    public void MoveTo(Vector3 targetPos, bool isChasing)
+    public void MoveTo(Vector3 targetPos, bool isAttacking)
     {
         float distance = Vector3.Distance(transform.position, targetPos);
         transform.position = Vector3.MoveTowards(transform.position, targetPos, distance * speed * Time.deltaTime);
-        animator.SetBool("isAttacking", isChasing);
-        spriteRenderer.flipX = isChasing;
+        animator.SetBool("isAttacking", isAttacking);
+        spriteRenderer.flipX = isAttacking;
     }
     #endregion
 

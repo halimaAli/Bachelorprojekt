@@ -5,7 +5,7 @@ public class MushroomController : MonoBehaviour
     public bool playerDetected;
    
 
-    [SerializeField] private Transform player;
+    [SerializeField] protected Transform player;
     [SerializeField] private float chaseSpeed = 4.0f;
     [SerializeField] private float returnSpeed = 15.0f;
 

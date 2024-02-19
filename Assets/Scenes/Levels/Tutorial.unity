@@ -3050,7 +3050,7 @@ Transform:
   m_GameObject: {fileID: 1002571589}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.22558594, y: 5.326549, z: -6.159773}
+  m_LocalPosition: {x: 0.22555923, y: 5.326549, z: -6.159773}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4100,6 +4100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b73cec1c0e1a344aba6120e3ff2b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpForce: 7
+  fallMultiplier: 1.5
+  lowJumpMultiplier: 2
   boxSize: {x: 1.24, y: 0.2, z: 0}
   groundMask:
     serializedVersion: 2
@@ -4122,7 +4125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1229706946701605224, guid: cf7b3d0168f6ac749be64467344589f3, type: 3}
-  positioning: {fileID: 0}
+  projectilePosition: {fileID: 0}
 --- !u!1001 &1481714302
 PrefabInstance:
   m_ObjectHideFlags: 0
