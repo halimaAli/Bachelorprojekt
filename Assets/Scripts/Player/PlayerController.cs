@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -15,8 +16,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 respawnPoint;
     [SerializeField] private LayerMask respawnPointMask;
     private Collider[] respawnPointCollider = new Collider[1];
-
-     
+    [SerializeField] private int health;
 
     private void Awake()
     {
@@ -80,7 +80,32 @@ public class PlayerController : MonoBehaviour
             MiniJump();
         }
         StartCoroutine(Respawn());
-    } 
+    }
+
+    public void TakeDamage()
+    {
+        active = false;
+        animator.SetBool("isHurt", true);
+    }
+
+    public void TakeDamageAnimationEnd()
+    {
+        animator.SetBool("isHurt", false);
+        health--;
+        print("hp:" + health);
+        CheckHealth();
+    }
+
+    private void CheckHealth()
+    {
+        if (health == 0)
+        {
+            Die(false);
+        } else
+        {
+            active = true;
+        }
+    }
 
     public void SetRespawnPoint(Vector3 position)
     {
@@ -94,6 +119,7 @@ public class PlayerController : MonoBehaviour
         active = true;
         standingCollider.enabled = true;
         animator.SetBool("isDead", false);
+        health = 2;
         MiniJump();
         //LevelManager.instance.MinusOneLife();
     }

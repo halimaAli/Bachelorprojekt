@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class KillPlayer : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision) // player collides with enemy -> dies
+    private void OnCollisionEnter(Collision collision) // player collides with enemy
     {
         var player = collision.collider.GetComponent<PlayerController>();
 
@@ -10,18 +10,21 @@ public class KillPlayer : MonoBehaviour
         {
             if (tag.Equals("Pikes") && !Camera.main.orthographic) return;
 
-            player.Die(false);
+            print("hit");
+            player.TakeDamage();
+
         }
     }
 
-    private void OnTriggerEnter(Collider other) // player collides with projectile (e.g. arrow) -> dies
+    private void OnTriggerEnter(Collider other) // player collides with projectile (e.g. arrow)
     {
         var player = other.GetComponent<PlayerController>();
 
         if (player != null)
         {
             Destroy(gameObject);
-            player.Die(false);
+            print("hit");
+            player.TakeDamage();
         }
     }
 
