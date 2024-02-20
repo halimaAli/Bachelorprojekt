@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("GroundCheck")]
     [SerializeField] private Vector3 boxSize = new Vector3(1.2f,0.2f,0);
-    private float maxDistance = 1;
+    [SerializeField] private float maxDistance = 1;
     [SerializeField] private LayerMask groundMask;
     private bool IsGrounded;
 

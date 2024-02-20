@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     public BoxCollider standingCollider;
 
-    private Vector3 playerSize = new Vector3(1.25f, 2.25f, 1);
+    private Vector3 playerSize = new Vector3(1.5f, 2.3f, 1);
 
     public bool active {get; set;}
     public int direction { get; set; }
