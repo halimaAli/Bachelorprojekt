@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider boxCollider;
 
     [Header("Movement")]
-    private float horizontalInput;
+    public float horizontalInput;
     private float verticalInput;
     private float walkingSpeed = 5.0f;
 
@@ -160,15 +160,15 @@ public class PlayerMovement : MonoBehaviour
          {
              rb.velocity += Vector3.up * Physics.gravity.y * Time.deltaTime;
          }  
-    }
-    #endregion
-
+    } 
+    
     public void DoubleJumpEnd()
     {
         animator.SetBool("doubleJump", false);
         rb.velocity = Vector3.up * (jumpForce + 2f);
         animator.SetFloat("yVelocity", rb.velocity.y);
     }
+    #endregion
 
     #region Crouch
     private void HandleCrouching()
@@ -177,7 +177,16 @@ public class PlayerMovement : MonoBehaviour
        bool hitAbove = Physics.BoxCast(transform.position, boxSize, Vector3.up, new Quaternion(0, 0, 0, 0), maxDistance);
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            animator.SetBool("isCrouching", true);
+            if (horizontalInput == 0)
+            {
+                animator.SetBool("isCrouching", true);
+                animator.SetBool("isSliding", false);
+            } else
+            {
+                animator.SetBool("isSliding", true);
+                animator.SetBool("isCrouching", false);
+                walkingSpeed = 7.0f;
+            } 
             boxCollider.size = crouchedSize;
             boxCollider.center = crouchedCenter;
         }  
@@ -185,7 +194,9 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!hitAbove)
             {
+                walkingSpeed = 5.0f;
                 animator.SetBool("isCrouching", false);
+                animator.SetBool("isSliding", false);
                 boxCollider.size = standingSize;
                 boxCollider.center = standingCenter;
             }
