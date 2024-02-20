@@ -9,6 +9,8 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private Text amountOfCoins;
     private int coins;
 
+    [SerializeField] private Text healthpoints;
+
     [SerializeField] private GameObject _3DTutorialText;
     [SerializeField] private GameObject _2DTutorialText;
 
@@ -48,6 +50,11 @@ public class UIHandler : MonoBehaviour
             _3DTutorialText.SetActive(false);
             _2DTutorialText.SetActive(true);
         }*/
+    }
+
+    public void updateHP(int health)
+    {
+        healthpoints.text = health + " x";
     }
    
 }

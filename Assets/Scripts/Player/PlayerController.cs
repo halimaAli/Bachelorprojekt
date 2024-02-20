@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 respawnPoint;
     [SerializeField] private LayerMask respawnPointMask;
     private Collider[] respawnPointCollider = new Collider[1];
-    [SerializeField] private int health;
+    private int health;
 
     private void Awake()
     {
@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         SetRespawnPoint(transform.position);
         active = true;
+        health = 2;
     }
 
     // Update is called once per frame
@@ -92,7 +93,7 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("isHurt", false);
         health--;
-        print("hp:" + health);
+        UIHandler.instance.updateHP(health);
         CheckHealth();
     }
 
@@ -120,6 +121,7 @@ public class PlayerController : MonoBehaviour
         standingCollider.enabled = true;
         animator.SetBool("isDead", false);
         health = 2;
+        UIHandler.instance.updateHP(health);
         MiniJump();
         //LevelManager.instance.MinusOneLife();
     }

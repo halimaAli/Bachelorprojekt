@@ -10,7 +10,6 @@ public class KillPlayer : MonoBehaviour
         {
             if (tag.Equals("Pikes") && !Camera.main.orthographic) return;
 
-            print("hit");
             player.TakeDamage();
 
         }
@@ -23,7 +22,6 @@ public class KillPlayer : MonoBehaviour
         if (player != null)
         {
             Destroy(gameObject);
-            print("hit");
             player.TakeDamage();
         }
     }
