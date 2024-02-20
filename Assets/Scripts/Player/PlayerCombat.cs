@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerCombat : CombatController
@@ -11,6 +12,7 @@ public class PlayerCombat : CombatController
     public float attackRange;
     public LayerMask enemies;
     private bool isMeleeAttacking;
+    private bool isShootAttacking;
 
     private void Start()
     {
@@ -18,28 +20,33 @@ public class PlayerCombat : CombatController
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        ShootingAttack();
+
+        MeleeAttack();
+    }
+
+    private void ShootingAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && !isShootAttacking)
         {
             animator.SetBool("shootAttack", true);
             ShootProjectile();
+            isShootAttacking = true;
         }
+    }
 
-        MeleeAttack();
-        /*if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            //animator.SetBool("meleeAttack", true);
-            MeleeAttack();
-        }*/
+    public void OnShootingAttackAnimationComplete()
+    {
+        animator.SetBool("shootAttack", false);
+        isShootAttacking = false;  
     }
 
     public void MeleeAttack()
     {
-        // Check if the player presses the mouse button
         if (Input.GetKeyDown(KeyCode.Mouse0) && !isMeleeAttacking)
         {
-            // Set the meleeAttack parameter of the animator to true
             animator.SetBool("meleeAttack", true);
-            
+            isMeleeAttacking = true;
         }
     }
 
@@ -47,10 +54,9 @@ public class PlayerCombat : CombatController
     {
         // Reset the flag to indicate that the melee attack is no longer in progress
         isMeleeAttacking = false;
-
-        // Set the meleeAttack parameter of the animator to false
         animator.SetBool("meleeAttack", false);
     }
+ 
 
     public void CheckIfEnemyIsHit()
     {
@@ -65,7 +71,7 @@ public class PlayerCombat : CombatController
     }
 
 
-        private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(attackLocation.position, attackRange);
