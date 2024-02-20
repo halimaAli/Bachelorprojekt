@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private float walkingSpeed = 5.0f;
 
     [Header("Jumping")]
-    public float jumpForce = 40.0f;
+    public float jumpForce = 50.0f;
     public float fallMultiplier = 1.5f;
     public float lowJumpMultiplier = 2f;
 
@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 standingCenter;
     private Vector3 standingSize;
     private bool hasDoubleJumped;
+    private float lastJumpTime;
 
     void Start()
      {
@@ -100,14 +101,15 @@ public class PlayerMovement : MonoBehaviour
         if (!IsGrounded && grounded)
         {
             IsGrounded = true;
-          
             animator.SetBool("isJumping", false);
+            animator.SetBool("doubleJump", false);
         }
         else if (IsGrounded && !grounded) 
         {
             IsGrounded = false;
             transform.SetParent(null);
         }
+        
     }
 
     private void OnDrawGizmos()
@@ -124,35 +126,40 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            float timeSinceLastJump = Time.time - lastJumpTime;
             if (IsGrounded) //start normal jump
             {
                 animator.SetBool("isJumping", true);
                 rb.velocity = Vector3.up * jumpForce;
-                hasDoubleJumped = false; 
+                hasDoubleJumped = false;
 
-            } else if(!hasDoubleJumped)
-            {
+                animator.SetFloat("yVelocity", rb.velocity.y);
+
+                lastJumpTime = Time.time;
+
+            }
+            else if (!hasDoubleJumped && timeSinceLastJump > 0.1f)
+            { 
                 animator.SetBool("doubleJump", true);
+                hasDoubleJumped = true;
             }
         }
-        Fall(); ;
-
+        Fall();
     }
 
     private void Fall()
     {
-      
         //High Jump when  Jump Key is pressed down
         if (rb.velocity.y < 0)
-        {
-           // animator.SetBool("isFalling", true);
-            rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime; //increases fall speed
-        }
-        //LowJump when Jump Key is pressed once
-        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && !hasDoubleJumped)
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * Time.deltaTime;
-        }
+         {
+             animator.SetFloat("yVelocity", rb.velocity.y); //Fall animation transition
+             rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime; //increases fall speed
+         }
+         //LowJump when Jump Key is pressed once
+         else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && !hasDoubleJumped)
+         {
+             rb.velocity += Vector3.up * Physics.gravity.y * Time.deltaTime;
+         }  
     }
     #endregion
 
@@ -160,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetBool("doubleJump", false);
         rb.velocity = Vector3.up * (jumpForce + 2f);
-        hasDoubleJumped = true;
+        animator.SetFloat("yVelocity", rb.velocity.y);
     }
 
     #region Crouch
