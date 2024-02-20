@@ -1667,7 +1667,7 @@ Transform:
   m_GameObject: {fileID: 759496029}
   serializedVersion: 2
   m_LocalRotation: {x: 0.096872896, y: 0.70043963, z: -0.09687288, w: 0.70043963}
-  m_LocalPosition: {x: 0.46858025, y: 5.151421, z: 1.5102272}
+  m_LocalPosition: {x: 0.46858025, y: 5.181421, z: 1.5102272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2272,7 +2272,7 @@ Transform:
   m_GameObject: {fileID: 952885489}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5455799, y: 5.4878216, z: -6.159773}
+  m_LocalPosition: {x: 1.5455799, y: 5.5178213, z: -6.159773}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2384,7 +2384,7 @@ Transform:
   m_GameObject: {fileID: 1002571589}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5455551, y: 5.3265495, z: -6.159773}
+  m_LocalPosition: {x: 1.5455608, y: 5.3265495, z: -6.159773}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3377,7 +3377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1036041783116113563, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.72
+      value: -2.69
       objectReference: {fileID: 0}
     - target: {fileID: 1036041783116113563, guid: 3a092e6431a96b04bb65a8a41e0eac41, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3556,8 +3556,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.17901179, y: 0.32152778, z: 0.2}
-  m_Center: {x: 0.00041741985, y: -0.00000023841858, z: 0}
+  m_Size: {x: 0.19521935, y: 0.3215279, z: 0.2}
+  m_Center: {x: -0.007686326, y: -0.009724643, z: 0}
 --- !u!114 &1460126517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3574,6 +3574,7 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   boxSize: {x: 1.24, y: 0.2, z: 0}
+  maxDistance: 1.1
   groundMask:
     serializedVersion: 2
     m_Bits: 2048
