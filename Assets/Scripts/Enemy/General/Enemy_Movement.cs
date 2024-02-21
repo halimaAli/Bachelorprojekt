@@ -8,22 +8,32 @@ public class EnemyMovements : MonoBehaviour
     public int direction = 1;
 
     [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
     [SerializeField]
     protected Animator animator;
     protected bool idle;
     public Vector3 axis;
+    public bool active;
+
 
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         idle = false;
+        active = true;
+        EnemyController controller = GetComponent<EnemyController>();
+        controller.movements = this;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!active)
+        {
+            return;
+        }
+
         MoveLeftandRight(); 
     }
 

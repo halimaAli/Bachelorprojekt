@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
     private Collider[] respawnPointCollider = new Collider[1];
     private int health;
 
-    private Color color;
     private Renderer rend;
+    private Color color;
 
     private void Awake()
     {

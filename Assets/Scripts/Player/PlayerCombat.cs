@@ -52,11 +52,9 @@ public class PlayerCombat : CombatController
 
     public void OnMeleeAttackAnimationComplete()
     {
-        // Reset the flag to indicate that the melee attack is no longer in progress
         isMeleeAttacking = false;
         animator.SetBool("meleeAttack", false);
     }
- 
 
     public void CheckIfEnemyIsHit()
     {
@@ -66,7 +64,11 @@ public class PlayerCombat : CombatController
         // Damage and destroy each enemy
         for (int i = 0; i < damage.Length; i++)
         {
-            Destroy(damage[i].gameObject);
+            var enemy = damage[i].GetComponent<EnemyController>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage();
+            }
         }
     }
 

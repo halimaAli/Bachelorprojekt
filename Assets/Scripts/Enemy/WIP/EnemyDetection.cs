@@ -4,12 +4,10 @@ public class EnemyDetection : EnemyMovements
 {
     [SerializeField] protected Transform player;
 
-
     private Vector3 startPosition;
     private float detectionRadius = 5f;
     private bool canChase;
     protected float distance;
-
 
     void Awake()
     {
@@ -19,6 +17,10 @@ public class EnemyDetection : EnemyMovements
 
     void Update()
     {
+        if (!active)
+        {
+            return;
+        }
         if (!PlayerController.instance.active)     // Player is dead, do not continue chasing
         {
             ReturnToStartPosition();

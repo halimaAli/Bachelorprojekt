@@ -17,6 +17,7 @@ public class MushroomController : MonoBehaviour
     private Vector3 startPosition;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    public bool active;
 
 
     void Start()
@@ -29,10 +30,18 @@ public class MushroomController : MonoBehaviour
         isAttackAnimationComplete = true;
         attackDistance = 2.0f;
         treshold = 0.4f;
+        EnemyController controller = GetComponent<EnemyController>();
+        controller.mushroom = this;
+        active = true;
     }
 
     void Update()
     {
+        if (!active)
+        {
+            return;
+        }
+
         if (!playerDetected && isAttackAnimationComplete)
         {
             if (!atStartPos)

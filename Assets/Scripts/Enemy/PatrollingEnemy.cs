@@ -20,6 +20,8 @@ public class PatrollingEnemy : EnemyMovements
         threshold = 0.4f;
         isAttacking = false;
         startPosX = Mathf.Abs(transform.position.x);
+        EnemyController controller = GetComponent<EnemyController>();
+        controller.movements = this;
     }
 
     void Update()
