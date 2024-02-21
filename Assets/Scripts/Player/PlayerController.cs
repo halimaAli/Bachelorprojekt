@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     private Collider[] respawnPointCollider = new Collider[1];
     private int health;
 
+    private Color color;
+    private Renderer rend;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -26,9 +29,11 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        rend = GetComponent<Renderer>();
         SetRespawnPoint(transform.position);
         active = true;
         health = 2;
+        color = rend.material.color;
     }
 
     // Update is called once per frame
@@ -105,6 +110,7 @@ public class PlayerController : MonoBehaviour
         } else
         {
             active = true;
+            StartCoroutine(BecomeInvulnerable());
         }
     }
 
@@ -124,6 +130,17 @@ public class PlayerController : MonoBehaviour
         UIHandler.instance.updateHP(health);
         MiniJump();
         //LevelManager.instance.MinusOneLife();
+    }
+
+    private IEnumerator BecomeInvulnerable()
+    {
+        Physics.IgnoreLayerCollision(3, 6, true);
+        color.a = 0.5f;
+        rend.material.color = color;
+        yield return new WaitForSeconds(3f);
+        Physics.IgnoreLayerCollision(3, 6, false);
+        color.a = 1f;
+        rend.material.color = color;
     }
 
     private void OnTriggerEnter(Collider other)
