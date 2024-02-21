@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
@@ -21,10 +22,21 @@ public class ProjectileController : MonoBehaviour
     {
         if (Camera.main.orthographic)
         {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
             transform.Translate(Vector3.right * Time.deltaTime * speed * direction);
+            FlipProjectile();
         } else
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed * direction);
+            if (isPlayer)
+            {
+                transform.rotation = Quaternion.Euler(0, 90, 0);
+                transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            }
+            else //Arrows of Enemy Archer have to be rotated and move towards X
+            {
+                transform.rotation = Quaternion.Euler(90, 0, 0);
+                transform.Translate(Vector3.left * Time.deltaTime * speed);
+            }
         }
 
         if (!spriteRenderer.isVisible)
@@ -35,6 +47,18 @@ public class ProjectileController : MonoBehaviour
 
         //else destroy after 3 secs
         Destroy(gameObject, lifeTime);
+    }
+
+    private void FlipProjectile()
+    {
+        if (direction < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

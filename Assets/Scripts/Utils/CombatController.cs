@@ -15,18 +15,10 @@ public class CombatController : MonoBehaviour
 
     public void ShootProjectile()
     {
+        // if Archer dies, movement is disabled
         if (!active)
         {
             return;
-        }
-
-        if (Camera.main.orthographic)
-        {
-            projectilePrefab.transform.rotation = Quaternion.Euler(0,0,0);
-        }
-        else
-        {
-            projectilePrefab.transform.rotation = Quaternion.Euler(0, 90, 0);
         }
         Instantiate(projectilePrefab, projectilePosition.position, projectilePrefab.transform.rotation);    
     }
