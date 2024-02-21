@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 50.0f;
     public float fallMultiplier = 1.5f;
     public float lowJumpMultiplier = 2f;
+    internal bool isJumping;
 
     [Header("GroundCheck")]
     [SerializeField] private Vector3 boxSize = new Vector3(1.2f,0.2f,0);
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 standingSize;
     private bool hasDoubleJumped;
     private float lastJumpTime;
+    internal bool isSliding;
 
     void Start()
      {
@@ -47,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
         standingSize = boxCollider.size;
         crouchedSize = new Vector3(standingSize.x, 0.2340206f, standingSize.z);
-     }
+    }
 
     void Update()
      {
@@ -59,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
         HandleJumping();
         HandleCrouching();
      }
-
 
     #region Walk
     private void HandleWalking()
@@ -75,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         {
             spriteRenderer.flipX = true;
             PlayerController.instance.direction = -1;
+
         }
 
         if (Camera.main.orthographic)
@@ -153,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
         if (rb.velocity.y < 0)
          {
              animator.SetFloat("yVelocity", rb.velocity.y); //Fall animation transition
-             rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime; //increases fall speed
+             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier+1) * Time.deltaTime; //increases fall speed
          }
          //LowJump when Jump Key is pressed once
          else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && !hasDoubleJumped)
@@ -165,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
     public void DoubleJumpEnd()
     {
         animator.SetBool("doubleJump", false);
-        rb.velocity = Vector3.up * (jumpForce + 2f);
+        rb.velocity = Vector3.up * (jumpForce - 2);
         animator.SetFloat("yVelocity", rb.velocity.y);
     }
     #endregion
@@ -175,8 +177,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // check if there is a smth above the player while crouched
        bool hitAbove = Physics.BoxCast(transform.position, boxSize, Vector3.up, new Quaternion(0, 0, 0, 0), maxDistance);
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && IsGrounded)
         {
+            isSliding = true;
             if (horizontalInput == 0)
             {
                 animator.SetBool("isCrouching", true);
@@ -194,6 +197,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!hitAbove)
             {
+                isSliding = false;
                 walkingSpeed = 5.0f;
                 animator.SetBool("isCrouching", false);
                 animator.SetBool("isSliding", false);
