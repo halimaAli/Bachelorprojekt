@@ -60,13 +60,13 @@ public class PlayerMovement : MonoBehaviour
         CheckIfGrounded();
         HandleJumping();
         HandleCrouching();
+
      }
 
     #region Walk
     private void HandleWalking()
      {
         animator.SetBool("isWalking", Camera.main.orthographic? horizontalInput != 0 : horizontalInput != 0 || verticalInput != 0);
-
         if (Input.GetKey(KeyCode.D))
         {
             spriteRenderer.flipX = false;
@@ -76,8 +76,8 @@ public class PlayerMovement : MonoBehaviour
         {
             spriteRenderer.flipX = true;
             PlayerController.instance.direction = -1;
-
         }
+
 
         if (Camera.main.orthographic)
         {
@@ -85,8 +85,18 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            float wDirection = 1;
+            if (CameraManager.instance.currentCamera.transform.rotation.y > 0)
+            {
+               wDirection = 1;
+            }
+            else
+            {
+               wDirection = -1;
+            }
+            
             transform.Translate(Vector3.right * walkingSpeed * horizontalInput * Time.deltaTime);
-            transform.Translate(Vector3.forward * walkingSpeed * verticalInput * Time.deltaTime);
+            transform.Translate(Vector3.forward * walkingSpeed * verticalInput * wDirection * Time.deltaTime);
         }
      }
     #endregion
@@ -98,13 +108,14 @@ public class PlayerMovement : MonoBehaviour
 
         // bool grounded = Physics.OverlapSphereNonAlloc(transform.position + new Vector3(0, grounderOffset), grounderRadius, _ground, groundMask) > 0;// allowed wall jumping
 
-         bool grounded = Physics.BoxCast(transform.position, boxSize, Vector3.down, new Quaternion(0, 0, 0, 0), maxDistance, groundMask); 
+        bool grounded = Physics.BoxCast(transform.position, boxSize, Vector3.down, new Quaternion(0, 0, 0, 0), maxDistance,groundMask); 
 
         if (!IsGrounded && grounded)
         {
             IsGrounded = true;
             animator.SetBool("isJumping", false);
             animator.SetBool("doubleJump", false);
+            
         }
         else if (IsGrounded && !grounded) 
         {
@@ -177,19 +188,22 @@ public class PlayerMovement : MonoBehaviour
     {
         // check if there is a smth above the player while crouched
        bool hitAbove = Physics.BoxCast(transform.position, boxSize, Vector3.up, new Quaternion(0, 0, 0, 0), maxDistance);
+
         if (Input.GetKey(KeyCode.LeftShift) && IsGrounded)
         {
             isSliding = true;
-            if (horizontalInput == 0)
+            bool isMoving;
+            if (Camera.main.orthographic)
             {
-                animator.SetBool("isCrouching", true);
-                animator.SetBool("isSliding", false);
-            } else
+                isMoving = horizontalInput != 0;
+            }
+            else
             {
-                animator.SetBool("isSliding", true);
-                animator.SetBool("isCrouching", false);
-                walkingSpeed = 7.0f;
-            } 
+                isMoving = horizontalInput != 0 || verticalInput != 0;
+            }
+
+            HandleSliding(isMoving);
+
             boxCollider.size = crouchedSize;
             boxCollider.center = crouchedCenter;
         }  
@@ -207,5 +221,17 @@ public class PlayerMovement : MonoBehaviour
             
         } 
     }
+
+    void HandleSliding(bool sliding)
+    {
+        animator.SetBool("isSliding", sliding);
+        animator.SetBool("isCrouching", !sliding);
+        if (sliding)
+        {
+            walkingSpeed = 7.0f;
+        }
+    }
+
+
     #endregion
 }

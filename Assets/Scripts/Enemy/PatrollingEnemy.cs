@@ -71,7 +71,7 @@ public class PatrollingEnemy : EnemyMovements
         if (distance <= attackDistance + threshold)
         {
             //Kill Player if Attack-Animation ended
-            PlayerController.instance.Die(false);
+            PlayerController.instance.TakeDamage();
         }
         isAttacking = false;
     }

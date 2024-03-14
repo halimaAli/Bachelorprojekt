@@ -14,13 +14,16 @@ public class KillEnemy : MonoBehaviour
         {
             enemy.TakeDamage();
             Destroy(gameObject);
+        } else
+        {
+            if (other.gameObject.tag.Equals("Enemy"))
+            {
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+            }
         }
 
-       /* if (other.gameObject.tag.Equals("Enemy"))
-       {
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-       }*/
+        
     }
 
    /* private void OnCollisionEnter(Collision collision)

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CustomBlends:
   - m_From: 2DCamera
-    m_To: 3DCamera
+    m_To: 3DCameraForward
     m_Blend:
       m_Style: 2
       m_Time: 2
@@ -42,10 +42,54 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 0
-  - m_From: 3DCamera
+  - m_From: 3DCameraForward
     m_To: 2DCamera
     m_Blend:
       m_Style: 1
+      m_Time: 1
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: 2DCamera
+    m_To: 3DCameraBackwards
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: 3DCameraBackwards
+    m_To: 2DCamera
+    m_Blend:
+      m_Style: 1
+      m_Time: 1
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: 3DCameraBackwards
+    m_To: 3DCameraForward
+    m_Blend:
+      m_Style: 0
+      m_Time: 1
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: 3DCameraForward
+    m_To: 3DCameraBackwards
+    m_Blend:
+      m_Style: 0
       m_Time: 1
       m_CustomCurve:
         serializedVersion: 2

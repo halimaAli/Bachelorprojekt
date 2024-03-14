@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     public BoxCollider standingCollider;
 
+    private Rigidbody rb;
+
     private Vector3 playerSize = new Vector3(1.5f, 2.3f, 1);
 
     public bool active {get; set;}
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rend = GetComponent<Renderer>();
+        rb = GetComponent<Rigidbody>();
         SetRespawnPoint(transform.position);
         active = true;
         health = 2;

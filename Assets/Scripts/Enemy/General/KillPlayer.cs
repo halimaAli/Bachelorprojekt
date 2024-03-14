@@ -8,7 +8,15 @@ public class KillPlayer : MonoBehaviour
 
         if (player != null )
         {
-            if (tag.Equals("Pikes") && !Camera.main.orthographic) return;
+            if (tag.Equals("Pikes"))
+            {
+                if (Camera.main.orthographic)
+                {
+                    player.Die(false);
+                }
+                return;
+            }
+
 
             player.TakeDamage();
 

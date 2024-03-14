@@ -106,7 +106,8 @@ public class MushroomController : MonoBehaviour
         distance = Vector3.Distance(player.position, transform.position);
         if (distance <= attackDistance + treshold)
         {
-             PlayerController.instance.Die(false);
+            //PlayerController.instance.Die(false);
+            PlayerController.instance.TakeDamage();
              playerDetected = false;
         }
 
