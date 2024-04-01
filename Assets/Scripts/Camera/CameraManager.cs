@@ -10,20 +10,14 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _2DCamera;
     [SerializeField] private CinemachineVirtualCamera[] _3DCameras;
     public bool change = false;
-    [SerializeField] private GameObject player;
-    private GameObject[] enemies;
     private int _3DCameraIndex;
     internal CinemachineVirtualCamera currentCamera;
-    private float defaultZPos2D;
 
     private void Awake()
     {
         instance = this;
-        // Find all enemies in the scene based on their tags
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
         _3DCameraIndex = 1;
         currentCamera = _2DCamera;
-        defaultZPos2D = player.transform.position.z;
     }
 
     // Update is called once per frame
@@ -51,13 +45,6 @@ public class CameraManager : MonoBehaviour
         StartCoroutine(Activate3DCameras());
 
         UIHandler.instance.EnableText(false);
-
-        player.transform.eulerAngles -= new Vector3(0, -90, 0);
-
-        foreach (GameObject enemy in enemies)
-        {
-            enemy.transform.eulerAngles -= new Vector3(0, -90, 0);
-        }
     }
 
     public void Set2DView()
@@ -68,15 +55,6 @@ public class CameraManager : MonoBehaviour
         _3DCameras[1].Priority = 0;
         currentCamera = _2DCamera;
         UIHandler.instance.EnableText(true);
-
-        player.transform.eulerAngles -= new Vector3(0, 90, 0);
-        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, defaultZPos2D);
-     
-        foreach (GameObject enemy in enemies)
-        {
-            enemy.transform.eulerAngles -= new Vector3(0, 90, 0);
-            enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y, defaultZPos2D);
-        }
     }
 
     public void Switch3DCameraDirection(int cameraIndex)
@@ -100,16 +78,12 @@ public class CameraManager : MonoBehaviour
                     _3DCameras[i].Priority = 0;
                 }
             }
-            PlayerController.instance.active = false; //make animations stop
+            PlayerController.instance.active = false; //TODO: make animations stop
             yield return new WaitForSeconds(1f);
             PlayerController.instance.active = true;
 
 
             currentCamera = _3DCameras[_3DCameraIndex];
         }
-
-        
-
     }
-
 }
