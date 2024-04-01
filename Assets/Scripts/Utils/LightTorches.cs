@@ -8,7 +8,7 @@ public class LightTorches : MonoBehaviour
 
     private void Awake()
     {
-        ani = GetComponent<Animator>();
+        ani = GetComponentInChildren<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)
