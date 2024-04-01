@@ -14,7 +14,7 @@ public class CameraManager : MonoBehaviour
     private GameObject[] enemies;
     private int _3DCameraIndex;
     internal CinemachineVirtualCamera currentCamera;
-
+    private float defaultZPos2D;
 
     private void Awake()
     {
@@ -23,6 +23,7 @@ public class CameraManager : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         _3DCameraIndex = 1;
         currentCamera = _2DCamera;
+        defaultZPos2D = player.transform.position.z;
     }
 
     // Update is called once per frame
@@ -69,12 +70,12 @@ public class CameraManager : MonoBehaviour
         UIHandler.instance.EnableText(true);
 
         player.transform.eulerAngles -= new Vector3(0, 90, 0);
-        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -8);
+        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, defaultZPos2D);
      
         foreach (GameObject enemy in enemies)
         {
             enemy.transform.eulerAngles -= new Vector3(0, 90, 0);
-            enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y, -8);
+            enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y, defaultZPos2D);
         }
     }
 
@@ -99,7 +100,7 @@ public class CameraManager : MonoBehaviour
                     _3DCameras[i].Priority = 0;
                 }
             }
-            PlayerController.instance.active = false;
+            PlayerController.instance.active = false; //make animations stop
             yield return new WaitForSeconds(1f);
             PlayerController.instance.active = true;
 

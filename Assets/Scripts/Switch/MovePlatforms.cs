@@ -16,7 +16,7 @@ public class MovePlatforms : MonoBehaviour
     {
         if (Camera.main.orthographic)
         {
-            transform.position = new Vector3(originalPosition.x, originalPosition.y, -8);
+            transform.position = new Vector3(originalPosition.x, originalPosition.y, -1.411427f);
         } else
         {
             transform.position = originalPosition;

@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 
@@ -60,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
         CheckIfGrounded();
         HandleJumping();
         HandleCrouching();
-
      }
 
     #region Walk
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            spriteRenderer.flipX = true;
+             spriteRenderer.flipX = true;
             PlayerController.instance.direction = -1;
         }
 
@@ -191,6 +191,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift) && IsGrounded)
         {
+
             isSliding = true;
             bool isMoving;
             if (Camera.main.orthographic)
