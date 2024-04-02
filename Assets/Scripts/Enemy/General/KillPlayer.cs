@@ -19,7 +19,6 @@ public class KillPlayer : MonoBehaviour
 
 
             player.TakeDamage();
-
         }
     }
 

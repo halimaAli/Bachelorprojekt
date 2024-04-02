@@ -20,8 +20,10 @@ public class PlayerController : MonoBehaviour
     private Collider[] respawnPointCollider = new Collider[1];
     private int health;
 
-    private Renderer rend;
+    private SpriteRenderer rend;
     private Color color;
+
+    private int knockback = 1000;
 
     private void Awake()
     {
@@ -31,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        rend = GetComponent<Renderer>();
+        rend = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody>();
         SetRespawnPoint(transform.position);
         active = true;
@@ -76,46 +78,54 @@ public class PlayerController : MonoBehaviour
 
     private void MiniJump()
     {
-        //  rb.velocity = new Vector3(rb.velocity.x, 1, rb.velocity.z);
         transform.position = Vector3.Lerp(new Vector3(transform.position.x, 1, transform.position.z), transform.position, 1 * Time.deltaTime);
     }
+
+    private void FallBack()
+    {
+        if (rend.flipX) //if Player if facing left -> knockback to the right
+        {
+            rb.AddForce(new Vector3(1, 1, 0) * knockback);
+        }
+        else //if Player if facing right -> knockback to the left
+        {
+            rb.AddForce(new Vector3(-1, 1, 0) * knockback);
+        }
+    }
+
 
     public void Die(bool falling)
     {
         active = false;
-        standingCollider.enabled = false;
+        Physics.IgnoreLayerCollision(3, 6, true);
         animator.SetBool("isDead", true);
         if (!falling)
         {
-            MiniJump();
+           FallBack();
         }
         StartCoroutine(Respawn());
     }
 
     public void TakeDamage()
     {
-        active = false;
-        animator.SetBool("isHurt", true);
+        health--;
+        if (health == 0)
+        {
+            Die(false);
+        }
+        else
+        {
+            active = false;
+            animator.SetBool("isHurt", true);
+        }
     }
 
     public void TakeDamageAnimationEnd()
     {
         animator.SetBool("isHurt", false);
-        health--;
         UIHandler.instance.updateHP(health);
-        CheckHealth();
-    }
-
-    private void CheckHealth()
-    {
-        if (health == 0)
-        {
-            Die(false);
-        } else
-        {
-            active = true;
-            StartCoroutine(BecomeInvulnerable());
-        }
+        active = true;
+        StartCoroutine(BecomeInvulnerable());
     }
 
     public void SetRespawnPoint(Vector3 position)
@@ -125,11 +135,16 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
+        //Set Player Position next to Respawn Point
         transform.position = respawnPoint;
+
+        //Enable Input Movement and enable collsions
         active = true;
-        standingCollider.enabled = true;
+        Physics.IgnoreLayerCollision(3, 6, false);
         animator.SetBool("isDead", false);
+
+        //Re-Init the Health UI
         health = 2;
         UIHandler.instance.updateHP(health);
         MiniJump();
