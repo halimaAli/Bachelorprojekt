@@ -1,0 +1,1020 @@
+fileFormatVersion: 2
+guid: 536354a8ede41ab46aec32d659b12494
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spr_Leap_strip_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7972c383b04b018409827c3dab641f9a
+      internalID: 237321930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_1
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 427ac3dc4b3d8584d8a5bf39e4a0e243
+      internalID: -1161477561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_2
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb0bcc346d552844e8068dc3376519e6
+      internalID: -1628358996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_3
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd0ea94c51115b14c8451f0500157a05
+      internalID: -223674058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_4
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9022484e88aea74194a66949316b6a5
+      internalID: -1593410346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_5
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f93cd3a749c45e4889977dd6e38fc7f
+      internalID: 1086914210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_6
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f302ca1d2f3be03469d867672a6b41b0
+      internalID: 1500390077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_7
+      rect:
+        serializedVersion: 2
+        x: 1820
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3902797a72e0aa14e911f55896d18e01
+      internalID: 1853938399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_8
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ab68b3536284684aa62be099529663e
+      internalID: -708661068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_9
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 795e409047407614fafd4fe26fbde7c6
+      internalID: -1458855878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_10
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84521bc5d6112d1408b42fd57870d06d
+      internalID: -397331190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_11
+      rect:
+        serializedVersion: 2
+        x: 2860
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f370e8310486cb24892fcb996504f84d
+      internalID: 903229653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_12
+      rect:
+        serializedVersion: 2
+        x: 3120
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd23539aa1bca6d40a746d03b7d20179
+      internalID: -256137578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_13
+      rect:
+        serializedVersion: 2
+        x: 3380
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf3d803e5023e8641beb1437cc1e9b18
+      internalID: -2100061192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_14
+      rect:
+        serializedVersion: 2
+        x: 3640
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3a989c3b3850424ba747c27e5ce4e4e
+      internalID: 784201859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_15
+      rect:
+        serializedVersion: 2
+        x: 3900
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4eb2f52570f92c645bd8b64100135379
+      internalID: 201466970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_16
+      rect:
+        serializedVersion: 2
+        x: 4160
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09db6c4cbde59054ba72d41b8b68e16f
+      internalID: 1063499628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_17
+      rect:
+        serializedVersion: 2
+        x: 4420
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a29ebb6afdb942447bd877b29788c862
+      internalID: 2141255023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_18
+      rect:
+        serializedVersion: 2
+        x: 4680
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee255cb7889aa144d898f305f075af21
+      internalID: -1097727360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_19
+      rect:
+        serializedVersion: 2
+        x: 4940
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e69c9072cc2a24448e362d2fecd66e2
+      internalID: 1351074114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_20
+      rect:
+        serializedVersion: 2
+        x: 5200
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5673d60a026373743bcf460e52aa06e4
+      internalID: -94355069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_21
+      rect:
+        serializedVersion: 2
+        x: 5460
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4a327bd49d793942beff72ab019132f
+      internalID: 1818898626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_22
+      rect:
+        serializedVersion: 2
+        x: 5720
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9db4bd10704217646ababfe1fb88a983
+      internalID: 501968051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_23
+      rect:
+        serializedVersion: 2
+        x: 5980
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c96945d5100a59e47a50af8f4e167833
+      internalID: 678974386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_24
+      rect:
+        serializedVersion: 2
+        x: 6240
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1125774b1f22ff64481e260ddbf81b1c
+      internalID: 1177244773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_25
+      rect:
+        serializedVersion: 2
+        x: 6500
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2419c2be8799504fb9f52060ae8b360
+      internalID: -1125770309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_26
+      rect:
+        serializedVersion: 2
+        x: 6760
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae87ac71c09695242ba96044a7600b0f
+      internalID: 988362286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_27
+      rect:
+        serializedVersion: 2
+        x: 7020
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dda4e5087139f94e813fe7811b23b90
+      internalID: 2013652491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_28
+      rect:
+        serializedVersion: 2
+        x: 7280
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1ad5581acf3b4e44b0d4bace604d482
+      internalID: -386387821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_29
+      rect:
+        serializedVersion: 2
+        x: 7540
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37bdc55c8d3df9f4eb2e45ef279bd87d
+      internalID: 575761323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_30
+      rect:
+        serializedVersion: 2
+        x: 7800
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9df0bc79b7cc7184686170d7405e5d21
+      internalID: 2104832996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_31
+      rect:
+        serializedVersion: 2
+        x: 8060
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c486db0a63830e4e959b7604232212f
+      internalID: 517160175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_32
+      rect:
+        serializedVersion: 2
+        x: 8320
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad80605b279ea6447b97eca5191c7c11
+      internalID: 1224331642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_33
+      rect:
+        serializedVersion: 2
+        x: 8580
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 192c9835ccaae7d479ded669a19b76bc
+      internalID: 684109144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_34
+      rect:
+        serializedVersion: 2
+        x: 8840
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8e049d94a869624586a8c825b0ad837
+      internalID: 523119625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_35
+      rect:
+        serializedVersion: 2
+        x: 9100
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1573863ee0e57444da9e0a3d3969c851
+      internalID: 323765505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_36
+      rect:
+        serializedVersion: 2
+        x: 9360
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09abd64f13c7d0c41b11dee7cbfce86c
+      internalID: -902265712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_37
+      rect:
+        serializedVersion: 2
+        x: 9620
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a994a0bc22a09c4ea502d07aaf89262
+      internalID: -1624647078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_38
+      rect:
+        serializedVersion: 2
+        x: 9880
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 381629b3e05ed51489117c02877b7cc7
+      internalID: 1093525073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Leap_strip_39
+      rect:
+        serializedVersion: 2
+        x: 10140
+        y: 20
+        width: 260
+        height: 108
+      alignment: 9
+      pivot: {x: 0.3403546, y: 0.3767194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c023ab03626c6446a8330826c758959
+      internalID: -1087316333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 95f57399441a38a408d86c716653a3d6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      spr_Leap_strip_0: 237321930
+      spr_Leap_strip_1: -1161477561
+      spr_Leap_strip_10: -397331190
+      spr_Leap_strip_11: 903229653
+      spr_Leap_strip_12: -256137578
+      spr_Leap_strip_13: -2100061192
+      spr_Leap_strip_14: 784201859
+      spr_Leap_strip_15: 201466970
+      spr_Leap_strip_16: 1063499628
+      spr_Leap_strip_17: 2141255023
+      spr_Leap_strip_18: -1097727360
+      spr_Leap_strip_19: 1351074114
+      spr_Leap_strip_2: -1628358996
+      spr_Leap_strip_20: -94355069
+      spr_Leap_strip_21: 1818898626
+      spr_Leap_strip_22: 501968051
+      spr_Leap_strip_23: 678974386
+      spr_Leap_strip_24: 1177244773
+      spr_Leap_strip_25: -1125770309
+      spr_Leap_strip_26: 988362286
+      spr_Leap_strip_27: 2013652491
+      spr_Leap_strip_28: -386387821
+      spr_Leap_strip_29: 575761323
+      spr_Leap_strip_3: -223674058
+      spr_Leap_strip_30: 2104832996
+      spr_Leap_strip_31: 517160175
+      spr_Leap_strip_32: 1224331642
+      spr_Leap_strip_33: 684109144
+      spr_Leap_strip_34: 523119625
+      spr_Leap_strip_35: 323765505
+      spr_Leap_strip_36: -902265712
+      spr_Leap_strip_37: -1624647078
+      spr_Leap_strip_38: 1093525073
+      spr_Leap_strip_39: -1087316333
+      spr_Leap_strip_4: -1593410346
+      spr_Leap_strip_5: 1086914210
+      spr_Leap_strip_6: 1500390077
+      spr_Leap_strip_7: 1853938399
+      spr_Leap_strip_8: -708661068
+      spr_Leap_strip_9: -1458855878
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
