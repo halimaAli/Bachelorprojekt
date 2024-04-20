@@ -12,6 +12,7 @@ TagManager:
   - ThirdRespawnPoint
   - Wall
   - One Way Platform
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -48,4 +49,28 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: First
+    uniqueID: 310696861
+    locked: 0
+  - name: Second
+    uniqueID: 1435511141
+    locked: 0
+  - name: Third
+    uniqueID: 3683846225
+    locked: 0
+  - name: Fourth
+    uniqueID: 2121705249
+    locked: 0
+  - name: Fifth
+    uniqueID: 793368765
+    locked: 0
+  - name: Sixth
+    uniqueID: 949102013
+    locked: 0
+  - name: Seventh
+    uniqueID: 1321064533
+    locked: 0
+  - name: ground
+    uniqueID: 599997249
     locked: 0

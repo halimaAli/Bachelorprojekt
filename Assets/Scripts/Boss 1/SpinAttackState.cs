@@ -1,24 +1,45 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpinAttackState : BossBaseState
+public class SpinAttackState : MonoBehaviour
 {
-    private int spins = 1;
-    private float distance;
-    public SpinAttackState(BossStateController context) : base(context)
+    private Animator animator;
+    private bool isSpinning;
+    private int speed;
+
+    // Start is called before the first frame update
+    void Start()
     {
+        animator = GetComponent<Animator>();
     }
 
-    public override void Enter()
+    // Update is called once per frame
+    void Update()
     {
-        FacePlayer();
-        context.animator.SetTrigger("SpinAttack");
+        if (isSpinning)
+        { 
+            transform.Translate(Vector3.right * speed * Time.deltaTime);
+        }
     }
 
-    private void FacePlayer()
+    public void StartSpinAttack()
     {
-        context.FacePlayer();
+        isSpinning = true;
+        
+        if (transform.localScale.x > 0)
+        {
+            speed = 10;
+        }
+        else
+        {
+            speed = -10;
+        }
     }
+
+    public void StopSpinAttack()
+    {
+        isSpinning = false;
+    }
+
 }
