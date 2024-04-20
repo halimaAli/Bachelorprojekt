@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -13,137 +11,115 @@ public class BossStateController : MonoBehaviour
     public Rigidbody rb;
     public SpriteRenderer spriteRenderer;
     private new BoxCollider collider;
-    private JumpAttackState jumpAttackState;
-    private SpinAttackState spinAttackState;
-    private ComboAttackState comboAttackState;
-    private State currentState;
     public GameObject player;
-    public GameObject boss;
 
     public bool isAttacking;
-    private float localScaleX;
+    public float localScaleX;
 
-    public GameObject[] slashes = new GameObject[3];
-    public Transform[] comboPos = new Transform[3];
+
     public int direction;
+
+    [SerializeField] private float minDistance;
+    public Vector3 startPos;
+
+    private bool isWaitingForNextAttack = false;
+    private int phase;
+    public new bool enabled;
 
     private enum Phases
     {
-        
-
+        SpinAttack,
+        SummonAttack,
+        JumpAttack,
+        ComboAttack
     }
 
     void Awake()
     {
         if (instance == null) instance = this;
-
-        jumpAttackState = new JumpAttackState(this);
-        spinAttackState = new SpinAttackState(this);
-        comboAttackState = new ComboAttackState(this);
-
-        boss = gameObject;
-
-        rb = GetComponent<Rigidbody>();
-        collider = GetComponent<BoxCollider>();
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        
+       
+        startPos = transform.position;
+        phase = -1;
+        enabled = true;
     }
 
 
     private void Start()
     {
         localScaleX = transform.localScale.x;
-
-        FacePlayer();
-        currentState = jumpAttackState;
-        currentState.Enter();  
+       // StartCoroutine(Intro());
     }
 
     void Update()
     {
-        FacePlayer();
-        if (currentState == null)
+        if (enabled)
         {
-           // animator.SetBool("isIdle", true);
-        } else
-        {
-            currentState.UpdateState();
+            FacePlayer();
+        }
+        
+        if (!isAttacking && !isWaitingForNextAttack)
+        { 
+            StartCoroutine(ChooseRandomPhaseWithDelay());
         }
     }
 
-    public void Init()
-    {  
-        StartCoroutine(Intro());
+    private IEnumerator ChooseRandomPhaseWithDelay()
+    {
+        isWaitingForNextAttack = true; 
+                                       
+        yield return new WaitForSeconds(2f);
+        isWaitingForNextAttack = false; 
+
+        ChooseRandomPhase();
     }
 
-    public IEnumerator Intro()
+    private void ChooseRandomPhase()
     {
-        animator.SetTrigger("Intro");
-        rb.AddForce(new Vector3(20, 3, 0), ForceMode.Impulse); //Placeholder values; must be changed in final Boss Arena
-
-
-        yield return new WaitForSeconds(10);
-
-        currentState = comboAttackState;
-        currentState.Enter();
-    }
-
-    public void ChangeState(State newState)
-    {
-        if (currentState != null)
-        {
-            currentState.Exit();
-        }
-
-        currentState = newState;
-        if (currentState != null)
-        {
-            currentState.Enter();
-        }
-    }
-
-    public void Wait(float delay)
-    {
-        StartCoroutine(Delay(delay));
-    }
-
-    private IEnumerator Delay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-    }
-
-
-    //------------- Attack Methods -------------//
-    public void StartSpinAttack() //is called in the middle of the SpinAttack Animation
-    {
+        /*System.Random random = new System.Random();
+        int phase = random.Next(3);*/
         isAttacking = true;
-        int speed;
-
-        if (transform.localScale.x > 0)
+        if (phase == 2)
         {
-            speed = 20;
-        } else
-        {
-            speed = -20;
+            phase = -1;
         }
 
-        rb.AddForce(new Vector3(speed, 0, 0), ForceMode.Impulse);
-        Wait(1);
+        phase++;
+
+        switch (phase)
+        {
+            case 0:
+                 SpinAttack();
+                break;
+            case 1:
+                 ComboAttack();
+
+                break;
+            case 2:
+                JumpAttack();
+                break;
+        }
     }
 
-    public void EndAttack()
+    public void SpinAttack()
     {
-        isAttacking = false;
-       // ChangeState(null);
-        animator.SetBool("isIdle", true);
-        print("End attack");
+        animator.SetTrigger("SpinAttack");
     }
 
-    public void ChangePos()
+    public void ComboAttack()
     {
-        transform.position = new Vector3(transform.position.x + (direction * 11), transform.position.y, transform.position.z);
-        EndAttack();
+        animator.SetTrigger("Combo Attack");
+    }
+
+    public void JumpAttack()
+    {
+         animator.SetTrigger("Jump Attack");
+    }
+
+    #region Util
+    public void Idle()
+    {
+        enabled = true;
+        animator.SetBool("isWalking", true);  
     }
 
     public void FacePlayer()
@@ -162,11 +138,21 @@ public class BossStateController : MonoBehaviour
         }
     }
 
-    public void ComboAttackPhases(int phase)
+    public void Wait(float delay)
     {
-        slashes[phase].transform.localScale = comboPos[phase].transform.localScale;
-        Instantiate(slashes[phase], comboPos[phase].position, slashes[phase].transform.rotation);
+        StartCoroutine(Delay(delay));
     }
 
+    private IEnumerator Delay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+    }
+
+    internal void JumpTo(Vector3 position)
+    {
+        animator.SetBool("isJumping", true);
+        rb.AddForce(position, ForceMode.Impulse);
+    }
+    #endregion
 
 }

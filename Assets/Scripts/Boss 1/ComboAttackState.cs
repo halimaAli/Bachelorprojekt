@@ -2,26 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ComboAttackState : BossBaseState
+public class ComboAttackState : MonoBehaviour
 {
-    public ComboAttackState(BossStateController context) : base(context)
+    public GameObject[] slashFX = new GameObject[3];
+    public Transform[] comboPos = new Transform[3];
+
+    public void ComboAttackPhases(int phase)
     {
+        slashFX[phase].transform.localScale = comboPos[phase].transform.localScale;
+        Instantiate(slashFX[phase], comboPos[phase].position, slashFX[phase].transform.rotation);
     }
-
-    public override void Enter()
-    {
-        context.animator.SetTrigger("Combo Attack");
-    }
-
-    public override void UpdateState()
-    {
-        base.UpdateState();
-    }
-
-    public override void Exit() {
-        base.Exit();
-    }
-
-
-
 }
