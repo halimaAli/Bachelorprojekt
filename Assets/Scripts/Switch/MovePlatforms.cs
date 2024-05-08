@@ -4,6 +4,7 @@ public class MovePlatforms : MonoBehaviour
 {
 
     private Vector3 originalPosition;
+    [SerializeField] Transform player;
 
     // Start is called before the first frame update
     void Start()
@@ -16,10 +17,14 @@ public class MovePlatforms : MonoBehaviour
     {
         if (Camera.main.orthographic)
         {
-            transform.position = new Vector3(originalPosition.x, originalPosition.y, -1.411427f);
+            transform.position = new Vector3(originalPosition.x, originalPosition.y, player.position.z);
+            
+            
         } else
         {
+
             transform.position = originalPosition;
+            
         }
        
     }

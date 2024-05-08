@@ -33,26 +33,13 @@ public class UIHandler : MonoBehaviour
         
     }
 
-    public void onCoinCollected()
+    public void OnCoinCollected()
     {
         coins += 1;
         amountOfCoins.text = coins + " x";
     }
 
-    public void EnableText(bool is2D)
-    {
-      /*  if (!is2D)
-        {
-            _3DTutorialText.SetActive(true);
-            _2DTutorialText.SetActive(false);
-        } else
-        {
-            _3DTutorialText.SetActive(false);
-            _2DTutorialText.SetActive(true);
-        }*/
-    }
-
-    public void updateHP(int health)
+    public void UpdateHealth(int health)
     {
         healthpoints.text = health + " x";
     }

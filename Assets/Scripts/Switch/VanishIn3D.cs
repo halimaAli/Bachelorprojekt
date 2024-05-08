@@ -20,10 +20,12 @@ public class VanishIn3D : MonoBehaviour
     {
         if (!Camera.main.orthographic)
         {
-            transform.localPosition = new Vector3(originalPos.x, originalPos.y, 7.64f);
+            //transform.localPosition = new Vector3(originalPos.x, originalPos.y, 7.64f);
+            gameObject.SetActive(true);
         } else
         {
-            transform.localPosition = originalPos;
+            //transform.localPosition = originalPos;
+            gameObject.SetActive(false);
         }
     }
 }
