@@ -76,10 +76,14 @@ public class PlayerCombat : CombatController
 
         for (int i = 0; i < damage.Length; i++)
         {
-            var enemy = damage[i].GetComponent<EnemyController>();
+            var enemy = damage[i].GetComponent<HealthController>();
             if (enemy != null)
             {
                 enemy.TakeDamage();
+            } else
+            {
+                var lever = damage[i].GetComponent<Lever>();
+                lever.Switch();
             }
         }
     }

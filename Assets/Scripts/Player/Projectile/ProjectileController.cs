@@ -1,20 +1,62 @@
-using System;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    [Range(1, 20), SerializeField] private float speed = 20.0f;
+    // These Value have to be manually set for each projectile
+    [SerializeField] private float speed = 20.0f;
     [SerializeField] private float lifeTime = 1.0f;
+    [SerializeField] private Type type;
+    [SerializeField] private Angle angle;
+
+    private SpriteRenderer spriteRenderer;
     [SerializeField] private float direction = 1.0f;
-    [SerializeField] private bool isPlayer;
-    SpriteRenderer spriteRenderer;
+    public Vector3 target;
+
+
+    public enum Type
+    {
+        Player,
+        Archer,
+        Boss,
+        Boss_Hammer
+    }
+
+    public enum Angle
+    {
+        Right,
+        Up
+    }
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (isPlayer)
+        SetDirection();
+        SetAngle();
+    }
+
+    private void SetAngle()
+    {
+        switch (angle)
         {
-            direction = PlayerController.instance.direction;
+            case Angle.Right:
+                target = Vector3.right * direction;
+                break;
+            case Angle.Up:
+                target = Vector3.right * direction + Vector3.up;
+                break;
+        }
+    }
+
+    private void SetDirection()
+    {
+        switch (type)
+        {
+            case Type.Player:
+                direction = PlayerController.instance.direction;
+                break;
+            case Type.Boss:
+                direction = BossStateController.instance.direction;
+                break;
         }
     }
 
@@ -22,49 +64,69 @@ public class ProjectileController : MonoBehaviour
     {
         if (Camera.main.orthographic)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            transform.Translate(Vector3.right * Time.deltaTime * speed * direction);
-            FlipProjectile();
-        } else
+            HandleMovementIn2D();
+        }
+        else
         {
-            if (isPlayer)
-            {
-                transform.rotation = Quaternion.Euler(0, 90, 0);
-                transform.Translate(Vector3.forward * Time.deltaTime * speed);
-            }
-            else //Arrows of Enemy Archer have to be rotated and move towards X
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 0);
-                transform.Translate(Vector3.left * Time.deltaTime * speed);
-            }
+            HandleMovementIn3D();
         }
 
-        if (!spriteRenderer.isVisible)
+        DestroyProjectile();
+    }
+
+    private void HandleMovementIn2D()
+    {
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.Translate(target * Time.deltaTime * speed);
+        /* if (angle == Angle.Right)
+        {
+            transform.Translate(Vector3.right * Time.deltaTime * speed * direction);
+        }
+        else if (angle == Angle.Up)
+        {
+            Vector3 upVector = Vector3.right * direction + Vector3.up;
+            transform.Translate(upVector * Time.deltaTime * speed);
+        } else
+        {
+            transform.Translate(dir * Time.deltaTime * speed);
+        }*/
+        FlipProjectile();
+    }
+
+    private void HandleMovementIn3D() //TO DO: Rework for Mini bosses (see notes)
+    {
+        if (type == Type.Player || type == Type.Boss)
+        {
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        }
+        else //Arrows of Archer Archer have to be rotated and move towards X
+        {
+            transform.rotation = Quaternion.Euler(90, 0, 0);
+            transform.Translate(Vector3.left * Time.deltaTime * speed);
+        }
+        
+    }
+
+    private void FlipProjectile()
+    {
+        spriteRenderer.flipX = direction < 0;
+    }
+
+    private void DestroyProjectile()
+    {
+        if (!spriteRenderer.isVisible && type == Type.Player)
         {
             Destroy(gameObject);
             return;
         }
 
-        //else destroy after 3 secs
         Destroy(gameObject, lifeTime);
-    }
-
-    private void FlipProjectile()
-    {
-        if (direction < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else
-        {
-            spriteRenderer.flipX = false;
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //Destroy if it hits wall or ground
-        if (other.gameObject.tag.Equals("ground"))
+        if (other.gameObject.CompareTag("ground"))
         {
             Destroy(gameObject);
         }
