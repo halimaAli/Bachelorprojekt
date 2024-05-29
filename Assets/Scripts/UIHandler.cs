@@ -36,12 +36,12 @@ public class UIHandler : MonoBehaviour
     public void OnCoinCollected()
     {
         coins += 1;
-        amountOfCoins.text = coins + " x";
+        amountOfCoins.text = coins.ToString();
     }
 
     public void UpdateHealth(int health)
     {
-        healthpoints.text = health + " x";
+        healthpoints.text = health.ToString();
     }
    
 }

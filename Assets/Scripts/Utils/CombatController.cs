@@ -1,17 +1,11 @@
 using UnityEngine;
 
-
+//Controls the Shooting Attacks
 public class CombatController : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform projectilePosition;
     public bool active = true;
-
-    private void Start()
-    {
-        EnemyController controller = GetComponent<EnemyController>();
-        controller.combat = this;
-    }
 
     public void ShootProjectile()
     {

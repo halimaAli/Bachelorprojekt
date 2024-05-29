@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,12 +18,14 @@ public class PlayerController : MonoBehaviour
     private Vector3 respawnPoint;
     [SerializeField] private LayerMask respawnPointMask;
     private Collider[] respawnPointCollider = new Collider[1];
-    private int health;
+    public int health;
 
     private SpriteRenderer rend;
     private Color color;
 
-    private int knockback = 1000;
+    private int knockback = 900;
+    private int maxHealth = 10;
+    [SerializeField] private Image healthBar;
 
     private void Awake()
     {
@@ -37,8 +39,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         SetRespawnPoint(transform.position);
         active = true;
-        health = 2;
+        
         color = rend.material.color;
+        health = maxHealth;
     }
 
     // Update is called once per frame
@@ -50,11 +53,12 @@ public class PlayerController : MonoBehaviour
         }
 
         HandleRespawnPoint();
+        healthBar.fillAmount = Mathf.Clamp((float)health / maxHealth, 0, 1);
 
         //check if player is falling from platform
         if (transform.position.y < -6)
         {
-            Die(true);
+          //  Die(true);
             return;
         }
     }
@@ -78,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
     private void MiniJump()
     {
-        transform.position = Vector3.Lerp(new Vector3(transform.position.x, 1, transform.position.z), transform.position, 1 * Time.deltaTime);
+        transform.position = Vector3.Lerp(new Vector3(transform.position.x, 1, transform.position.z), transform.position, Time.deltaTime);
     }
 
     private void FallBack()
@@ -92,7 +96,6 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector3(-1, 1, 0) * knockback);
         }
     }
-
 
     public void Die(bool falling)
     {
@@ -109,7 +112,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage()
     {
         health--;
-        if (health == 0)
+        if (health <= 0)
         {
             Die(false);
         }
@@ -123,7 +126,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamageAnimationEnd()
     {
         animator.SetBool("isHurt", false);
-        UIHandler.instance.updateHP(health);
+        UIHandler.instance.UpdateHealth(health);
         active = true;
         StartCoroutine(BecomeInvulnerable());
     }
@@ -136,8 +139,10 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Respawn()
     {
         yield return new WaitForSeconds(1.5f);
+
         //Set Player Position next to Respawn Point
         transform.position = respawnPoint;
+        rb.velocity = Vector3.zero;
 
         //Enable Input Movement and enable collsions
         active = true;
@@ -146,9 +151,13 @@ public class PlayerController : MonoBehaviour
 
         //Re-Init the Health UI
         health = 2;
-        UIHandler.instance.updateHP(health);
-        MiniJump();
-        //LevelManager.instance.MinusOneLife();
+        UIHandler.instance.UpdateHealth(health);
+
+        //Only needed during Tutorial Level
+        if (TutorialLevelManager.instance != null)
+        {
+            TutorialLevelManager.instance.attempts++;
+        }
     }
 
     private IEnumerator BecomeInvulnerable()
@@ -166,7 +175,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Coin"))
         {
-            UIHandler.instance.onCoinCollected();
+            UIHandler.instance.OnCoinCollected();
             Destroy(other.gameObject);
         }
 
