@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
@@ -43,5 +44,20 @@ public class UIHandler : MonoBehaviour
     {
         healthpoints.text = health.ToString();
     }
-   
+
+    public void OnNewGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void OnLoadGame()
+    {
+        print("Load Game");
+    }
+
+    public void OnOptions()
+    {
+        print("Options");
+    }
+
 }
