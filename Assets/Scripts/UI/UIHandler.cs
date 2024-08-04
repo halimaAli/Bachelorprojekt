@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,24 +13,53 @@ public class UIHandler : MonoBehaviour
 
     [SerializeField] private GameObject _3DTutorialText;
     [SerializeField] private GameObject _2DTutorialText;
+    [SerializeField] private GameObject pausedScreen;
+
+    private bool paused;
 
     private void Awake()
     {
         if (instance == null) instance = this;
 
         coins = 0;
-      /*  _3DTutorialText.SetActive(false);
-        _2DTutorialText.SetActive(true);*/
+        paused = false;
+        /*  _3DTutorialText.SetActive(false);
+          _2DTutorialText.SetActive(true);*/
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (!paused)
+            {
+                PauseGame();
+            }
+            else
+            {
+                ResumeGame();
+            }
+        }
+    }
+
+    void PauseGame()
+    {
+        Time.timeScale = 0;
+        paused = true;
+        pausedScreen.SetActive(true);
+
+    }
+
+    void ResumeGame()
+    {
+        Time.timeScale = 1;
+        paused = false;
+        pausedScreen.SetActive(false);
     }
 
     public void OnExitClick()
     { 
-    #if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
-    #else
-        Application.Quit(); // original code to quit Unity player
-    #endif
-        
+        SceneManager.LoadScene("Main Menu");
     }
 
     public void OnCoinCollected()
@@ -59,5 +87,4 @@ public class UIHandler : MonoBehaviour
     {
         print("Options");
     }
-
 }
