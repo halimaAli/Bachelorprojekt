@@ -30,7 +30,7 @@ public class MovableBox : MonoBehaviour
         if (Camera.main.orthographic)
         {
             pushDirection.z = 0f;
-           // rb.constraints |= RigidbodyConstraints.FreezePositionZ; // Freeze Z position of the box in 2D mode
+            rb.constraints |= RigidbodyConstraints.FreezePositionZ; // Freeze Z position of the box in 2D mode
         }
         else
         {
