@@ -31,7 +31,7 @@ public class Skeleton : Enemy
         }
         else
         {
-            // Skeleton is Idle for a few seconds
+            // Skeleton is Idle for movementDirection few seconds
             idleTimer += Time.deltaTime;
 
             if (idleTimer >= idleTime)

@@ -19,7 +19,6 @@ public class DetectAndChase : Enemy
 
     protected override void Update()
     {
-       // print("detect: " + detectedPlayer.ToString() + " attacking: " + attacking.ToString());
         base.Update();
 
         if (detectType == DetectType.inDistance)

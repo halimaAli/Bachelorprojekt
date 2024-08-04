@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
             return;
         }
         transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-        _spriteRenderer.flipX = direction < 0;
+        _spriteRenderer.flipX = direction > 0;
     }
 
     protected virtual bool ReturnToOriginalPosition()
@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
         }
 
         transform.position = Vector3.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
-        _spriteRenderer.flipX = direction > 0;
+        _spriteRenderer.flipX = direction < 0;
         return Vector3.Distance(transform.position, originalPosition) < threshold;
     }
 
@@ -108,5 +108,16 @@ public class Enemy : MonoBehaviour
             direction *= -1;
             _spriteRenderer.flipX = direction < 0;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
+        {
+            direction *= -1;
+            _spriteRenderer.flipX = direction < 0;
+        }
+
+
     }
 }
