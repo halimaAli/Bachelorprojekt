@@ -66,8 +66,9 @@ public class JumpAttackState : MonoBehaviour
     {
         Instantiate(hammer, hammerPos.position, hammerPos.rotation);
         direction = player.transform.position - transform.position;
-        //Boss doesn't land exactly on Player but a bit to the left
-        direction.x -= (1 * BossStateController.instance.direction); 
+
+        //Boss doesn't land exactly on Player but movementDirection bit to the left
+        direction.x -= (4 * BossStateController.instance.direction); 
     }
 
     public void OnDashDown()
