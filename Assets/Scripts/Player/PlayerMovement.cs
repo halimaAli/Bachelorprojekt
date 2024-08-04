@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 
@@ -13,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float horizontalInput;
     private float verticalInput;
-    private float walkingSpeed = 5.0f;
+    public float walkingSpeed;
 
     [Header("Jumping")]
     public float jumpForce = 50.0f;
@@ -22,16 +20,10 @@ public class PlayerMovement : MonoBehaviour
     internal bool isJumping;
 
     [Header("GroundCheck")]
-    [SerializeField] private Vector3 boxSize = new Vector3(1.2f,0.2f,0);
-    [SerializeField] private float maxDistance = 1;
-    [SerializeField] private LayerMask groundMask;
-    private bool IsGrounded;
+    private GroundChecker groundChecker;
+    public bool isGrounded;
 
     [Header("Crouching")]
-    private Vector3 crouchedCenter;
-    private Vector3 crouchedSize;
-    private Vector3 standingCenter;
-    private Vector3 standingSize;
     private bool hasDoubleJumped;
     private float lastJumpTime;
     internal bool isSliding;
@@ -42,14 +34,8 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider>();
-        IsGrounded = true;
-
-        //Set Colliders stats for normal and crouched state
-        standingCenter = boxCollider.center;
-        crouchedCenter = new Vector3(standingCenter.x, -0.04298978f, standingCenter.z);
-
-        standingSize = boxCollider.size;
-        crouchedSize = new Vector3(standingSize.x, 0.2340206f, standingSize.z);
+        groundChecker = GetComponent<GroundChecker>();
+        isGrounded = true;
     }
 
     void Update()
@@ -67,36 +53,42 @@ public class PlayerMovement : MonoBehaviour
     private void HandleWalking()
      {
         animator.SetBool("isWalking", Camera.main.orthographic? horizontalInput != 0 : horizontalInput != 0 || verticalInput != 0);
-        if (Input.GetKey(KeyCode.D))
-        {
-            spriteRenderer.flipX = false;
-            PlayerController.instance.direction = 1;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-             spriteRenderer.flipX = true;
-            PlayerController.instance.direction = -1;
-        }
-
-
+        
         if (Camera.main.orthographic)
         {
+            if (horizontalInput > 0)
+            {
+                spriteRenderer.flipX = false;
+                PlayerController.instance.direction = 1;
+            }
+            else if (horizontalInput < 0)
+            {
+                spriteRenderer.flipX = true;
+                PlayerController.instance.direction = -1;
+            }
             transform.Translate(Vector3.right * walkingSpeed * horizontalInput * Time.deltaTime);
         }
         else
         {
-            float wDirection = 1;
-            if (CameraManager.instance.currentCamera.transform.rotation.y > 0)
+            int invert = 1;
+            PlayerController.instance.direction = 1;
+            if (CameraManager.instance.isBackwards3D)
             {
-               wDirection = 1;
+                invert = -1;
+                PlayerController.instance.direction = -1;
             }
-            else
+
+            if (horizontalInput > 0)
             {
-               wDirection = -1;
+                spriteRenderer.flipX = invert < 0;
             }
-            
-            transform.Translate(Vector3.right * walkingSpeed * horizontalInput * Time.deltaTime);
-            transform.Translate(Vector3.forward * walkingSpeed * verticalInput * wDirection * Time.deltaTime);
+            else if (horizontalInput < 0)
+            {
+                spriteRenderer.flipX = invert > 0;
+            }
+
+            transform.Translate(Vector3.right * walkingSpeed * horizontalInput * invert * Time.deltaTime);
+            transform.Translate(Vector3.forward * walkingSpeed * verticalInput * invert * Time.deltaTime);
         }
      }
     #endregion
@@ -105,31 +97,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckIfGrounded()
     {
-
-        // bool grounded = Physics.OverlapSphereNonAlloc(transform.position + new Vector3(0, grounderOffset), grounderRadius, _ground, groundMask) > 0;// allowed wall jumping
-
-        bool grounded = Physics.BoxCast(transform.position, boxSize, Vector3.down, new Quaternion(0, 0, 0, 0), maxDistance,groundMask); 
-
-        if (!IsGrounded && grounded)
+        bool grounded = groundChecker.CheckGround();
+        if (!isGrounded && grounded)
         {
-            IsGrounded = true;
+            isGrounded = true;
             animator.SetBool("isJumping", false);
             animator.SetBool("doubleJump", false);
-            
         }
-        else if (IsGrounded && !grounded) 
+        else if (isGrounded && !grounded)
         {
-            IsGrounded = false;
+            isGrounded = false;
             transform.SetParent(null);
         }
-        
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red; 
-        Gizmos.DrawWireCube(transform.position + Vector3.down * maxDistance, boxSize);
-        Gizmos.DrawWireCube(transform.position + Vector3.up * maxDistance, boxSize);
     }
     #endregion
 
@@ -140,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             float timeSinceLastJump = Time.time - lastJumpTime;
-            if (IsGrounded) //start normal jump
+            if (isGrounded) //start normal jump
             {
                 animator.SetBool("isJumping", true);
                 rb.velocity = Vector3.up * jumpForce;
@@ -162,14 +141,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Fall()
     {
-        //High Jump when  Jump Key is pressed down
+        //High Jump when Jump Key is pressed down
         if (rb.velocity.y < 0)
          {
              animator.SetFloat("yVelocity", rb.velocity.y); //Fall animation transition
              rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier+1) * Time.deltaTime; //increases fall speed
          }
-         //LowJump when Jump Key is pressed once
-         else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && !hasDoubleJumped)
+        //LowJump when Jump Key is pressed once
+        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && !hasDoubleJumped)
          {
              rb.velocity += Vector3.up * Physics.gravity.y * Time.deltaTime;
          }  
@@ -186,12 +165,11 @@ public class PlayerMovement : MonoBehaviour
     #region Crouch
     private void HandleCrouching()
     {
-        // check if there is a smth above the player while crouched
-       bool hitAbove = Physics.BoxCast(transform.position, boxSize, Vector3.up, new Quaternion(0, 0, 0, 0), maxDistance);
+        // check if there is movementDirection smth above the player while crouched
+        bool hitAbove = groundChecker.CheckCeiling();
 
-        if (Input.GetKey(KeyCode.LeftShift) && IsGrounded)
+        if (Input.GetKey(KeyCode.LeftShift) && isGrounded)
         {
-
             isSliding = true;
             bool isMoving;
             if (Camera.main.orthographic)
@@ -202,22 +180,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 isMoving = horizontalInput != 0 || verticalInput != 0;
             }
-
-            HandleSliding(isMoving);
-
-            boxCollider.size = crouchedSize;
-            boxCollider.center = crouchedCenter;
+            HandleSliding(isMoving);   
         }  
         else
         {
             if (!hitAbove)
             {
                 isSliding = false;
-                walkingSpeed = 5.0f;
+              //  walkingSpeed = 5.0f;
                 animator.SetBool("isCrouching", false);
                 animator.SetBool("isSliding", false);
-                boxCollider.size = standingSize;
-                boxCollider.center = standingCenter;
             }
             
         } 
@@ -232,7 +204,5 @@ public class PlayerMovement : MonoBehaviour
             walkingSpeed = 7.0f;
         }
     }
-
-
     #endregion
 }

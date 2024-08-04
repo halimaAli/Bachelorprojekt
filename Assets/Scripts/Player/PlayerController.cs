@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
 
     private Vector3 playerSize = new Vector3(1.5f, 2.3f, 1);
+    [SerializeField] Transform center;
 
     public bool active {get; set;}
     public int direction { get; set; }
@@ -63,9 +64,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void PlaySwitchAnimation()
+    {
+        animator.SetTrigger("Switch");
+    }
+
     private void HandleRespawnPoint()
     {
-        bool hitRespawnPoint = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(playerSize.x / 2, playerSize.y / 2, playerSize.z / 2), respawnPointCollider, new Quaternion(0, 0, 0, 0), respawnPointMask) > 0;
+        bool hitRespawnPoint = Physics.OverlapBoxNonAlloc(center.position, new Vector3(playerSize.x / 2, playerSize.y / 2, playerSize.z / 2), respawnPointCollider, new Quaternion(0, 0, 0, 0), respawnPointMask) > 0;
         if (hitRespawnPoint)
         {
             SetRespawnPoint(new Vector3(respawnPointCollider[0].transform.position.x + 1.5f, transform.position.y, transform.position.z));
@@ -76,8 +82,8 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        //draws a sphere at the feet of player; helpful in scene view
-        Gizmos.DrawWireCube(transform.position, playerSize);
+        //draws movementDirection sphere at the feet of player; helpful in scene view
+        Gizmos.DrawWireCube(center.position, playerSize);
     }
 
     private void MiniJump()
@@ -119,13 +125,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             active = false;
-            animator.SetBool("isHurt", true);
+            animator.SetTrigger("isHit");
         }
     }
 
     public void TakeDamageAnimationEnd()
     {
-        animator.SetBool("isHurt", false);
         UIHandler.instance.UpdateHealth(health);
         active = true;
         StartCoroutine(BecomeInvulnerable());
@@ -138,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
 
         //Set Player Position next to Respawn Point
         transform.position = respawnPoint;
@@ -150,8 +155,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isDead", false);
 
         //Re-Init the Health UI
-        health = 2;
-        UIHandler.instance.UpdateHealth(health);
+        UIHandler.instance.UpdateHealth(maxHealth);
 
         //Only needed during Tutorial Level
         if (TutorialLevelManager.instance != null)
@@ -181,10 +185,19 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag.Equals("ThirdRespawnPoint"))
         {
-           // LevelManager.instance.phase = 4;
             if (!Camera.main.orthographic)
             {
                 CameraManager.instance.Set2DView();
+            }
+        }
+
+        if (other.CompareTag("Health Point"))
+        {
+            if (!(health + 1 > maxHealth))
+            {
+                health++;
+                UIHandler.instance.UpdateHealth(health);
+                Destroy(other.gameObject);
             }
         }
     }

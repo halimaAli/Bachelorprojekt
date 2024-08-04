@@ -6,8 +6,6 @@ public class PlayerCombat : CombatController
 
     private Animator animator;
     private PlayerMovement playerMovement;
-    public float attackTime;
-    public float startTimeAttack;
 
     public Transform[] attackSides;
     private Vector3 attackLocation;
@@ -15,6 +13,8 @@ public class PlayerCombat : CombatController
     public LayerMask enemies;
     private bool isMeleeAttacking;
     private bool isShootAttacking;
+    public GameObject swordSlashPrefab;
+    private GameObject currentSwordSlash;
 
     private void Start()
     {
@@ -56,22 +56,33 @@ public class PlayerCombat : CombatController
 
     public void MeleeAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isMeleeAttacking)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            animator.SetBool("meleeAttack", true);
+            animator.SetTrigger("Melee");
             isMeleeAttacking = true;
+
+            currentSwordSlash = Instantiate(swordSlashPrefab, attackLocation, Quaternion.identity);
+
+            Vector3 scale = currentSwordSlash.transform.localScale;
+            scale.x *= PlayerController.instance.direction < 0 ? -1 : 1;
+            currentSwordSlash.transform.localScale = scale;
         }
     }
 
     public void OnMeleeAttackAnimationComplete()
     {
         isMeleeAttacking = false;
-        animator.SetBool("meleeAttack", false);
+
+        if (currentSwordSlash != null)
+        {
+            Destroy(currentSwordSlash);
+        }
     }
 
     public void CheckIfEnemyIsHit()
     {
         // Detect enemies within the attack range
+        //TODO: add boss
         Collider[] damage = Physics.OverlapSphere(attackLocation, attackRange, enemies);
 
         for (int i = 0; i < damage.Length; i++)

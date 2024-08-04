@@ -98,9 +98,9 @@ public class ProjectileController : MonoBehaviour
         if (type == Type.Player || type == Type.Boss)
         {
             transform.rotation = Quaternion.Euler(0, 90, 0);
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            transform.Translate(Vector3.forward * direction * Time.deltaTime * speed);
         }
-        else //Arrows of Archer Archer have to be rotated and move towards X
+        else //Arrows of Archer have to be rotated and move towards X
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);
             transform.Translate(Vector3.left * Time.deltaTime * speed);
