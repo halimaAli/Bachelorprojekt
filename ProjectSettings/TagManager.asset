@@ -7,12 +7,14 @@ TagManager:
   - ground
   - Enemy
   - RespawnPoint
-  - Pikes
   - Coin
   - ThirdRespawnPoint
   - Wall
   - One Way Platform
   - Boss
+  - WaveSpawner
+  - Lava
+  - Health Point
   layers:
   - Default
   - TransparentFX
