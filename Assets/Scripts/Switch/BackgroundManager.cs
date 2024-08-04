@@ -4,7 +4,7 @@ public class BackgroundManager : MonoBehaviour
 {
     [SerializeField] private GameObject bg2D;
     [SerializeField] private GameObject bg3D;
-    [SerializeField] private GameObject bushes3D;
+    [SerializeField] private GameObject decoration3D;
 
     // Update is called once per frame
     void Update()
@@ -13,12 +13,13 @@ public class BackgroundManager : MonoBehaviour
         {
             bg2D.SetActive(true);
             bg3D.SetActive(false);
-            bushes3D.SetActive(false);
+            if (decoration3D != null) { decoration3D.SetActive(false); }
         } else
         {
             bg2D.SetActive(false);
             bg3D.SetActive(true);
-            bushes3D.SetActive(true);
+            if (decoration3D != null) { decoration3D.SetActive(true); }
+            
         }
     }
 }

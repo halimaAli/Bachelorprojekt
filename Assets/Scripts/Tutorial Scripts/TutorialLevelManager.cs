@@ -11,6 +11,8 @@ public class TutorialLevelManager : MonoBehaviour
     [SerializeField] private TMP_Text killText;
     [SerializeField] private GameObject _2DText;
     [SerializeField] private GameObject _3DText;
+    [SerializeField] private GameObject mushroom;
+    [SerializeField] private GameObject hiddenBarrier;
 
     public Section section = Section.None;
     public int attempts;
@@ -22,11 +24,11 @@ public class TutorialLevelManager : MonoBehaviour
         Monster
     }
 
-    private void Awake()
+    private void Start()
     {
         if (instance == null) { instance = this; };
-        PlayerController.instance.health = 3;
-        CameraManager.instance.allowViewModeChange = true;
+        PlayerController.instance.health = 10;
+       // CameraManager.instance.DisableViewSwitch();
     }
 
     private void Update()
@@ -101,6 +103,11 @@ public class TutorialLevelManager : MonoBehaviour
         {
             CameraManager.instance.allowViewModeChange = false;
             killText.text = "Nope, I won't let you change the perspective.";
+        }
+
+        if (mushroom == null)
+        {
+            hiddenBarrier.SetActive(false);
         }
 
     }

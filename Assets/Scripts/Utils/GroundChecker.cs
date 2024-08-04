@@ -15,6 +15,11 @@ public class GroundChecker : MonoBehaviour
         return Physics.BoxCast(center.position, boxSize, Vector3.down, Quaternion.identity, maxDistance, groundMask);
     }
 
+    public bool CheckCeiling()
+    {
+        return Physics.BoxCast(transform.position, boxSize, Vector3.up, new Quaternion(0, 0, 0, 0), maxDistance);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

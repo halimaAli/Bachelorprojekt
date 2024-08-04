@@ -8,30 +8,39 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera _2DCamera;
     [SerializeField] private CinemachineVirtualCamera[] _3DCameras;
+    [SerializeField] private SwitchTimer _switchTimer;
 
     private int _3DCameraIndex = 1;
     public CinemachineVirtualCamera currentCamera;
+    public bool isBackwards3D = false;
+
+
 
     // used in LevelManagers; decides if the player can control the view mode
-    public bool allowViewModeChange = true;
+    public bool allowViewModeChange;
 
     private void Awake()
     {
         instance = this;
         currentCamera = _2DCamera;
+        allowViewModeChange = true;
+        
     }
 
     private void Update()
     {
+        _switchTimer.TurnTimerOff();
         if (Input.GetKeyUp(KeyCode.Q) && allowViewModeChange)
         {
             if (currentCamera == _2DCamera)
             {
                 Set3DView();
+                PlayerController.instance.PlaySwitchAnimation();
             }
             else
             {
                 Set2DView();
+                PlayerController.instance.PlaySwitchAnimation();
             }
         }
     }
@@ -41,6 +50,7 @@ public class CameraManager : MonoBehaviour
         Camera.main.orthographic = false;
         _2DCamera.Priority = 0;
         StartCoroutine(Activate3DCameras());
+        _switchTimer.is3DViewActive = true;
     }
 
     public void Set2DView()
@@ -52,6 +62,8 @@ public class CameraManager : MonoBehaviour
             camera.Priority = 0;
         }
         currentCamera = _2DCamera;
+        _switchTimer.is3DViewActive = false;
+        _switchTimer.isOnCoolDown = true;
     }
 
     public void Switch3DCameraDirection(int cameraIndex)
@@ -73,5 +85,16 @@ public class CameraManager : MonoBehaviour
             PlayerController.instance.active = true;
             currentCamera = _3DCameras[_3DCameraIndex];
         }
+    }
+
+    public void DisableViewSwitch()
+    {
+        allowViewModeChange = false;
+        _switchTimer.TurnTimerOff();
+    } 
+
+    public void Set2DCamera(CinemachineVirtualCamera camera)
+    {
+        _2DCamera = camera;
     }
 }

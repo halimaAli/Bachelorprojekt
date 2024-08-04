@@ -14,9 +14,18 @@ public class OneWayCollider : MonoBehaviour
 
     private void Update()
     {
+        if (!Camera.main.orthographic)
+        {
+            OneWayTrigger.enabled = false;
+            return;
+        } 
+        else
+        {
+            OneWayTrigger.enabled = true;
+        }
+
         if (playerIsOnPlatform && Input.GetKeyDown(KeyCode.LeftShift))
         {
-            print(gameObject.name);
             boxCollider.enabled = false;
             playerIsOnPlatform = false;
             StartCoroutine(EnableColldier());
@@ -25,7 +34,7 @@ public class OneWayCollider : MonoBehaviour
 
     private IEnumerator EnableColldier()
     {
-        yield return new WaitForSeconds(0.5f); //maybe a bit shorter duration
+        yield return new WaitForSeconds(0.5f); //maybe movementDirection bit shorter duration
         boxCollider.enabled = true;
         playerIsOnPlatform = true;
     }
@@ -41,7 +50,6 @@ public class OneWayCollider : MonoBehaviour
     }
 
     //checks if player is on the platform
-
     private void OnCollisionEnter(Collision collision)
     {
         playerIsOnPlatform = true;

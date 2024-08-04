@@ -9,6 +9,7 @@ public class Control3DCameras : MonoBehaviour
         if (other.gameObject.tag.Equals("Player"))
         {
             CameraManager.instance.Switch3DCameraDirection(0);
+            CameraManager.instance.isBackwards3D = true;
         }
     }
 
@@ -17,6 +18,7 @@ public class Control3DCameras : MonoBehaviour
         if (other.gameObject.tag.Equals("Player"))
         {
             CameraManager.instance.Switch3DCameraDirection(1);
+            CameraManager.instance.isBackwards3D = false;
         }
     }
 }

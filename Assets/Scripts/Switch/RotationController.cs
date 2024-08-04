@@ -28,4 +28,9 @@ public class RotationController : MonoBehaviour
             is2D = false;
         }
     }
+
+    public void SetNewZPos2D(float zPos)
+    {
+        defaultZPos2D = zPos;
+    }
 }

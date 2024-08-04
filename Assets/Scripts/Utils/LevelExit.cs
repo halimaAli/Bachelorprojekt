@@ -17,8 +17,10 @@ public class LevelExit : MonoBehaviour
 
     private void Update()
     {
+        
         if (enterAllowed && Input.GetKeyDown(KeyCode.Return))
         {
+            print("loading");
             if (string.IsNullOrEmpty(nextLevel))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -38,6 +40,7 @@ public class LevelExit : MonoBehaviour
                 toolTip.SetActive(true);
             }
             enterAllowed = true;
+            
         }
     }
 
