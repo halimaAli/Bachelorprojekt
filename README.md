@@ -2,7 +2,7 @@
 
 This project is developed as part of my Bachelor's degree.
 ![Main Menu](https://github.com/user-attachments/assets/97b5b64a-6670-47ef-8180-27cc521a1eeb)
-
+(Background: [Dark tower](https://www.deviantart.com/aleha84/art/Dark-tower-in-the-sky-912112799))
 ## Overview
 
 **The Path of Nexus** is an engaging jump-and-run platformer that combines traditional platforming with unique perspective-shifting mechanics. Players navigate through a mysterious tower, solving puzzles and battling enemies by switching between 2D and 3D views.
