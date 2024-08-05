@@ -136,7 +136,7 @@ Rigidbody:
   m_GameObject: {fileID: 6148625986171172765}
   serializedVersion: 4
   m_Mass: 2
-  m_Drag: 0.5
+  m_Drag: 0.8
   m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -173,8 +173,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.19521935, y: 0.3215279, z: 0.2}
-  m_Center: {x: -0.007686326, y: 0.16, z: 0}
+  m_Size: {x: 0.20021565, y: 0.31795928, z: 0.2}
+  m_Center: {x: -0.012325705, y: 0.15893696, z: 0}
 --- !u!95 &9163940738831370737
 Animator:
   serializedVersion: 5
@@ -244,6 +244,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   health: 10
+  knockback: 200
   healthBar: {fileID: 0}
 --- !u!114 &8492394563598572887
 MonoBehaviour:
@@ -259,8 +260,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalInput: 0
   walkingSpeed: 7.5
-  jumpForce: 10
-  fallMultiplier: 3.5
+  jumpForce: 11
+  fallMultiplier: 4
   lowJumpMultiplier: 3
   isGrounded: 0
 --- !u!114 &3855262293695123145
@@ -281,7 +282,7 @@ MonoBehaviour:
   attackSides:
   - {fileID: 6774296860585029382}
   - {fileID: 5039527238023047612}
-  attackRange: 0.84
+  attackRange: 1
   enemies:
     serializedVersion: 2
     m_Bits: 64
@@ -311,7 +312,7 @@ Transform:
   m_GameObject: {fileID: 6749066343699328762}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.173, y: 0.213, z: 0}
+  m_LocalPosition: {x: 0.29, y: 0.213, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -373,7 +374,7 @@ Transform:
   m_GameObject: {fileID: 7888928748023182130}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.173, y: 0.21300015, z: 0}
+  m_LocalPosition: {x: -0.29, y: 0.21300015, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

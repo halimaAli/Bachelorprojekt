@@ -32,13 +32,16 @@ public class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         distance = Vector3.Distance(transform.position, player.position + new Vector3(0, 1, 0));
+    }
 
+    public void FaceDirection(Vector3 pos)
+    {
         // Determine the direction to face the player
-        if (player.position.x > transform.position.x && direction < 0)
+        if (pos.x > transform.position.x && direction < 0)
         {
             Flip();
         }
-        else if (player.position.x < transform.position.x && direction > 0)
+        else if (pos.x < transform.position.x && direction > 0)
         {
             Flip();
         }
@@ -58,7 +61,8 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-        transform.position = Vector3.MoveTowards(transform.position, player.position + new Vector3(0, 1, 0), speed * Time.deltaTime);
+        FaceDirection(player.position);
+        transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
         _animator.SetBool("isWalking", true);
     }
 
@@ -68,7 +72,7 @@ public class Enemy : MonoBehaviour
         {
             return false;
         }
-
+        FaceDirection(originalPosition);
         transform.position = Vector3.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
         return Vector3.Distance(transform.position, originalPosition) < threshold;
     }
@@ -87,7 +91,7 @@ public class Enemy : MonoBehaviour
     {
         attacking = false;
         Vector3 knockbackDirection = _spriteRenderer.flipX ? Vector3.right : Vector3.left;
-        _rb.AddForce((knockbackDirection + Vector3.up) * knockback);
+        _rb.AddForce((knockbackDirection / 2 + Vector3.up / 2) * knockback);
     }
 
     protected void Flip()

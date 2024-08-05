@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5878039511706198317}
   m_Layer: 0
-  m_Name: Mushroom 1
+  m_Name: Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3914983825359057637}
   - component: {fileID: 6239879487237230705}
   - component: {fileID: 5100835874617796373}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: DetectPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ Transform:
   m_GameObject: {fileID: 5632041520083603520}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.9105473, y: -3.1602392, z: 0.36987543}
+  m_LocalPosition: {x: -5.9105473, y: -3, z: 0.36987543}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   detectionRange: 0
-  attackRange: 3
+  attackRange: 2.5
   detectType: 0
 --- !u!114 &7000796630569278282
 MonoBehaviour:
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 5479034499538658642}
-  maxHealth: 3
+  maxHealth: 5
 --- !u!1001 &1435295309120437702
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -200,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   detectionRange: 50
-  attackRange: 2
+  attackRange: 2.2
   detectType: 1
 --- !u!114 &3265773727202435980
 MonoBehaviour:
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 2220889790074695860}
-  maxHealth: 2
+  maxHealth: 3
 --- !u!1001 &4697376305879279648
 PrefabInstance:
   m_ObjectHideFlags: 0

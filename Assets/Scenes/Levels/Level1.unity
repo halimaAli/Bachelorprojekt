@@ -448,9 +448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988b92e880e2c874886e24bbc9c640aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fire: {fileID: 779362811}
-  speed: 0
-  animator: {fileID: 0}
 --- !u!65 &10340566
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15494,6 +15491,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 926338815}
+    - target: {fileID: 2011190838439333245, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
+      propertyPath: knockback
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 6148625986171172765, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
       propertyPath: m_Name
       value: Player
@@ -17376,9 +17377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988b92e880e2c874886e24bbc9c640aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fire: {fileID: 1301815215}
-  speed: 0
-  animator: {fileID: 0}
 --- !u!1 &480602115
 GameObject:
   m_ObjectHideFlags: 0
@@ -80030,9 +80028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988b92e880e2c874886e24bbc9c640aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fire: {fileID: 256714743}
-  speed: 0
-  animator: {fileID: 0}
 --- !u!65 &2091456591
 BoxCollider:
   m_ObjectHideFlags: 0
