@@ -1,11 +1,12 @@
 using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerCombat : CombatController
 {
-
     private Animator animator;
     private PlayerMovement playerMovement;
+    private PlayerController playerController;
 
     public Transform[] attackSides;
     private Vector3 attackLocation;
@@ -20,13 +21,14 @@ public class PlayerCombat : CombatController
     {
         animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
+        playerController = GetComponent<PlayerController>();
     }
 
     void Update()
     {
-        if (!PlayerController.instance.active || playerMovement.isSliding) return;
+        if (!playerController.active || playerMovement.isSliding) return;
 
-        if (PlayerController.instance.direction < 0)
+        if (playerController.direction < 0)
         {
             attackLocation = attackSides[0].position;
         } else
@@ -56,28 +58,36 @@ public class PlayerCombat : CombatController
 
     public void MeleeAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !isMeleeAttacking)
         {
             animator.SetTrigger("Melee");
             isMeleeAttacking = true;
-
-            currentSwordSlash = Instantiate(swordSlashPrefab, attackLocation, Quaternion.identity);
-
-            Vector3 scale = currentSwordSlash.transform.localScale;
-            scale.x *= PlayerController.instance.direction < 0 ? -1 : 1;
-            currentSwordSlash.transform.localScale = scale;
+            playerMovement.enabled = false; //Disable movement during melee attack
         }
+    }
+
+
+    public void Slash()
+    {
+        float attackDirection = PlayerController.instance.direction < 0 ? -1 : 1;
+        currentSwordSlash = Instantiate(swordSlashPrefab, attackLocation, Quaternion.identity);
+
+        Vector3 scale = currentSwordSlash.transform.localScale;
+        scale.x *= attackDirection;
+        currentSwordSlash.transform.localScale = scale;
     }
 
     public void OnMeleeAttackAnimationComplete()
     {
         isMeleeAttacking = false;
+        playerMovement.enabled = true; //Reenable movement after melee attack
 
         if (currentSwordSlash != null)
         {
             Destroy(currentSwordSlash);
         }
     }
+
 
     public void CheckIfEnemyIsHit()
     {

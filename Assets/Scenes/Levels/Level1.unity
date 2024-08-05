@@ -450,6 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fire: {fileID: 779362811}
   speed: 0
+  animator: {fileID: 0}
 --- !u!65 &10340566
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -541,7 +542,7 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &10340569
@@ -2322,7 +2323,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -4586,7 +4587,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -4790,7 +4791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4189457036960757190, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7955704705076738686, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7266,6 +7267,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 710280678}
     m_Modifications:
+    - target: {fileID: 5647455287090131283, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1763251433}
     - target: {fileID: 6722438177362226139, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
       propertyPath: m_Name
       value: 2x2 Cube (8)
@@ -7541,7 +7546,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -8864,7 +8869,7 @@ SpriteRenderer:
   m_Size: {x: 0.1, y: 0.14}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &256714746
@@ -9015,7 +9020,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -11428,7 +11433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4189457036960757190, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7955704705076738686, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_LocalScale.x
@@ -11585,6 +11590,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 710280678}
     m_Modifications:
+    - target: {fileID: 5647455287090131283, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1763251433}
     - target: {fileID: 6722438177362226139, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
       propertyPath: m_Name
       value: 2x2 Cube (5)
@@ -13774,6 +13783,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 710280678}
     m_Modifications:
+    - target: {fileID: 5647455287090131283, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1763251433}
     - target: {fileID: 6722438177362226139, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
       propertyPath: m_Name
       value: 2x2 Cube (4)
@@ -16533,7 +16546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4189457036960757190, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7955704705076738686, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_LocalScale.x
@@ -17332,7 +17345,7 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &480159310
@@ -17365,6 +17378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fire: {fileID: 1301815215}
   speed: 0
+  animator: {fileID: 0}
 --- !u!1 &480602115
 GameObject:
   m_ObjectHideFlags: 0
@@ -20030,7 +20044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4189457036960757190, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7955704705076738686, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23675,7 +23689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4189457036960757190, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7955704705076738686, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27336,7 +27350,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -27834,7 +27848,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -28600,7 +28614,7 @@ SpriteRenderer:
   m_Size: {x: 0.1, y: 0.14}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &779362814
@@ -48115,7 +48129,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -48381,7 +48395,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -49346,7 +49360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4189457036960757190, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7955704705076738686, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49461,6 +49475,10 @@ PrefabInstance:
     - target: {fileID: 4189457036960757190, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_Name
       value: Flying Beast
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189457036960757190, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7955704705076738686, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49660,7 +49678,7 @@ SpriteRenderer:
   m_Size: {x: 0.1, y: 0.14}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1301815218
@@ -52713,6 +52731,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 710280678}
     m_Modifications:
+    - target: {fileID: 5647455287090131283, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1763251433}
     - target: {fileID: 6722438177362226139, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
       propertyPath: m_Name
       value: 2x2 Cube (1)
@@ -53696,7 +53718,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -60837,7 +60859,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4189457036960757190, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7955704705076738686, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62686,6 +62708,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 710280678}
     m_Modifications:
+    - target: {fileID: 5647455287090131283, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1763251433}
     - target: {fileID: 6722438177362226139, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
       propertyPath: m_Name
       value: 2x2 Cube
@@ -68544,6 +68570,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 710280678}
     m_Modifications:
+    - target: {fileID: 5647455287090131283, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1763251433}
     - target: {fileID: 6722438177362226139, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
       propertyPath: m_Name
       value: 2x2 Cube (2)
@@ -69365,7 +69395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4189457036960757190, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7955704705076738686, guid: e33cc7c28edfbc24e9d1b9968a7958c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -71283,7 +71313,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -78242,6 +78272,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 710280678}
     m_Modifications:
+    - target: {fileID: 5647455287090131283, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1763251433}
     - target: {fileID: 6722438177362226139, guid: 728f06c74cfe7e443abdcea00f5725a6, type: 3}
       propertyPath: m_Name
       value: 2x2 Cube (6)
@@ -79998,6 +80032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fire: {fileID: 256714743}
   speed: 0
+  animator: {fileID: 0}
 --- !u!65 &2091456591
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80089,7 +80124,7 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &2091456594
@@ -82382,7 +82417,7 @@ MonoBehaviour:
   m_Follow: {fileID: 806820879}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.5
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
