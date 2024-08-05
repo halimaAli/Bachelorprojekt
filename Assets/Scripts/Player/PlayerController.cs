@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
         transform.position = Vector3.Lerp(new Vector3(transform.position.x, 1, transform.position.z), transform.position, Time.deltaTime);
     }
 
-    private void FallBack()
+    public void FallBack()
     {
         if (rend.flipX) //if Player if facing left -> knockback to the right
         {
@@ -108,16 +108,14 @@ public class PlayerController : MonoBehaviour
         active = false;
         Physics.IgnoreLayerCollision(3, 6, true);
         animator.SetBool("isDead", true);
-        if (!falling)
-        {
-           FallBack();
-        }
         StartCoroutine(Respawn());
     }
 
     public void TakeDamage()
     {
         health--;
+        FallBack();
+
         if (health <= 0)
         {
             Die(false);
@@ -127,6 +125,8 @@ public class PlayerController : MonoBehaviour
             active = false;
             animator.SetTrigger("isHit");
         }
+
+        
     }
 
     public void TakeDamageAnimationEnd()
