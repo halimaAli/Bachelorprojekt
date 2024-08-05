@@ -1,4 +1,4 @@
-# The Path of Nexus
+# The Path of Nexus (Work in Progress)
 
 This project is developed as part of my Bachelor's degree.
 ![Main Menu](https://github.com/user-attachments/assets/97b5b64a-6670-47ef-8180-27cc521a1eeb)
