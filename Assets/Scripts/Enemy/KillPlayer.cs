@@ -39,7 +39,7 @@ public class KillPlayer : MonoBehaviour
             {
                 player.Die(false);
                 return;
-            }
+            } 
 
             player.TakeDamage();
         }

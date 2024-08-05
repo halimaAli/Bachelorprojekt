@@ -5,6 +5,7 @@ public class HealthController : MonoBehaviour
 {
     [SerializeField] Image healthBar;
     [SerializeField] private int maxHealth;
+    private Enemy enemy;
      private int health;
 
     private Animator _animator;
@@ -12,13 +13,13 @@ public class HealthController : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        enemy = GetComponent<Enemy>();
         health = maxHealth;
     }
 
     void Update()
     {
         healthBar.fillAmount = Mathf.Clamp((float)health / maxHealth, 0, 1);
-        //print(healthBar.fillAmount + " health: " + health + "(float)health / maxHealth: " + (float)health / maxHealth);
     }
 
     public void TakeDamage()
@@ -32,6 +33,7 @@ public class HealthController : MonoBehaviour
         else
         {
             _animator.SetTrigger("isHit");
+            enemy.Knockback();
         }
     }
 

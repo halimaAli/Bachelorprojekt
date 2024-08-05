@@ -11,6 +11,7 @@ public class KillEnemy : MonoBehaviour
         {
             enemy.TakeDamage();
             Destroy(gameObject);
+
         }
         else if (boss1 != null)
         {
@@ -23,15 +24,5 @@ public class KillEnemy : MonoBehaviour
             Destroy(gameObject); 
         }         
     }
-
-   /* private void OnCollisionEnter(Collision collision)
-    {
-        var enemy = collision.collider.GetComponent<EnemyController>();
-
-        if (enemy != null)
-        {
-            enemy.TakeDamage();
-        }
-    }*/
 }
  

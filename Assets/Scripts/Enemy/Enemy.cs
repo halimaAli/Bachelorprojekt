@@ -4,23 +4,26 @@ public class Enemy : MonoBehaviour
 {
     protected Animator _animator;
     protected SpriteRenderer _spriteRenderer;
+    private Rigidbody _rb;
 
     [Header("Settings")]
     [SerializeField] protected int speed;
-
     protected Transform player;
+
     protected Vector3 originalPosition;
     protected float distance;
-    protected int direction = 1; //facing direction
+    protected int direction = 1; // facing direction
     protected float threshold = .4f;
     protected bool attacking;
     protected bool detectedPlayer;
     protected float range;
+    private float knockback = 200;
 
     public virtual void Start()
     {
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _rb = GetComponent<Rigidbody>();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         originalPosition = transform.position;
@@ -28,7 +31,17 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        distance = Vector3.Distance(transform.position, player.position);
+        distance = Vector3.Distance(transform.position, player.position + new Vector3(0, 1, 0));
+
+        // Determine the direction to face the player
+        if (player.position.x > transform.position.x && direction < 0)
+        {
+            Flip();
+        }
+        else if (player.position.x < transform.position.x && direction > 0)
+        {
+            Flip();
+        }
     }
 
     #region Basic Movement
@@ -45,8 +58,8 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-        transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-        _spriteRenderer.flipX = direction > 0;
+        transform.position = Vector3.MoveTowards(transform.position, player.position + new Vector3(0, 1, 0), speed * Time.deltaTime);
+        _animator.SetBool("isWalking", true);
     }
 
     protected virtual bool ReturnToOriginalPosition()
@@ -57,7 +70,6 @@ public class Enemy : MonoBehaviour
         }
 
         transform.position = Vector3.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
-        _spriteRenderer.flipX = direction < 0;
         return Vector3.Distance(transform.position, originalPosition) < threshold;
     }
 
@@ -65,10 +77,23 @@ public class Enemy : MonoBehaviour
     {
         _animator.SetBool("isWalking", false);
     }
-   
+
     protected virtual void Idle()
     {
         _animator.SetBool("isWalking", false);
+    }
+
+    public void Knockback()
+    {
+        attacking = false;
+        Vector3 knockbackDirection = _spriteRenderer.flipX ? Vector3.right : Vector3.left;
+        _rb.AddForce((knockbackDirection + Vector3.up) * knockback);
+    }
+
+    protected void Flip()
+    {
+        direction *= -1;
+        _spriteRenderer.flipX = direction < 0;
     }
     #endregion
 
@@ -91,7 +116,7 @@ public class Enemy : MonoBehaviour
 
     public void CheckIfPlayerWasHit()
     {
-        distance = Vector3.Distance(player.position, transform.position);
+        distance = Vector3.Distance(player.position + new Vector3(0, 1, 0), transform.position);
         if (distance <= range + threshold)
         {
             PlayerController.instance.TakeDamage();
@@ -105,8 +130,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Wall"))
         {
-            direction *= -1;
-            _spriteRenderer.flipX = direction < 0;
+            Flip();
         }
     }
 
@@ -114,10 +138,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
         {
-            direction *= -1;
-            _spriteRenderer.flipX = direction < 0;
+            Flip();
         }
-
-
     }
 }

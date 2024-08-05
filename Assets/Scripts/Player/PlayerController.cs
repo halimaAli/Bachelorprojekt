@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer rend;
     private Color color;
 
-    private int knockback = 900;
+    [SerializeField] private int knockback = 900;
     private int maxHealth = 10;
     [SerializeField] private Image healthBar;
 
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
         transform.position = Vector3.Lerp(new Vector3(transform.position.x, 1, transform.position.z), transform.position, Time.deltaTime);
     }
 
-    public void FallBack()
+    public void Knockback()
     {
         if (rend.flipX) //if Player if facing left -> knockback to the right
         {
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage()
     {
         health--;
-        FallBack();
+        Knockback();
 
         if (health <= 0)
         {
