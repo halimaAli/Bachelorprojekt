@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     protected float range;
     private float knockback = 200;
 
+
     public virtual void Start()
     {
         _animator = GetComponent<Animator>();
@@ -115,6 +116,7 @@ public class Enemy : MonoBehaviour
     protected virtual void Attack()
     {
         attacking = true;
+
         _animator.SetTrigger("Attack");
     }
 

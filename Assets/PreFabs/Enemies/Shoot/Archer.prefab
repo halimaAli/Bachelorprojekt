@@ -98,9 +98,9 @@ GameObject:
   - component: {fileID: 2916699198763784787}
   - component: {fileID: 8477708928935515027}
   - component: {fileID: 6578532160791266525}
-  - component: {fileID: 643204299074470691}
   - component: {fileID: 8231026509636672822}
   - component: {fileID: 5426182828503228761}
+  - component: {fileID: 7954835198674593178}
   m_Layer: 6
   m_Name: Archer
   m_TagString: Enemy
@@ -166,7 +166,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1686188055, guid: 12e540205218052429bcec1d2c15025e, type: 3}
+  m_Sprite: {fileID: 786069026, guid: 214ddaf22b50bbd4e99fa2eeb0bd91eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -217,8 +217,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.29258257, y: 0.3652467, z: 0.2}
-  m_Center: {x: 0.07541038, y: -0.041736048, z: 0}
+  m_Size: {x: 0.26290137, y: 0.3652467, z: 0.2}
+  m_Center: {x: 0.020994484, y: -0.041736048, z: 0}
 --- !u!114 &8477708928935515027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db6af44e237d304ba080e4577a9eb18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  damageType: 2
 --- !u!54 &6578532160791266525
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -259,21 +259,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &643204299074470691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7657929326128058061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c3fcc6fdc408d4da593376caa74430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 3635031600081263408, guid: 493edf6734a466142a26cae0e959f6c3, type: 3}
-  projectilePosition: {fileID: 6867514275595524974}
-  active: 1
 --- !u!114 &8231026509636672822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +285,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 4607327340337102206}
   maxHealth: 2
+--- !u!114 &7954835198674593178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657929326128058061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 552f1d448eb93ec43bc3128e709e54aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  enemyPosition: 1
+  projectilePrefab: {fileID: 3635031600081263408, guid: c49007cf27f911948aba93205bc90961, type: 3}
+  shootCooldown: 2
+  detectionRadius: 10
 --- !u!1001 &6922809353485952490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -374,7 +376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8351154443607754661, guid: e68ad37d059c21e4dbe6ec5387e326b1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.092
+      value: -0.002
       objectReference: {fileID: 0}
     - target: {fileID: 8351154443607754661, guid: e68ad37d059c21e4dbe6ec5387e326b1, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -2,50 +2,82 @@ using UnityEngine;
 
 public class KillPlayer : MonoBehaviour
 {
-    [SerializeField] private Type type;
-    private enum Type
+    [SerializeField] private DamageType damageType;
+
+    private Animator _animator;
+
+    private enum DamageType
     {
-        Projectile,
-        Boss_Hammer,
+        InstantDeath,
+        DestructibleProjectile,
         Enemy,
-        Lava
+        AnimatedProjectile
     }
 
-    private void OnCollisionEnter(Collision collision) // player collides with enemy
+    private void Start()
     {
-        var player = collision.collider.GetComponent<PlayerController>();
+        if (damageType == DamageType.AnimatedProjectile)
+        {
+            _animator = GetComponent<Animator>();
+        }
+    }
 
-        if (player != null )
+    private void HandlePlayerCollision(PlayerController player)
+    {
+        if (damageType == DamageType.InstantDeath)
+        {
+            player.Die(false);
+        }
+        else
         {
             player.TakeDamage();
         }
     }
 
-    private void OnTriggerEnter(Collider other) // player collides with projectile (e.g. arrow)
+    private void OnCollisionEnter(Collision collision) // Player collides with enemy
+    {
+        var player = collision.collider.GetComponent<PlayerController>();
+
+        if (player != null && damageType == DamageType.Enemy)
+        {
+            HandlePlayerCollision(player);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) // Player collides with projectile
     {
         var player = other.GetComponent<PlayerController>();
 
         if (player != null)
         {
-            if (type == Type.Projectile)
-            {
-                Destroy(gameObject);
-            }
-            else if (other.tag.Equals("Boss") && type == Type.Boss_Hammer)
-            {
-                Destroy(gameObject);
-            }
-            else if (type == Type.Lava)
-            {
-                player.Die(false);
-                return;
-            } 
+            HandlePlayerCollision(player);
 
-            player.TakeDamage();
+            // For projectiles, destroy immediately if they are destructible or animated
+            if (damageType == DamageType.DestructibleProjectile || damageType == DamageType.AnimatedProjectile)
+            {
+                PlayAnimationAndDestroy();
+            }
         }
-
-       
+        else if (damageType == DamageType.AnimatedProjectile && other.CompareTag("ground"))
+        {
+            PlayAnimationAndDestroy();
+        }
     }
 
+    private void PlayAnimationAndDestroy()
+    {
+        if (_animator != null)
+        {
+            _animator.SetTrigger("Destroyed");
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
 }
