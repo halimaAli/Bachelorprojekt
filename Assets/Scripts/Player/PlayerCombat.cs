@@ -1,5 +1,4 @@
-using System;
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 
 public class PlayerCombat : CombatController
@@ -75,6 +74,10 @@ public class PlayerCombat : CombatController
         Vector3 scale = currentSwordSlash.transform.localScale;
         scale.x *= attackDirection;
         currentSwordSlash.transform.localScale = scale;
+
+        Quaternion rotation = currentSwordSlash.transform.rotation;
+        rotation.y = transform.rotation.y;
+        currentSwordSlash.transform.rotation = rotation;
     }
 
     public void OnMeleeAttackAnimationComplete()

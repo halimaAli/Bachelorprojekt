@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        direction = rend.flipX? -1 : 1;
+
         HandleRespawnPoint();
         healthBar.fillAmount = Mathf.Clamp((float)health / maxHealth, 0, 1);
 
