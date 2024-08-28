@@ -29,18 +29,18 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        _switchTimer.TurnTimerOff();
+       // _switchTimer.TurnTimerOff();
         if (Input.GetKeyUp(KeyCode.Q) && allowViewModeChange)
         {
             if (currentCamera == _2DCamera)
             {
                 Set3DView();
-                PlayerController.instance.PlaySwitchAnimation();
+                PlayerController.instance.PlaySwitchAnimation(true);
             }
             else
             {
                 Set2DView();
-                PlayerController.instance.PlaySwitchAnimation();
+                PlayerController.instance.PlaySwitchAnimation(false);
             }
         }
     }

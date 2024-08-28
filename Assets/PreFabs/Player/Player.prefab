@@ -246,6 +246,8 @@ MonoBehaviour:
   health: 10
   knockback: 200
   healthBar: {fileID: 0}
+  _2DTo3D: {fileID: 8300000, guid: 53e36dbbe9a41b24ab1feb601810613a, type: 3}
+  _3DTo2D: {fileID: 8300000, guid: 6c36ae9f274f91e41ba6f32514f1a846, type: 3}
 --- !u!114 &8492394563598572887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,6 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b73cec1c0e1a344aba6120e3ff2b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpingSound: {fileID: 8300000, guid: 8eafe759b23489f4ea0ac1c73b61dbc7, type: 3}
+  landingSound: {fileID: 8300000, guid: eddd1bad69ddc754b81411f42bca60ff, type: 3}
   horizontalInput: 0
   walkingSpeed: 7.5
   jumpForce: 11
@@ -287,6 +291,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   swordSlashPrefab: {fileID: 8486704796843413794, guid: 905844dc9d6a9ab41a489fb5a19bdb40, type: 3}
+  swordSoundClip: {fileID: 8300000, guid: 6022edac613347a4788842a66bcd4409, type: 3}
 --- !u!1 &6749066343699328762
 GameObject:
   m_ObjectHideFlags: 0
