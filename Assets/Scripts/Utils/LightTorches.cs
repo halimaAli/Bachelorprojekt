@@ -1,18 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LightTorches : MonoBehaviour
+public class LightTorches : MonoBehaviour, IDataPersistence
 {
-    private Animator ani;
+    private Animator _animator;
+    private bool lighted = false;
+
+    [SerializeField] private string id;
+
+    [ContextMenu("Generate guid for id")]
+    private void GenerateGuid()
+    {
+        id = System.Guid.NewGuid().ToString();
+    }
 
     private void Awake()
     {
-        ani = GetComponentInChildren<Animator>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        ani.SetBool("on", true);
+        _animator.SetBool("on", true);
+        lighted = true;
+    }
+
+    public void LoadData(GameData data)
+    {
+        data.spawnPointReached.TryGetValue(id, out lighted);
+        if (lighted)
+        {
+            _animator.SetBool("on", true);
+        }
+    }
+
+    public void SaveData(GameData data)
+    {
+        if (data.spawnPointReached.ContainsKey(id))
+        {
+            data.spawnPointReached.Remove(id);
+        }
+        data.spawnPointReached.Add(id, lighted);
     }
 }

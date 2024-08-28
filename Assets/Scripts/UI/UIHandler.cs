@@ -1,3 +1,5 @@
+using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,32 +8,45 @@ public class UIHandler : MonoBehaviour
 {
     public static UIHandler instance;
 
-    [SerializeField] private Text amountOfCoins;
-    private int coins;
+    [Header("UI Elements")]
+    [SerializeField] private Text amountOfCoinsText;
+    [SerializeField] private Text healthPointsText;
 
-    [SerializeField] private Text healthpoints;
+    [Header("Menu Navigation")]
+    [SerializeField] private SaveSlotsMenu saveSlotsMenu;
+    [SerializeField] private GameObject mainMenu;
 
-    [SerializeField] private GameObject _3DTutorialText;
-    [SerializeField] private GameObject _2DTutorialText;
-    [SerializeField] private GameObject pausedScreen;
+   [Header("Pause Menus")]
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject optionsMenu;
 
-    private bool paused;
+    [Header("Audio Clips")]
+    [SerializeField] private AudioClip confirmSoundFx;
+    [SerializeField] private AudioClip changeSoundFx;
+
+    [SerializeField] private LoadingScene sceneLoader;
+
+   private bool isPaused;
 
     private void Awake()
     {
         if (instance == null) instance = this;
-
-        coins = 0;
-        paused = false;
-        /*  _3DTutorialText.SetActive(false);
-          _2DTutorialText.SetActive(true);*/
     }
 
-    void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        isPaused = false;
+        if (!DataPersistenceManager.Instance.HasGameData())
         {
-            if (!paused)
+            // TO DO exchange the save slots with loaded save slots
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isPaused)
             {
                 PauseGame();
             }
@@ -42,49 +57,77 @@ public class UIHandler : MonoBehaviour
         }
     }
 
-    void PauseGame()
+    public void InitializeUI(int coins, int health)
+    {
+        UpdateHealth(health);
+        UpdateCoins(coins);
+    }
+
+    private void PauseGame()
     {
         Time.timeScale = 0;
-        paused = true;
-        pausedScreen.SetActive(true);
-
+        isPaused = true;
+        pauseMenu.SetActive(true);
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
         Time.timeScale = 1;
-        paused = false;
-        pausedScreen.SetActive(false);
+        isPaused = false;
+        pauseMenu.SetActive(false);
+        optionsMenu.SetActive(false);
     }
 
-    public void OnExitClick()
-    { 
+    public void OnSaveSlotMenu()
+    {
+        saveSlotsMenu.ActivateMenu();
+        this.DeactivateMenu();
+    }
+
+    public void OnQuit()
+    {
+        Time.timeScale = 1;
+        isPaused = false;
+        DataPersistenceManager.Instance.SaveGame();
         SceneManager.LoadScene("Main Menu");
     }
 
-    public void OnCoinCollected()
+    public void OnExit()
     {
-        coins += 1;
-        amountOfCoins.text = coins.ToString();
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    public void UpdateCoins(int coins)
+    {
+        amountOfCoinsText.text = coins.ToString();
     }
 
     public void UpdateHealth(int health)
     {
-        healthpoints.text = health.ToString();
+        healthPointsText.text = health.ToString();
     }
 
-    public void OnNewGame()
+    public void PlayConfirmSound()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SoundFXManager.instance.PlaySoundFXClip(confirmSoundFx, transform, 1, false);
     }
 
-    public void OnLoadGame()
+    public void PlayChangeSound()
     {
-        print("Load Game");
+        SoundFXManager.instance.PlaySoundFXClip(changeSoundFx, transform, 1, false);
     }
 
-    public void OnOptions()
+    public void ActivateMenu()
     {
-        print("Options");
+        mainMenu.gameObject.SetActive(true);
+    }
+
+    public void DeactivateMenu()
+    {
+        mainMenu.gameObject.SetActive(false);
     }
 }

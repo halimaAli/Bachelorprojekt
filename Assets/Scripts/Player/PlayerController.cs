@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDataPersistence
 {
     public static PlayerController instance;
     Animator animator;
@@ -28,6 +28,10 @@ public class PlayerController : MonoBehaviour
     private int maxHealth = 10;
     [SerializeField] private Image healthBar;
 
+    [SerializeField] private AudioClip _2DTo3D;
+    [SerializeField] private AudioClip _3DTo2D;
+    private int coins;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -38,7 +42,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         rend = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody>();
-        SetRespawnPoint(transform.position);
         active = true;
         
         color = rend.material.color;
@@ -64,11 +67,19 @@ public class PlayerController : MonoBehaviour
           //  Die(true);
             return;
         }
+        
     }
 
-    public void PlaySwitchAnimation()
+    public void PlaySwitchAnimation(bool _3D)
     {
         animator.SetTrigger("Switch");
+        if (_3D) { 
+            SoundFXManager.instance.PlaySoundFXClip(_2DTo3D, transform, 1, false); 
+        } else
+        {
+            SoundFXManager.instance.PlaySoundFXClip(_3DTo2D, transform, 1, false);
+        }
+        
     }
 
     private void HandleRespawnPoint()
@@ -77,7 +88,6 @@ public class PlayerController : MonoBehaviour
         if (hitRespawnPoint)
         {
             SetRespawnPoint(new Vector3(respawnPointCollider[0].transform.position.x + 1.5f, transform.position.y, transform.position.z));
-
         }
     }
 
@@ -126,9 +136,7 @@ public class PlayerController : MonoBehaviour
         {
             active = false;
             animator.SetTrigger("isHit");
-        }
-
-        
+        }    
     }
 
     public void TakeDamageAnimationEnd()
@@ -179,18 +187,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("Coin"))
-        {
-            UIHandler.instance.OnCoinCollected();
-            Destroy(other.gameObject);
-        }
-
         if (other.gameObject.tag.Equals("ThirdRespawnPoint"))
         {
             if (!Camera.main.orthographic)
             {
                 CameraManager.instance.Set2DView();
             }
+        }
+        if (other.gameObject.tag.Equals("Coin"))
+        {
+            coins++;
+            UIHandler.instance.UpdateCoins(coins);
         }
 
         if (other.CompareTag("Health Point"))
@@ -202,5 +209,23 @@ public class PlayerController : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.coins = data.coins;
+        this.health = data.healthPoints;
+        this.respawnPoint = data.spawnPoint;
+        UIHandler.instance.InitializeUI(coins, health);
+
+        SetRespawnPoint(respawnPoint);
+        transform.position = respawnPoint;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.coins = this.coins;
+        data.healthPoints = this.health;
+        data.spawnPoint = this.respawnPoint;
     }
 }
