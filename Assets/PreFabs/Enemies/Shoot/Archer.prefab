@@ -285,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 4607327340337102206}
   maxHealth: 2
+  damageSoundClip: {fileID: 8300000, guid: e3a0fea148db81c40ba7e3e6a42fc356, type: 3}
 --- !u!114 &7954835198674593178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,10 +299,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  movingSoundClip: {fileID: 0}
   enemyPosition: 1
   projectilePrefab: {fileID: 3635031600081263408, guid: c49007cf27f911948aba93205bc90961, type: 3}
-  shootCooldown: 2
+  shootCooldown: 1
   detectionRadius: 10
+  shootingSoundClip: {fileID: 8300000, guid: 5d466888c5bf89d47819a58c69a028a5, type: 3}
 --- !u!1001 &6922809353485952490
 PrefabInstance:
   m_ObjectHideFlags: 0

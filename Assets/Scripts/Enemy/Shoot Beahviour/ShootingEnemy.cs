@@ -8,6 +8,8 @@ public class ShootingEnemy : Enemy
     [SerializeField] private float shootCooldown = 2f;
     [SerializeField] private float detectionRadius = 5f;
 
+    [SerializeField] private AudioClip shootingSoundClip;
+
     private float shootTimer;
 
     private enum EnemyPosition
@@ -62,9 +64,9 @@ public class ShootingEnemy : Enemy
         shootTimer = shootCooldown;
     }
 
-
     public void FireProjectile()
     {
+        SoundFXManager.instance.PlaySoundFXClip(shootingSoundClip, transform, 1, false);
         Vector3 directionToPlayer;
         if (enemyPosition == EnemyPosition.Air)
         {

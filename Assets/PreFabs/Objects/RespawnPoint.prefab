@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 599997249
-  m_SortingLayer: 8
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6b852189d6872c84c9f1803c8003a90d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 6343437585821274403}
   - component: {fileID: 3035358390133658000}
   - component: {fileID: 3075732215068760664}
+  - component: {fileID: 8617210307862054510}
   m_Layer: 10
   m_Name: Respawnpoint
   m_TagString: RespawnPoint
@@ -186,3 +187,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8cc4f940fcf3542b98e98705995d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8617210307862054510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5818074604733858213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0a7287f4bbcba45b9b2d39982f64ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FXSoundClip: {fileID: 8300000, guid: 0dbbed8ea4cfb354f8754b0b6af5bd52, type: 3}
+  isPlaying: 0

@@ -23,7 +23,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5281695377509168959
 Transform:
   m_ObjectHideFlags: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db6af44e237d304ba080e4577a9eb18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  damageType: 2
 --- !u!114 &5382554914114014292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  movingSoundClip: {fileID: 8300000, guid: b6f1feb49edc1a94f8d1fab388b67175, type: 3}
   idleTime: 2
   attackRange: 2.5
 --- !u!114 &3716335122451907984
@@ -215,6 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 6753851361620440554}
   maxHealth: 2
+  damageSoundClip: {fileID: 8300000, guid: e3a0fea148db81c40ba7e3e6a42fc356, type: 3}
 --- !u!1001 &169097896914349438
 PrefabInstance:
   m_ObjectHideFlags: 0

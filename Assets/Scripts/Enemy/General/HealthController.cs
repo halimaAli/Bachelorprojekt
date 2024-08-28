@@ -8,6 +8,8 @@ public class HealthController : MonoBehaviour
     private Enemy enemy;
      private int health;
 
+    [SerializeField] private AudioClip damageSoundClip;
+
     private Animator _animator;
 
     private void Start()
@@ -25,13 +27,15 @@ public class HealthController : MonoBehaviour
     public void TakeDamage()
     {
         health--;
+        SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1,false);
         if (health <= 0)
         {
             Physics.IgnoreLayerCollision(3, 6, true);
+            SoundFXManager.instance.StopLoopingSound(transform);
             _animator.SetTrigger("Dead");
         }
         else
-        {
+        {          
             _animator.SetTrigger("isHit");
             enemy.Knockback();
         }

@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
     protected float range;
     private float knockback = 200;
 
+    [SerializeField] private AudioClip movingSoundClip;
+
 
     public virtual void Start()
     {
@@ -28,6 +30,11 @@ public class Enemy : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         originalPosition = transform.position;
+
+        if (movingSoundClip != null)
+        {
+            SoundFXManager.instance.PlayLoopingSound(movingSoundClip, transform, 1);
+        }
     }
 
     protected virtual void Update()
@@ -53,7 +60,7 @@ public class Enemy : MonoBehaviour
     {
         Vector3 axis = Camera.main.orthographic ? Vector3.right : Vector3.back;
         transform.Translate(axis * speed * direction * Time.deltaTime);
-        _animator.SetBool("isWalking", true);
+        _animator.SetBool("isWalking", true); 
     }
 
     protected virtual void MoveTowardsPlayer()

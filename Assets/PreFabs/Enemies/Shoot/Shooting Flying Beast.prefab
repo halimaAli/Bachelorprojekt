@@ -23,7 +23,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7688222764809809145
 Transform:
   m_ObjectHideFlags: 0
@@ -200,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 3549903523670319489}
   maxHealth: 2
+  damageSoundClip: {fileID: 8300000, guid: e3a0fea148db81c40ba7e3e6a42fc356, type: 3}
 --- !u!114 &8449880805980782172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,10 +214,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  attackType: 1
+  movingSoundClip: {fileID: 8300000, guid: bd6eb31c2ed99934f8ee12fdd40f162e, type: 3}
+  enemyPosition: 0
   projectilePrefab: {fileID: 6197860623517814353, guid: 2d59027ae33c91d42a84cb1d1f1aa5b6, type: 3}
   shootCooldown: 2
   detectionRadius: 8
+  shootingSoundClip: {fileID: 8300000, guid: 2c69d4397afc80e41b60c11d2a6b0f86, type: 3}
 --- !u!1001 &7971806548772141333
 PrefabInstance:
   m_ObjectHideFlags: 0

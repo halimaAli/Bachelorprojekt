@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db6af44e237d304ba080e4577a9eb18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageType: 0
+  damageType: 2
 --- !u!114 &1018915732725413166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  movingSoundClip: {fileID: 8300000, guid: bd6eb31c2ed99934f8ee12fdd40f162e, type: 3}
   detectionRange: 10
   attackRange: 1.5
   detectType: 1
@@ -216,6 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 3828706988031125530}
   maxHealth: 2
+  damageSoundClip: {fileID: 8300000, guid: e3a0fea148db81c40ba7e3e6a42fc356, type: 3}
 --- !u!1001 &7692162576994693262
 PrefabInstance:
   m_ObjectHideFlags: 0

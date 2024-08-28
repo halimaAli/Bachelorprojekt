@@ -6,6 +6,8 @@ public class LevelExit : MonoBehaviour
     private bool enterAllowed;
     public string nextLevel;
     [SerializeField] private GameObject toolTip;
+    [SerializeField] private LoadingScene loadingScene;
+    [SerializeField] private AudioClip exitSoundClip;
 
     private void Start()
     {
@@ -13,20 +15,20 @@ public class LevelExit : MonoBehaviour
         {
             toolTip.SetActive(false);
         }
+        if (loadingScene != null) { 
+        }
     }
 
     private void Update()
     {
-        
         if (enterAllowed && Input.GetKeyDown(KeyCode.Return))
         {
-            print("loading");
-            if (string.IsNullOrEmpty(nextLevel))
+            if (exitSoundClip != null)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                SoundFXManager.instance.PlaySoundFXClip(exitSoundClip, transform, 1, true);
             } else
             {
-                SceneManager.LoadScene(nextLevel);
+                loadingScene.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
     }
