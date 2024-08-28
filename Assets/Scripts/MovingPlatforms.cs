@@ -1,36 +1,65 @@
+using System;
 using UnityEngine;
 
-public class MovingPlatforms : MonoBehaviour
+public class MovingPlatform : MonoBehaviour
 {
-    [SerializeField] private Axis axis;
-    [SerializeField] private int speed;
-    [SerializeField] private Transform pointA, pointB;
+    [SerializeField] private Axis movementAxis;
+    [SerializeField] private float speed = 1.0f;
+    [SerializeField] private Transform pointA;
+    [SerializeField] private Transform pointB;
+    [SerializeField] private float threshold = 0.1f;
+
     private Vector3 direction;
-    private int movementDirection;
-    private float threshold = 2.0f;
+    private int movementDirection = 1;
+    private Transform playerTransform;
+    private Vector3 lastPlatformPosition;
+
     private enum Axis
     {
         Horizontal,
         Vertical
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        if (axis == Axis.Horizontal)
-        {
-            direction = Vector3.right;
-        }
-        else if (axis == Axis.Vertical)
-        {
-            direction = Vector3.up;
-        }
-        movementDirection = 1;
+        lastPlatformPosition = transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        SetDirection();
+        MovePlatform();
+        CheckDirectionChange();
+
+        if (playerTransform != null)
+        {
+            Vector3 platformMovement = transform.position - lastPlatformPosition;
+            playerTransform.position += platformMovement;
+        }
+
+        lastPlatformPosition = transform.position;
+    }
+
+    private void SetDirection()
+    {
+        if (Camera.main.orthographic)
+        {
+            direction = movementAxis == Axis.Horizontal ? Vector3.right : Vector3.up;
+        }
+        else
+        {
+            direction = movementAxis == Axis.Horizontal ? Vector3.forward : Vector3.up;
+        }
+    }
+
+    private void MovePlatform()
+    {
+        transform.Translate(direction * speed * movementDirection * Time.deltaTime);
+    }
+
+    private void CheckDirectionChange()
+    {
+        
         if (Vector3.Distance(transform.position, pointA.position) < threshold)
         {
             movementDirection = 1;
@@ -39,7 +68,21 @@ public class MovingPlatforms : MonoBehaviour
         {
             movementDirection = -1;
         }
+    }
 
-        transform.Translate(movementDirection * direction * speed * Time.deltaTime);
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerTransform = other.transform;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerTransform = null;
+        }
     }
 }
