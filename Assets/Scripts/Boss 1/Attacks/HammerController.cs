@@ -3,19 +3,21 @@ using UnityEngine;
 public class HammerController : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float speed = 5f;
+     private float speed = 2.5f;
     private GroundChecker groundChecker;
     private bool isGrounded;
 
     private Vector3 direction;
     private Animator animator;
     private GameObject player;
+    private JumpAttackState jumpAttackState;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         groundChecker = GetComponent<GroundChecker>();
         player = BossStateController.instance.player;
+        jumpAttackState = BossStateController.instance.transform.GetComponent<JumpAttackState>();
         SetPlayerPosition();
     }
 
@@ -41,8 +43,8 @@ public class HammerController : MonoBehaviour
 
     public void SetPlayerPosition()
     {
-        direction = player.transform.position - transform.position;
-        direction.x += (5 * BossStateController.instance.direction);
+        direction = jumpAttackState.direction;
+      //  direction.x += (5 * BossStateController.instance.direction);
     }
 
 

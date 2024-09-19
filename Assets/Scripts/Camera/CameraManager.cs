@@ -32,7 +32,7 @@ public class CameraManager : MonoBehaviour
        // _switchTimer.TurnTimerOff();
         if (Input.GetKeyUp(KeyCode.Q) && allowViewModeChange)
         {
-            if (currentCamera == _2DCamera)
+            if (Camera.main.orthographic)
             {
                 Set3DView();
                 PlayerController.instance.PlaySwitchAnimation(true);

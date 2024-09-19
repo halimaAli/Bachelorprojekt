@@ -125,9 +125,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   lifeTime: 100
-  type: 2
+  type: 3
   angle: 0
+  direction: 1
   target: {x: 0, y: 0, z: 0}
+  canControl: 0
 --- !u!54 &1766220204164980289
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -167,4 +169,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db6af44e237d304ba080e4577a9eb18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  damageType: 1

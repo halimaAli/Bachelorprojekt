@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 224842073979952696}
   - component: {fileID: 2378088865656587066}
-  - component: {fileID: 5094187449068939137}
   - component: {fileID: 4991771448690364164}
-  - component: {fileID: 596363418938467896}
   - component: {fileID: 5618608287840547737}
+  - component: {fileID: 5094187449068939137}
+  - component: {fileID: 596363418938467896}
   m_Layer: 6
   m_Name: Slash Forward 1
   m_TagString: Untagged
@@ -88,23 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5094187449068939137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75936832464783738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb4b54134cf019845af623bafad2c292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 21
-  lifeTime: 100
-  type: 2
-  angle: 0
-  target: {x: 0, y: 0, z: 0}
 --- !u!54 &4991771448690364164
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,19 +115,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &596363418938467896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75936832464783738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9db6af44e237d304ba080e4577a9eb18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
 --- !u!65 &5618608287840547737
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -166,3 +136,35 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4866808, y: 0.09209423, z: 0}
   m_Center: {x: 0, y: -0.009, z: 0}
+--- !u!114 &5094187449068939137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75936832464783738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4b54134cf019845af623bafad2c292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 21
+  lifeTime: 100
+  type: 3
+  angle: 0
+  direction: 1
+  target: {x: 0, y: 0, z: 0}
+  canControl: 0
+--- !u!114 &596363418938467896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75936832464783738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db6af44e237d304ba080e4577a9eb18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageType: 1

@@ -18,10 +18,16 @@ public class TriggerSoundFX : MonoBehaviour
                     SoundFXManager.instance.PlayLoopingSound(FXSoundClip, transform, 1);
                     isPlaying = true;
                 }
-            } else
+            } 
+            else if (gameObject.tag.Equals("Coin"))
             {
-                SoundFXManager.instance.PlaySoundFXClip(FXSoundClip, transform, 1, false);
+                PlaySoundFX();
             }
         }
+    }
+
+    public void PlaySoundFX()
+    {
+        SoundFXManager.instance.PlaySoundFXClip(FXSoundClip, transform, 1, false);
     }
 }

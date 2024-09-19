@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,8 +10,9 @@ public class UIHandler : MonoBehaviour
     public static UIHandler instance;
 
     [Header("UI Elements")]
-    [SerializeField] private Text amountOfCoinsText;
-    [SerializeField] private Text healthPointsText;
+    [SerializeField] private TMP_Text usernameText;
+    [SerializeField] private TMP_Text amountOfCoinsText;
+    [SerializeField] private TMP_Text healthPointsText;
 
     [Header("Menu Navigation")]
     [SerializeField] private SaveSlotsMenu saveSlotsMenu;
@@ -19,10 +21,12 @@ public class UIHandler : MonoBehaviour
    [Header("Pause Menus")]
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject gameOverScreen;
 
     [Header("Audio Clips")]
     [SerializeField] private AudioClip confirmSoundFx;
     [SerializeField] private AudioClip changeSoundFx;
+    [SerializeField] private AudioClip saveSlotSoundFx;
 
     [SerializeField] private LoadingScene sceneLoader;
 
@@ -57,8 +61,9 @@ public class UIHandler : MonoBehaviour
         }
     }
 
-    public void InitializeUI(int coins, int health)
+    public void InitializeUI(string username, int coins, int health)
     {
+        UpdateUsername(username);
         UpdateHealth(health);
         UpdateCoins(coins);
     }
@@ -101,6 +106,11 @@ public class UIHandler : MonoBehaviour
 #endif
     }
 
+    private void UpdateUsername(string username)
+    {
+        usernameText.text = username;
+    }
+
     public void UpdateCoins(int coins)
     {
         amountOfCoinsText.text = coins.ToString();
@@ -121,6 +131,11 @@ public class UIHandler : MonoBehaviour
         SoundFXManager.instance.PlaySoundFXClip(changeSoundFx, transform, 1, false);
     }
 
+    public void PlaySaveSlotSound()
+    {
+        SoundFXManager.instance.PlaySoundFXClip(saveSlotSoundFx, transform, 1, false);
+    }
+
     public void ActivateMenu()
     {
         mainMenu.gameObject.SetActive(true);
@@ -129,5 +144,14 @@ public class UIHandler : MonoBehaviour
     public void DeactivateMenu()
     {
         mainMenu.gameObject.SetActive(false);
+    }
+
+    public void RestartLevel(int level)
+    {
+        gameOverScreen.SetActive(false);
+        sceneLoader.LoadScene(level);
+        Destroy(BossLevelManager.instance.gameObject);
+        Destroy(BossStateController.instance.gameObject);
+        Destroy(PlayerController.instance.gameObject);
     }
 }

@@ -7,6 +7,7 @@ public class SpinAttackState : MonoBehaviour
     private Animator animator;
     private bool isSpinning;
     public int speed;
+    [SerializeField] AudioClip spinSoundClip;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class SpinAttackState : MonoBehaviour
 
     public void StartSpinAttack()
     {
+        SoundFXManager.instance.PlaySoundFXClip(spinSoundClip, transform, 1, false);
         isSpinning = true;
         
         if (transform.localScale.x > 0)

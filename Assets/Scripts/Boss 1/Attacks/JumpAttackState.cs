@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class JumpAttackState : MonoBehaviour
@@ -14,9 +16,11 @@ public class JumpAttackState : MonoBehaviour
     public GameObject player;
     [SerializeField] private GameObject hammer;
     [SerializeField] private Transform hammerPos;
-    
+    [SerializeField] AudioClip jumpUpSoundClip;
+    [SerializeField] AudioClip swordSoundClip;
+
     private bool isDashing;
-    private Vector3 direction;
+    public Vector3 direction;
     public bool isGrounded;
 
     private void Start()
@@ -54,21 +58,20 @@ public class JumpAttackState : MonoBehaviour
     {
         BossStateController.instance.enabled = false;
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        SoundFXManager.instance.PlaySoundFXClip(jumpUpSoundClip, transform, 1, false);
     }
 
     public void OnStayInAir()
     {
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
+
+        direction = player.transform.position - transform.position;
     }
 
     public void ThrowHammer()
     {
         Instantiate(hammer, hammerPos.position, hammerPos.rotation);
-        direction = player.transform.position - transform.position;
-
-        //Boss doesn't land exactly on Player but movementDirection bit to the left
-        direction.x -= (4 * BossStateController.instance.direction); 
     }
 
     public void OnDashDown()
@@ -81,5 +84,11 @@ public class JumpAttackState : MonoBehaviour
     {
         isDashing = false;
         rb.velocity = Vector3.zero;
+        SoundFXManager.instance.PlaySoundFXClip(swordSoundClip, transform, 1, false);
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        player = target;
     }
 }

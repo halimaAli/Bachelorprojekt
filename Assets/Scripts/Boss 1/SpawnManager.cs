@@ -17,6 +17,8 @@ public class SpawnManager : MonoBehaviour
     private bool waveInProgress;
     private float waveStartOffset = 3;
 
+    [SerializeField] private AudioClip summonSoundClip;
+
 
     void Start()
     {
@@ -69,6 +71,7 @@ public class SpawnManager : MonoBehaviour
 
     private void StartWave()
     {
+        SoundFXManager.instance.PlaySoundFXClip(summonSoundClip, transform, 1, false);
         waveInProgress = true;
         int totalEnemies = waves[currentWave];
 
