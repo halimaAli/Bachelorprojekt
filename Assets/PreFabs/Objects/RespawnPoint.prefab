@@ -187,6 +187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8cc4f940fcf3542b98e98705995d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
+  torchIgniteSoundClip: {fileID: 8300000, guid: e2344313140c5294e93632c60323cf21, type: 3}
 --- !u!114 &8617210307862054510
 MonoBehaviour:
   m_ObjectHideFlags: 0

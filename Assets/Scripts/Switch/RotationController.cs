@@ -3,7 +3,7 @@ using UnityEngine;
 public class RotationController : MonoBehaviour
 {
     private bool is2D;
-    private float defaultZPos2D;
+    public float defaultZPos2D;
 
     // Start is called before the first frame update
     void Start()

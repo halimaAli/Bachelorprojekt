@@ -26,7 +26,7 @@ public class KillPlayer : MonoBehaviour
     {
         if (damageType == DamageType.InstantDeath)
         {
-            player.Die(false);
+            player.Die();
         }
         else
         {
