@@ -40,10 +40,6 @@ public class UIHandler : MonoBehaviour
     private void Start()
     {
         isPaused = false;
-        if (!DataPersistenceManager.Instance.HasGameData())
-        {
-            // TO DO exchange the save slots with loaded save slots
-        }
     }
 
     private void Update()
@@ -108,17 +104,26 @@ public class UIHandler : MonoBehaviour
 
     private void UpdateUsername(string username)
     {
-        usernameText.text = username;
+        if (usernameText != null)
+        {
+            usernameText.text = username;
+        }
     }
 
     public void UpdateCoins(int coins)
     {
-        amountOfCoinsText.text = coins.ToString();
+        if (amountOfCoinsText != null)
+        {
+            amountOfCoinsText.text = coins.ToString();
+        }
     }
 
     public void UpdateHealth(int health)
     {
-        healthPointsText.text = health.ToString();
+        if (healthPointsText != null)
+        {
+            healthPointsText.text = health.ToString();
+        }
     }
 
     public void PlayConfirmSound()
