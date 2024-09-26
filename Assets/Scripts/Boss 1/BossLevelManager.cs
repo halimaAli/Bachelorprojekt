@@ -3,6 +3,7 @@ using System.Collections;
 using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
 
 public class BossLevelManager : MonoBehaviour
@@ -10,22 +11,27 @@ public class BossLevelManager : MonoBehaviour
     public static BossLevelManager instance;
     [SerializeField] private BossStateController boss;
     [SerializeField] private GameObject player;
-    [SerializeField] GameObject spawnManager;
-    [SerializeField] GameObject _3DBackground;
 
+    [Header("Player Won Components")]
+    [SerializeField] private MovingWall door;
+    [SerializeField] private GameObject secondRoom;
+    private EndingDialogue endingDialogue;
 
     [Header("Screens Components")]
     [SerializeField] Image gameWonScreen;
     [SerializeField] TMP_Text gameWontext;
-    [SerializeField] Image gameOverScreen;
-    [SerializeField] TMP_Text gameOvertext;
+
+    [Header("Summon Phase Components")]
+    [SerializeField] GameObject spawnManager;
+    [SerializeField] GameObject _3DBackground;
+    [SerializeField] private DisableCollider platform;
 
     public Phase currentPhase = Phase.AttackPhase1;
     private float timer = 3;
 
     [SerializeField] LoadingScene sceneLoader;
     [SerializeField] private float fadeSpeed;
-    [SerializeField] private DisableCollider platform;
+
 
     public enum Phase
     {
@@ -44,6 +50,7 @@ public class BossLevelManager : MonoBehaviour
 
         spawnManager.SetActive(false);
         CameraManager.instance.DisableViewSwitch();
+        endingDialogue = GetComponent<EndingDialogue>();
     }
 
     private void Update()
@@ -91,13 +98,14 @@ public class BossLevelManager : MonoBehaviour
         return currentPhase;
     }
 
-    public void ShowGameOverScreen()
+    public void ShowGameWonScreen()
     {
         PlayerController.instance.active = false;
-        StartCoroutine(FadeInGameOverScreen(gameWonScreen, gameWontext));
+        endingDialogue.isPlayerClose = true;
+       // StartCoroutine(FadeInScreen(gameWonScreen, gameWontext));
     }
 
-    private IEnumerator FadeInGameOverScreen(Image panel, TMP_Text text)
+    private IEnumerator FadeInScreen(Image panel, TMP_Text text)
     {
         yield return new WaitForSeconds(2f);
         panel.gameObject.SetActive(true);
@@ -115,9 +123,17 @@ public class BossLevelManager : MonoBehaviour
         }
     }
 
-    public void Restart()
+    public void Result(bool won)
     {
-        PlayerController.instance.active = false;
-        StartCoroutine(FadeInGameOverScreen(gameOverScreen, gameOvertext));
+        if (won)
+        {
+            secondRoom.SetActive(true);
+            door.canOpen = true;
+        } 
+        else
+        {
+            boss.Won();
+            PlayerController.instance.active = false;
+        }
     }
 }

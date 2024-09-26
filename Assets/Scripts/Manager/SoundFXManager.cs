@@ -10,8 +10,10 @@ public class SoundFXManager : MonoBehaviour
     [SerializeField] private AudioSource soundFXObject;
     [SerializeField] private LoadingScene loadingScene;
     [SerializeField] private SoundMixerManager soundMixerManager;
+   
 
-    private Dictionary<Transform, AudioSource> loopAudioSources = new Dictionary<Transform, AudioSource>();
+    private Dictionary<Transform, AudioSource> audioSources = new Dictionary<Transform, AudioSource>();
+    private List<AudioSource> pausedAudioSources = new List<AudioSource>();
 
     private void Awake()
     {
@@ -21,51 +23,72 @@ public class SoundFXManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (UIHandler.instance.isPaused)
+        {
+            PauseAllAudioClips();
+        }
+        else
+        {
+            UnpauseAllAudioClips();
+        }
+    }
+
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume, bool exit)
     {
+        if (audioClip == null) { return; }
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        
         audioSource.clip = audioClip;
         audioSource.volume = volume;
         audioSource.Play();
 
         float clipLength = audioSource.clip.length;
         Destroy(audioSource.gameObject, clipLength);
-
+      
         if (exit)
         {
             StartCoroutine(HandleExit(clipLength));
         }
     }
 
-    public void PlayRandomSoundFXClip(AudioClip[] audioClip, Transform spawnTransform, float volume, bool exit)
+    // Pause all active audio clips
+    private void PauseAllAudioClips()
     {
-        int rand = Random.Range(0, audioClip.Length);
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
 
-        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
-        audioSource.clip = audioClip[rand];
-        audioSource.volume = volume;
-        audioSource.Play();
-
-        float clipLength = audioSource.clip.length;
-        Destroy(audioSource.gameObject, clipLength);
-
-        if (exit)
+        foreach (AudioSource audioSource in audioSources)
         {
-            StartCoroutine(HandleExit(clipLength));
+            if (audioSource.isPlaying)
+            {
+                audioSource.Pause();
+                pausedAudioSources.Add(audioSource);
+            }
         }
+    }
+
+    private void UnpauseAllAudioClips()
+    {
+        foreach (AudioSource audioSource in pausedAudioSources)
+        {
+            if (audioSource != null && !audioSource.isPlaying)
+            {
+                audioSource.UnPause();
+            }
+        }
+        pausedAudioSources.Clear();
     }
 
     private IEnumerator HandleExit(float delay)
     {
-        soundMixerManager.SetMusicVolume(0.001f);
         yield return new WaitForSeconds(delay);
         loadingScene.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        soundMixerManager.SetMusicVolume(1f);
     }
 
     public void PlayLoopingSound(AudioClip audioClip, Transform transform, float volume)
     {
-        if (!loopAudioSources.ContainsKey(transform))
+        if (!audioSources.ContainsKey(transform))
         {
             AudioSource audioSource = Instantiate(soundFXObject, transform.position, Quaternion.identity);
             audioSource.clip = audioClip;
@@ -77,11 +100,11 @@ public class SoundFXManager : MonoBehaviour
             audioSource.rolloffMode = AudioRolloffMode.Linear;
             audioSource.Play();
 
-            loopAudioSources[transform] = audioSource;
+            audioSources[transform] = audioSource;
         }
         else
         {
-            AudioSource audioSource = loopAudioSources[transform];
+            AudioSource audioSource = audioSources[transform];
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
@@ -91,14 +114,14 @@ public class SoundFXManager : MonoBehaviour
 
     public void StopLoopingSound(Transform transform)
     {
-        if (loopAudioSources.ContainsKey(transform))
+        if (audioSources.ContainsKey(transform))
         {
-            AudioSource audioSource = loopAudioSources[transform];
+            AudioSource audioSource = audioSources[transform];
             if (audioSource.isPlaying)
             {
                 Destroy(audioSource.gameObject);
             }
-            loopAudioSources.Remove(transform);
+            audioSources.Remove(transform);
         }
     }
 }

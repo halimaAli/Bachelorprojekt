@@ -11,6 +11,7 @@ public class Control3DCameras : MonoBehaviour
             CameraManager.instance.Switch3DCameraDirection(0);
             CameraManager.instance.isBackwards3D = true;
         }
+       
     }
 
     private void OnTriggerExit(Collider other)

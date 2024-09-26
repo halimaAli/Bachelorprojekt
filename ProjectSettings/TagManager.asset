@@ -23,7 +23,7 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
+  - Environment
   - Tower Guardian
   - Wall
   - RespawnPoint
@@ -51,6 +51,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Walls
+    uniqueID: 1714324075
     locked: 0
   - name: First
     uniqueID: 310696861

@@ -1,20 +1,25 @@
-
 using UnityEngine;
 
 public class PlayerCombat : CombatController
 {
+    [Header("References")]
     private Animator animator;
     private PlayerMovement playerMovement;
     private PlayerController playerController;
 
+    [Header("Attack Settings")]
     public Transform[] attackSides;
-    private Vector3 attackLocation;
     public float attackRange;
     public LayerMask enemies;
+    public GameObject swordSlashPrefab;
+
+    private Vector3 attackLocation;
     private bool isMeleeAttacking;
     private bool isShootAttacking;
-    public GameObject swordSlashPrefab;
     private GameObject currentSwordSlash;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip swordSoundClip;
 
     private void Start()
     {
@@ -23,20 +28,23 @@ public class PlayerCombat : CombatController
         playerController = GetComponent<PlayerController>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (!playerController.active || playerMovement.isSliding) return;
-
-        if (playerController.direction < 0)
+        if (UIHandler.instance.isPaused)
         {
-            attackLocation = attackSides[0].position;
-        } else
-        {
-            attackLocation = attackSides[1].position;
+            return;
         }
 
-        ShootingAttack();
+        if (!playerController.active || playerMovement.isSliding) return;
+
+        UpdateAttackLocation();
+        // ShootingAttack();
         MeleeAttack();
+    }
+
+    private void UpdateAttackLocation()
+    {
+        attackLocation = playerController.direction < 0 ? attackSides[0].position : attackSides[1].position;
     }
 
     private void ShootingAttack()
@@ -52,23 +60,23 @@ public class PlayerCombat : CombatController
     public void OnShootingAttackAnimationComplete()
     {
         animator.SetBool("shootAttack", false);
-        isShootAttacking = false;  
+        isShootAttacking = false;
     }
 
-    public void MeleeAttack()
+    private void MeleeAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isMeleeAttacking)
+        if (Input.GetKeyDown(KeyCode.E) && !isMeleeAttacking)
         {
             animator.SetTrigger("Melee");
             isMeleeAttacking = true;
-            playerMovement.enabled = false; //Disable movement during melee attack
+            SoundFXManager.instance.PlaySoundFXClip(swordSoundClip, transform, 1, false);
+            // playerMovement.enabled = false;
         }
     }
 
-
     public void Slash()
     {
-        float attackDirection = PlayerController.instance.direction < 0 ? -1 : 1;
+        float attackDirection = playerController.direction < 0 ? -1 : 1;
         currentSwordSlash = Instantiate(swordSlashPrefab, attackLocation, Quaternion.identity);
 
         Vector3 scale = currentSwordSlash.transform.localScale;
@@ -83,7 +91,7 @@ public class PlayerCombat : CombatController
     public void OnMeleeAttackAnimationComplete()
     {
         isMeleeAttacking = false;
-        playerMovement.enabled = true; //Reenable movement after melee attack
+        playerMovement.enabled = true; // Re-enable movement after melee attack
 
         if (currentSwordSlash != null)
         {
@@ -91,23 +99,36 @@ public class PlayerCombat : CombatController
         }
     }
 
+    public void ResetAttack()
+    {
+        isMeleeAttacking = false;
+    }
 
     public void CheckIfEnemyIsHit()
     {
         // Detect enemies within the attack range
-        //TODO: add boss
         Collider[] damage = Physics.OverlapSphere(attackLocation, attackRange, enemies);
 
-        for (int i = 0; i < damage.Length; i++)
+        foreach (var collider in damage)
         {
-            var enemy = damage[i].GetComponent<HealthController>();
+            var enemy = collider.GetComponent<HealthController>();
             if (enemy != null)
             {
                 enemy.TakeDamage();
-            } else
+            }
+            else
             {
-                var lever = damage[i].GetComponent<Lever>();
-                lever.Switch();
+                var lever = collider.GetComponent<Lever>();
+                if (lever != null)
+                {
+                    lever.Switch();
+                }
+                 
+                var boss = collider.GetComponent<BossStateController>();
+                if (boss != null)
+                {
+                    boss.TakeDamage();
+                }
             }
         }
     }
@@ -115,7 +136,10 @@ public class PlayerCombat : CombatController
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(attackSides[0].position, attackRange);
-        Gizmos.DrawWireSphere(attackSides[1].position, attackRange);
+        if (attackSides != null && attackSides.Length > 1)
+        {
+            Gizmos.DrawWireSphere(attackSides[0].position, attackRange);
+            Gizmos.DrawWireSphere(attackSides[1].position, attackRange);
+        }
     }
 }

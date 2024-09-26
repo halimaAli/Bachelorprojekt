@@ -21,30 +21,31 @@ public class LoadingScene : MonoBehaviour
         DataPersistenceManager.Instance.SaveGame();
 
         StartCoroutine(LoadSceneAsync(sceneId));
+
         SoundFXManager.instance.PlaySoundFXClip(loadingSoundClip, transform, 1, false);
-        SoundMixerManager.Instance.SetMusicVolume(0.001f);
     }
 
     IEnumerator LoadSceneAsync(int sceneId)
     {
-        loadingScreen.SetActive(true);
-        yield return new WaitForSeconds(5);
-        
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
-
-        while (!operation.isDone)
+        if (loadingScreen != null)
         {
-            float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+            loadingScreen.SetActive(true);
+            yield return new WaitForSeconds(5);
+       
+            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
 
-            fill.fillAmount = progressValue;
-            print(operation.progress);
-            yield return null;
+            while (!operation.isDone)
+            {
+                float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+
+                fill.fillAmount = progressValue;
+                yield return null;
            
-        }
-
-        if (operation.isDone)
+            }
+        } 
+        else
         {
-            SoundMixerManager.Instance.SetMusicVolume(1f);
+            SceneManager.LoadScene(sceneId);
         }
     }
 }

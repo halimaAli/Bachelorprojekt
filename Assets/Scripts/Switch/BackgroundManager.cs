@@ -11,15 +11,15 @@ public class BackgroundManager : MonoBehaviour
     {
         if (Camera.main.orthographic)
         {
-            bg2D.SetActive(true);
+            if (bg2D != null) bg2D.SetActive(true);
             bg3D.SetActive(false);
             if (decoration3D != null) { decoration3D.SetActive(false); }
-        } else
+        } 
+        else
         {
-            bg2D.SetActive(false);
+            if (bg2D != null) bg2D.SetActive(false);
             bg3D.SetActive(true);
             if (decoration3D != null) { decoration3D.SetActive(true); }
-            
         }
     }
 }

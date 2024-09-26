@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class SoundMixerManager : MonoBehaviour, IDataPersistence
+public class SoundMixerManager : MonoBehaviour
 {
     public static SoundMixerManager Instance;
     [SerializeField] AudioMixer audioMixer;
@@ -15,55 +15,60 @@ public class SoundMixerManager : MonoBehaviour, IDataPersistence
 
     public void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        if (Instance == null) Instance = this;
+        LoadVolumeSettings();
     }
 
     public void SetMasterVolume(float level)
     {
-        audioMixer.SetFloat("masterVolume", Mathf.Log10(level) * 20f); // translates logarithmic interpolation into a linear interpolation
-
+        // translates logarithmic interpolation into a linear interpolation
+        float volume = Mathf.Log10(level) * 20f;
+        audioMixer.SetFloat("masterVolume", volume);
+        
+        // Save settings
+        PlayerPrefs.SetFloat("masterVolume", level);
     }
 
     public void SetSoundFXVolume(float level)
     {
-        audioMixer.SetFloat("soundFXVolume", Mathf.Log10(level) * 20f);
+        float volume = Mathf.Log10(level) * 20f;
+        audioMixer.SetFloat("soundFXVolume", volume);
+
+        PlayerPrefs.SetFloat("soundFXVolume", level);
     }
 
     public void SetMusicVolume(float level)
     {
-        audioMixer.SetFloat("musicVolume", Mathf.Log10(level) * 20f);
+        float volume = Mathf.Log10(level) * 20f;
+        audioMixer.SetFloat("musicVolume", volume);
+
+        PlayerPrefs.SetFloat("musicVolume", level);
     }
 
-    public void LoadData(GameData data)
+    public void LoadVolumeSettings()
     {
-        float masterVolume = data.volumeSettings.GetValueOrDefault("masterVolume", 0.001f);
-        float musicVolume = data.volumeSettings.GetValueOrDefault("musicVolume", 0.001f);
-        float soundFXVolume = data.volumeSettings.GetValueOrDefault("soundFXVolume", 0.001f);
+        float masterVolume = PlayerPrefs.GetFloat("masterVolume", 1f);
+        float musicVolume = PlayerPrefs.GetFloat("musicVolume", 1f);
+        float soundFXVolume = PlayerPrefs.GetFloat("soundFXVolume", 1f);
 
-        audioMixer.SetFloat("masterVolume", masterVolume);
-        audioMixer.SetFloat("musicVolume", musicVolume);
-        audioMixer.SetFloat("soundFXVolume", soundFXVolume);
+        if (masterVolumeSlider != null)
+        {
+            masterVolumeSlider.value = masterVolume;
+        }
 
-        // convertd the dB value back to linear value and set the sliders
-        masterVolumeSlider.value = Mathf.Pow(10f, masterVolume / 20f);
-        musicVolumeSlider.value = Mathf.Pow(10f, musicVolume / 20f);
-        soundFXVolumeSlider.value = Mathf.Pow(10f, soundFXVolume / 20f);
-    }
+        if (musicVolumeSlider != null)
+        {
+            musicVolumeSlider.value = musicVolume;
+        }
 
-    public void SaveData(GameData data)
-    {
-        data.volumeSettings["masterVolume"] = GetVolume("masterVolume");
-        data.volumeSettings["musicVolume"] = GetVolume("musicVolume");
-        data.volumeSettings["soundFXVolume"] = GetVolume("soundFXVolume");
-    }
+        if (soundFXVolumeSlider != null)
+        {
+            soundFXVolumeSlider.value = soundFXVolume;
+        }
 
-    private float GetVolume(string volumeName)
-    {
-        float value;
-        bool result = audioMixer.GetFloat(volumeName, out value);
-        return result ? value : 0.001f;
+        // Convert linear to dB before setting the AudioMixer values
+        audioMixer.SetFloat("masterVolume", Mathf.Log10(masterVolume) * 20f);
+        audioMixer.SetFloat("musicVolume", Mathf.Log10(musicVolume) * 20f);
+        audioMixer.SetFloat("soundFXVolume", Mathf.Log10(soundFXVolume) * 20f);
     }
 }

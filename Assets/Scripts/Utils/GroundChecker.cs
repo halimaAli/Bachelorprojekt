@@ -17,7 +17,7 @@ public class GroundChecker : MonoBehaviour
 
     public bool CheckCeiling()
     {
-        return Physics.BoxCast(transform.position, boxSize, Vector3.up, new Quaternion(0, 0, 0, 0), maxDistance);
+        return Physics.BoxCast(center.position, boxSize, Vector3.up, new Quaternion(0, 0, 0, 0), maxDistance);
     }
 
     private void OnDrawGizmos()

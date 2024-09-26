@@ -11,6 +11,7 @@ public class Skeleton : Enemy
     public override void Start()
     {
         base.Start();
+
     }
 
     protected override void Update()

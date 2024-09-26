@@ -190,9 +190,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 328
-        y: 431
+        y: 424
         width: 80
-        height: 57
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -572,7 +572,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -580,6 +580,90 @@ TextureImporter:
       bones: []
       spriteID: 46e7113fc32720343a971a3395362eaa
       internalID: -1559927178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walls_far_22
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 416
+        width: 64
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5fd684c864967b44af1596f1dfda165
+      internalID: -1378734030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walls_far_23
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 416
+        width: 64
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9faeba6ff6c249747b0477e35bc6dc77
+      internalID: 1934437316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walls_far_24
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 448
+        width: 16
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 491828728ae678b47aaef66122ff60ba
+      internalID: -157680259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walls_far_25
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 448
+        width: 16
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f616eb56b05d3d4295ec6422bca6ee0
+      internalID: -1197430924
       vertices: []
       indices: 
       edges: []
@@ -610,6 +694,10 @@ TextureImporter:
       walls_far_2: 76651936
       walls_far_20: 1789168260
       walls_far_21: -1559927178
+      walls_far_22: -1378734030
+      walls_far_23: 1934437316
+      walls_far_24: -157680259
+      walls_far_25: -1197430924
       walls_far_3: -272632907
       walls_far_4: 1939974062
       walls_far_5: -1823038100

@@ -6,8 +6,10 @@ public class LightTorches : MonoBehaviour, IDataPersistence
     private bool lighted = false;
 
     [SerializeField] private string id;
+    [SerializeField] private AudioClip torchIgniteSoundClip;
+    [SerializeField] private GameObject _light;
 
-    [ContextMenu("Generate guid for id")]
+  [ContextMenu("Generate guid for id")]
     private void GenerateGuid()
     {
         id = System.Guid.NewGuid().ToString();
@@ -20,8 +22,13 @@ public class LightTorches : MonoBehaviour, IDataPersistence
 
     private void OnTriggerEnter(Collider other)
     {
-        _animator.SetBool("on", true);
-        lighted = true;
+        if (!lighted)
+        {
+            _animator.SetBool("on", true);
+            SoundFXManager.instance.PlaySoundFXClip(torchIgniteSoundClip, transform, 1, false);
+            _light.SetActive(true);
+            lighted = true;
+        }
     }
 
     public void LoadData(GameData data)

@@ -7,11 +7,13 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
+    private RotationController rotationController;
 
     [Header("Movement")]
     public float horizontalInput;
     private float verticalInput;
     public float walkingSpeed;
+    [SerializeField] private bool isHorizontalMovementOnly;
 
     [Header("Jumping")]
     public float jumpForce = 50.0f;
@@ -28,6 +30,14 @@ public class PlayerMovement : MonoBehaviour
     private float lastJumpTime;
     internal bool isSliding;
 
+    [Header("FX")]
+    [SerializeField] private ParticleSystem dust;
+    [SerializeField] AudioClip jumpingSound;
+    [SerializeField] AudioClip landingSound;
+    [SerializeField] AudioSource walkingSound;
+    [SerializeField] private PlayerFXController playerFXController;
+    
+
     void Start()
      {
         rb = GetComponent<Rigidbody>();
@@ -35,25 +45,50 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider>();
         groundChecker = GetComponent<GroundChecker>();
+        rotationController = GetComponent<RotationController>();
         isGrounded = true;
     }
 
     void Update()
      {
+        if (UIHandler.instance.isPaused)
+        {
+            return;
+        }
+
         horizontalInput = Input.GetAxis("Horizontal"); // A and D Input
         verticalInput = Input.GetAxis("Vertical"); //// W and S Input
-        if (!PlayerController.instance.active) return;
+        if (!PlayerController.instance.active)
+        {
+            animator.SetBool("isWalking", false);
+            playerFXController.Walking = false;
+            return;
+        }
         HandleWalking();
+
+        if (isHorizontalMovementOnly)  return; 
+
         CheckIfGrounded();
         HandleJumping();
         HandleCrouching();
-     }
+        PlayerController.instance.IsGrounded = isGrounded;
+
+        if (Camera.main.orthographic )
+        {
+            if (transform.position.z != rotationController.defaultZPos2D)
+            { 
+                transform.position = new Vector3(transform.position.x, transform.position.y, rotationController.defaultZPos2D);
+            }
+        }
+    }
 
     #region Walk
     private void HandleWalking()
      {
         animator.SetBool("isWalking", Camera.main.orthographic? horizontalInput != 0 : horizontalInput != 0 || verticalInput != 0);
-        
+
+        int previousDirection = PlayerController.instance.direction;
+
         if (Camera.main.orthographic)
         {
             if (horizontalInput > 0)
@@ -63,9 +98,36 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (horizontalInput < 0)
             {
+                
                 spriteRenderer.flipX = true;
                 PlayerController.instance.direction = -1;
+                
             }
+
+            if (horizontalInput != 0 && isGrounded)
+            {
+                playerFXController.Walking = true;
+
+            } 
+            else if (horizontalInput != 0 && !isGrounded)
+            {
+                playerFXController.Walking = false;
+            }
+            else if (horizontalInput == 0 && isGrounded)
+            {
+                playerFXController.Walking = false;
+
+            } else if (horizontalInput == 0 && !isGrounded)
+            {
+                playerFXController.Walking = false;
+            }
+
+            if (previousDirection != PlayerController.instance.direction)
+            {
+                CreateDust();
+            }
+
+
             transform.Translate(Vector3.right * walkingSpeed * horizontalInput * Time.deltaTime);
         }
         else
@@ -79,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             if (horizontalInput > 0)
-            {
+            { 
                 spriteRenderer.flipX = invert < 0;
             }
             else if (horizontalInput < 0)
@@ -100,6 +162,8 @@ public class PlayerMovement : MonoBehaviour
         bool grounded = groundChecker.CheckGround();
         if (!isGrounded && grounded)
         {
+            SoundFXManager.instance.PlaySoundFXClip(landingSound, transform, 1, false);
+            CreateDust() ;
             isGrounded = true;
             animator.SetBool("isJumping", false);
             animator.SetBool("doubleJump", false);
@@ -121,6 +185,8 @@ public class PlayerMovement : MonoBehaviour
             float timeSinceLastJump = Time.time - lastJumpTime;
             if (isGrounded) //start normal jump
             {
+                CreateDust();
+                SoundFXManager.instance.PlaySoundFXClip(jumpingSound, transform, 1, false);
                 animator.SetBool("isJumping", true);
                 rb.velocity = Vector3.up * jumpForce;
                 hasDoubleJumped = false;
@@ -131,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
 
             }
             else if (!hasDoubleJumped && timeSinceLastJump > 0.1f)
-            { 
+            {
                 animator.SetBool("doubleJump", true);
                 hasDoubleJumped = true;
             }
@@ -170,6 +236,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift) && isGrounded)
         {
+            playerFXController.Walking = false;
+            playerFXController.Sliding = true;
             isSliding = true;
             bool isMoving;
             if (Camera.main.orthographic)
@@ -187,9 +255,10 @@ public class PlayerMovement : MonoBehaviour
             if (!hitAbove)
             {
                 isSliding = false;
-              //  walkingSpeed = 5.0f;
+                walkingSpeed = 7.5f;
                 animator.SetBool("isCrouching", false);
                 animator.SetBool("isSliding", false);
+                playerFXController.Sliding = false;
             }
             
         } 
@@ -201,8 +270,13 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isCrouching", !sliding);
         if (sliding)
         {
-            walkingSpeed = 7.0f;
+            walkingSpeed = 10.0f;
         }
     }
     #endregion
+
+    void CreateDust()
+    {
+        dust.Play();
+    }
 }

@@ -17,6 +17,7 @@ public class TowerGuardian : MonoBehaviour
     private TGDialog m_Dialog;
     private bool hasReachedDoor = false;
     private bool hasStartedSecondDialogue = false;
+    [SerializeField] private bool shouldMove;
 
     void Start()
     {
@@ -119,6 +120,6 @@ public class TowerGuardian : MonoBehaviour
 
     public void EnableMovement(bool enable) // TODO: Call from other script when TM is done with dialog
     {
-        canMove = enable;
+        if (shouldMove) canMove = enable;
     }
 }

@@ -12,10 +12,12 @@ public class ProjectileController : MonoBehaviour
     [SerializeField] private float direction = 1.0f;
     public Vector3 target;
 
+    [SerializeField] private bool canControl;
 
     public enum Type
     {
         Player,
+        Enemy,
         Archer,
         Boss,
         Boss_Hammer
@@ -62,6 +64,9 @@ public class ProjectileController : MonoBehaviour
 
     void Update()
     {
+        if (Type.Enemy == type) return;
+
+
         if (Camera.main.orthographic)
         {
             HandleMovementIn2D();
@@ -70,7 +75,6 @@ public class ProjectileController : MonoBehaviour
         {
             HandleMovementIn3D();
         }
-
         DestroyProjectile();
     }
 
@@ -78,18 +82,6 @@ public class ProjectileController : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Translate(target * Time.deltaTime * speed);
-        /* if (angle == Angle.Right)
-        {
-            transform.Translate(Vector3.right * Time.deltaTime * speed * direction);
-        }
-        else if (angle == Angle.Up)
-        {
-            Vector3 upVector = Vector3.right * direction + Vector3.up;
-            transform.Translate(upVector * Time.deltaTime * speed);
-        } else
-        {
-            transform.Translate(dir * Time.deltaTime * speed);
-        }*/
         FlipProjectile();
     }
 

@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 
     protected Vector3 originalPosition;
     protected float distance;
-    protected int direction = 1; // facing direction
+    public int direction = 1; // facing direction
     protected float threshold = .4f;
     protected bool attacking;
     protected bool detectedPlayer;

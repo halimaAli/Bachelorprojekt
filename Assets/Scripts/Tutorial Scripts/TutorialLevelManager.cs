@@ -13,6 +13,7 @@ public class TutorialLevelManager : MonoBehaviour
     [SerializeField] private GameObject _3DText;
     [SerializeField] private GameObject mushroom;
     [SerializeField] private GameObject hiddenBarrier;
+    [SerializeField] private Dialogue triggerDialogue;
 
     public Section section = Section.None;
     public int attempts;
@@ -28,7 +29,7 @@ public class TutorialLevelManager : MonoBehaviour
     {
         if (instance == null) { instance = this; };
         PlayerController.instance.health = 10;
-       // CameraManager.instance.DisableViewSwitch();
+      //  CameraManager.instance.DisableViewSwitch();
     }
 
     private void Update()
@@ -36,9 +37,10 @@ public class TutorialLevelManager : MonoBehaviour
         if (section == Section.Lava)
         {
             MinusOneLife();
-        } else if (section == Section.Monster)
+        } 
+        else if (section == Section.Monster)
         {
-            DisplayKillEnemyText();
+            CheckIfMushroomWasKilled();
         }
 
         if (!Camera.main.orthographic)
@@ -86,25 +88,23 @@ public class TutorialLevelManager : MonoBehaviour
 
 
 
-    // after player tried to jump over the lava three times, this new text is displayed
+    // After player tried to jump over the lava three times, this new text is displayed
     private IEnumerator OnDisplayText()
-    { 
+    {
+        PlayerController.instance.active = false;
         yield return new WaitForSeconds(1);
+        PlayerController.instance.active = true;
+        triggerDialogue.isPlayerClose = true;
         CameraManager.instance.allowViewModeChange = true;
-        displayedText.text = "Just kidding \n"+"It is time to change your Perspective!";
+        // displayedText.text = "Just kidding \n"+"It is time to change your Perspective!";
+        displayedText.text = string.Empty;
         pressButtonText.text = "Press Q";
         pressButtonText.color = Color.white;
         section = Section.None;
     }
 
-    public void DisplayKillEnemyText()
+    public void CheckIfMushroomWasKilled()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            CameraManager.instance.allowViewModeChange = false;
-            killText.text = "Nope, I won't let you change the perspective.";
-        }
-
         if (mushroom == null)
         {
             hiddenBarrier.SetActive(false);

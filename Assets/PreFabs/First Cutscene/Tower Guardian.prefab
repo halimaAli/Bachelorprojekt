@@ -13,7 +13,10 @@ GameObject:
   - component: {fileID: 2087173093296913880}
   - component: {fileID: 5241550446157720037}
   - component: {fileID: 4238251306781505636}
-  m_Layer: 0
+  - component: {fileID: 6463728291450179225}
+  - component: {fileID: 7189890682965578792}
+  - component: {fileID: 4849414579924592939}
+  m_Layer: 8
   m_Name: Tower Guardian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 599997249
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -909241090, guid: 0777e176dfcd9aa4e9741d36db599c0d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -156,3 +159,76 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.17, y: 0.3, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6463728291450179225
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78380893151385433}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.50835574, y: 0.29, z: 11.164503}
+  m_Center: {x: 0.1556173, y: 0, z: -4.2635536}
+--- !u!114 &7189890682965578792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78380893151385433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29eeb0c38574c141bfbb4c84bc144d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  door: {fileID: 0}
+  followDistance: 5
+  maxDist: 10
+  speed: 10
+  doorThreshold: 0.5
+  shouldMove: 0
+--- !u!114 &4849414579924592939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78380893151385433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6a596b5e2b1ef41974e952e7a7e244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogPanel: {fileID: 0}
+  dialogText: {fileID: 0}
+  nameText: {fileID: 0}
+  firstDialog:
+  - "Welcome, traveler. You\u2019ve finally awoken."
+  - I am the Tower Guardian, protector of this realm.
+  - You must be confused. This place is unfamiliar to most.
+  - "You\u2019ve been brought here to prove yourself."
+  - Beyond these walls lies your path, but first, you must learn.
+  - Follow me!
+  secondDialog:
+  - "This portal before you leads to the first trial, but do not be deceived\u2014it
+    is no simple task."
+  - Many have entered here, seeking glory, but few have returned.
+  - Though this is only the beginning, the danger is real.
+  - Prove yourself here, and the Tower may yet allow you to ascend.
+  wordSpeed: 0.06
+  tg: {fileID: 7189890682965578792}
+  triggerDialogCollider: {fileID: 6463728291450179225}
+  firstSound: {fileID: 8300000, guid: 4ba8f48884055a349806bb6f9efa0ff9, type: 3}
+  secondSound: {fileID: 8300000, guid: 5e832eab046614d4dacfb9dd1b479fad, type: 3}

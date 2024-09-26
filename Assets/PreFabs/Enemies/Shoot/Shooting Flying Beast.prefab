@@ -23,7 +23,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7688222764809809145
 Transform:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,9 +78,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 599997249
-  m_SortingLayer: 8
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 30
   m_Sprite: {fileID: -366927896, guid: 61dc9a4d82808ef459a082cbf25d7162, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67d4facf9cc3d94b8d6d3a50735a55c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultZPos2D: 0
 --- !u!114 &8142164913596999383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  direction: 1
   movingSoundClip: {fileID: 8300000, guid: bd6eb31c2ed99934f8ee12fdd40f162e, type: 3}
   enemyPosition: 0
   projectilePrefab: {fileID: 6197860623517814353, guid: 2d59027ae33c91d42a84cb1d1f1aa5b6, type: 3}
@@ -228,6 +230,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7688222764809809145}
     m_Modifications:
+    - target: {fileID: 1234641795430534899, guid: e68ad37d059c21e4dbe6ec5387e326b1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6076431363472371394, guid: e68ad37d059c21e4dbe6ec5387e326b1, type: 3}
       propertyPath: m_Name
       value: Enemy Health

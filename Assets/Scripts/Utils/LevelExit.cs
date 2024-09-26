@@ -23,10 +23,15 @@ public class LevelExit : MonoBehaviour
     {
         if (enterAllowed && Input.GetKeyDown(KeyCode.Return))
         {
-            if (exitSoundClip != null)
+            if (SceneManager.GetActiveScene().buildIndex == 4)
+            {
+                BossLevelManager.instance.ShowGameWonScreen();
+            }
+            else if (exitSoundClip != null)
             {
                 SoundFXManager.instance.PlaySoundFXClip(exitSoundClip, transform, 1, true);
-            } else
+            } 
+            else
             {
                 loadingScene.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
@@ -42,7 +47,6 @@ public class LevelExit : MonoBehaviour
                 toolTip.SetActive(true);
             }
             enterAllowed = true;
-            
         }
     }
 

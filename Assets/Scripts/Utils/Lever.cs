@@ -20,9 +20,8 @@ public class Lever : MonoBehaviour
         if (active)
         {
             spriteRenderer.flipX = !spriteRenderer.flipX;
-            wall.Open();
+            wall.Move();
             active = false;
-            print("hit");
         }
     }
 }

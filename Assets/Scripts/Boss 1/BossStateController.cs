@@ -14,6 +14,7 @@ public class BossStateController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private GroundChecker groundChecker;
     private JumpAttackState jumpAttackState;
+    private BossDialogue bossDialogue;
 
     private float localScaleX;
     public int direction;
@@ -39,7 +40,7 @@ public class BossStateController : MonoBehaviour
     [Header("Summon Phase Parameters")]
     [SerializeField] private Transform jumpPosition;
     [SerializeField] private Transform landingPosition;
-    private bool isSummoning = false;
+    public bool isSummoning = false;
     private bool isJumping;
     private bool hasSummonedEndPhase = false;
     [SerializeField] private MovingWall wall;
@@ -55,7 +56,10 @@ public class BossStateController : MonoBehaviour
     [SerializeField] private AudioClip jumpSoundClip;
     [SerializeField] private AudioClip summonSoundClip;
 
-    private bool reached;
+    private bool lookAtPlayer;
+
+    public bool reached;
+    private bool inactive;
 
     private BossLevelManager.Phase currentPhase;
     
@@ -73,14 +77,19 @@ public class BossStateController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+        } 
+        else
+        {
+            Destroy(gameObject);
         }
 
-        enabled = true;
+        lookAtPlayer = true;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         groundChecker = GetComponent<GroundChecker>();
         jumpAttackState = GetComponent<JumpAttackState>();
+        bossDialogue = GetComponent<BossDialogue>();
 
         localScaleX = transform.localScale.x;
         maxHealth = health;
@@ -93,9 +102,14 @@ public class BossStateController : MonoBehaviour
 
     void Update()
     {
+        if (inactive)
+        {
+            return;
+        }
+
         currentPhase = BossLevelManager.instance.getcurrentPhase();
 
-        if (enabled)
+        if (lookAtPlayer)
         {
             FacePlayer();
         }
@@ -136,7 +150,6 @@ public class BossStateController : MonoBehaviour
     private void DecideNextAttack(int numOfAttacks)
     {
         int rand = Random.Range(1, numOfAttacks + 1);
-
         switch (rand)
         {
             case 1:
@@ -181,10 +194,16 @@ public class BossStateController : MonoBehaviour
         }
         else if (nextAttack == Attack.JumpAttack)
         {
-            if ((distanceToPlayer >= longRange && PlayerController.instance.IsGrounded) || reached)
+            if (distanceToPlayer >= longRange || reached) 
             {
-                StopMoving();
-                JumpAttack();
+                if (PlayerController.instance.IsGrounded)
+                {
+                    StopMoving();
+                    JumpAttack();
+                } else
+                {
+                    MoveAwayFromPlayer();
+                }
             }
             else
             {
@@ -247,14 +266,14 @@ public class BossStateController : MonoBehaviour
 
     public void Idle()
     {
-        enabled = true;
+        lookAtPlayer = true;
     }
     #endregion
 
     #region Health Management
     private void CheckHealth()
     {
-        if (health == 60 && currentPhase != BossLevelManager.Phase.SummonPhase && !isSummoning)
+        if (health == 40 && currentPhase != BossLevelManager.Phase.SummonPhase && !isSummoning)
         {
             isSummoning = true;
         }
@@ -276,17 +295,18 @@ public class BossStateController : MonoBehaviour
 
     private IEnumerator Die()
     {
+        inactive = true;
         animator.SetTrigger("Dead");
-        SoundFXManager.instance.PlaySoundFXClip(defeatSoundClip, transform, 1, true);
+        SoundFXManager.instance.PlaySoundFXClip(defeatSoundClip, transform, 1, false);
         yield return new WaitForSeconds(5f);
-        BossLevelManager.instance.ShowGameOverScreen();
+        BossLevelManager.instance.Result(true);
     }
 
     private IEnumerator GetHit()
     {
         Color originalColor = spriteRenderer.color;
-        spriteRenderer.material.color = Color.black;
-        yield return new WaitForSeconds(1f);
+        spriteRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(.5f);
         spriteRenderer.material.color = originalColor;
     }
 
@@ -367,8 +387,10 @@ public class BossStateController : MonoBehaviour
         animator.SetTrigger("Taunt");
         SoundFXManager.instance.PlaySoundFXClip(roarSoundClip, transform, 1, false);
         isSummoning = false;
+        health = 39;
         jumpAttackState.SetTarget(player);
         wall.MoveBack();
+        
     }
     #endregion
 
@@ -428,14 +450,32 @@ public class BossStateController : MonoBehaviour
             transform.localScale = new Vector3(-1 * localScaleX, transform.localScale.y, transform.localScale.z);
         }
     }
-    #endregion
+    
+    public void Won()
+    {
+        animator.SetBool("isWalking", false);
+        inactive = true;
+        bossDialogue.isPlayerClose = true;
+
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.Equals("Wall"))
         {
             reached = true;
-            StopMoving();
+           // StopMoving();
         }
     }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("Wall"))
+        {
+            reached = false;
+            // StopMoving();
+        }
+    }
+
+    #endregion
 }

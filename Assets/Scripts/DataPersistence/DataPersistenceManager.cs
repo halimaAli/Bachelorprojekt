@@ -20,8 +20,17 @@ public class DataPersistenceManager : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] private bool initializeDataIfNull = false;
 
+    [SerializeField] private bool disableDataPersistenceInEditor = false;
+
     private void Awake()
     {
+
+        if (disableDataPersistenceInEditor && Application.isEditor)
+        {
+            Debug.Log("Data Persistence Manager is disabled in the editor.");
+            return;
+        }
+
         if (Instance != null)
         {
             Debug.LogWarning("Multiple instances of DataPersistenceManager found.");
@@ -34,7 +43,7 @@ public class DataPersistenceManager : MonoBehaviour
 
         dataHandler = new FileDataHandler(Application.persistentDataPath, "SaveSlot");
 
-        InitializeSelectedProfileId();
+        //InitializeSelectedProfileId();
     }
 
     private void InitializeSelectedProfileId()
@@ -88,6 +97,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void SaveGame()
     {
+        PlayerPrefs.Save();
         if (gameData == null)
         {
             Debug.LogWarning("No game data found. Cannot save.");

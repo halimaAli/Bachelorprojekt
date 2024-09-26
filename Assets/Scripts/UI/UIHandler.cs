@@ -13,12 +13,14 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private TMP_Text usernameText;
     [SerializeField] private TMP_Text amountOfCoinsText;
     [SerializeField] private TMP_Text healthPointsText;
+   
 
     [Header("Menu Navigation")]
     [SerializeField] private SaveSlotsMenu saveSlotsMenu;
     [SerializeField] private GameObject mainMenu;
 
-   [Header("Pause Menus")]
+    [Header("Pause Menus")]
+    [SerializeField] private bool cantPause;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject gameOverScreen;
@@ -30,7 +32,7 @@ public class UIHandler : MonoBehaviour
 
     [SerializeField] private LoadingScene sceneLoader;
 
-   private bool isPaused;
+    internal bool isPaused;
 
     private void Awake()
     {
@@ -44,6 +46,9 @@ public class UIHandler : MonoBehaviour
 
     private void Update()
     {
+
+        if (cantPause) return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!isPaused)
@@ -153,10 +158,6 @@ public class UIHandler : MonoBehaviour
 
     public void RestartLevel(int level)
     {
-        gameOverScreen.SetActive(false);
         sceneLoader.LoadScene(level);
-        Destroy(BossLevelManager.instance.gameObject);
-        Destroy(BossStateController.instance.gameObject);
-        Destroy(PlayerController.instance.gameObject);
     }
 }

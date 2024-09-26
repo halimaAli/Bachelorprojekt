@@ -24,12 +24,10 @@ public class CameraManager : MonoBehaviour
         instance = this;
         currentCamera = _2DCamera;
         allowViewModeChange = true;
-        
     }
 
     private void Update()
     {
-       // _switchTimer.TurnTimerOff();
         if (Input.GetKeyUp(KeyCode.Q) && allowViewModeChange)
         {
             if (Camera.main.orthographic)

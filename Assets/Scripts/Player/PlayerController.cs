@@ -1,5 +1,7 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IDataPersistence
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public int direction { get; set; }
 
     private Vector3 respawnPoint;
+    private string username;
     [SerializeField] private LayerMask respawnPointMask;
     private Collider[] respawnPointCollider = new Collider[1];
     public int health;
@@ -30,11 +33,23 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     [SerializeField] private AudioClip _2DTo3D;
     [SerializeField] private AudioClip _3DTo2D;
+    [SerializeField] private AudioClip deathSound;
     private int coins;
+    public bool IsGrounded;
+
+    private string currentLevel;
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     private void Start()
@@ -45,12 +60,20 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         active = true;
         
         color = rend.material.color;
-        health = maxHealth;
+        if (health <= 0)
+        {
+            health = maxHealth;
+        }
+        Physics.IgnoreLayerCollision(3, 6, false);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (UIHandler.instance.isPaused)
+        {
+            return;
+        }
+
         if (!active)
         {
             return;
@@ -59,13 +82,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         direction = rend.flipX? -1 : 1;
 
         HandleRespawnPoint();
-        healthBar.fillAmount = Mathf.Clamp((float)health / maxHealth, 0, 1);
 
-        //check if player is falling from platform
-        if (transform.position.y < -6)
+        if (healthBar != null)
         {
-          //  Die(true);
-            return;
+            healthBar.fillAmount = Mathf.Clamp((float)health / maxHealth, 0, 1);
+        }
+
+        if (health <= 0)
+        {
+            Die();
         }
         
     }
@@ -115,12 +140,26 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void Die(bool falling)
+    public void Die()
     {
         active = false;
+        SoundFXManager.instance.PlaySoundFXClip(deathSound, transform, 1, false);
         Physics.IgnoreLayerCollision(3, 6, true);
         animator.SetBool("isDead", true);
-        StartCoroutine(Respawn());
+    }
+
+    public void RestartOrRespawn()
+    {
+        // Check if Player died in Boss Lvl
+        currentLevel = SceneManager.GetActiveScene().buildIndex == 4 ? "Boss" : "";
+        if (currentLevel.Equals("Boss"))
+        {
+            BossLevelManager.instance.Result(false);
+        }
+        else
+        {
+            StartCoroutine(Respawn());
+        }
     }
 
     public void TakeDamage()
@@ -130,20 +169,20 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         if (health <= 0)
         {
-            Die(false);
+            Die();
         }
         else
         {
             active = false;
             animator.SetTrigger("isHit");
+            UIHandler.instance.UpdateHealth(health);
+            StartCoroutine(BecomeInvulnerable());
         }    
     }
 
     public void TakeDamageAnimationEnd()
     {
-        UIHandler.instance.UpdateHealth(health);
         active = true;
-        StartCoroutine(BecomeInvulnerable());
     }
 
     public void SetRespawnPoint(Vector3 position)
@@ -153,7 +192,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         //Set Player Position next to Respawn Point
         transform.position = respawnPoint;
@@ -165,6 +204,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         animator.SetBool("isDead", false);
 
         //Re-Init the Health UI
+        health = maxHealth;
         UIHandler.instance.UpdateHealth(maxHealth);
 
         //Only needed during Tutorial Level
@@ -179,7 +219,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         Physics.IgnoreLayerCollision(3, 6, true);
         color.a = 0.5f;
         rend.material.color = color;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         Physics.IgnoreLayerCollision(3, 6, false);
         color.a = 1f;
         rend.material.color = color;
@@ -213,13 +253,27 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        this.coins = data.coins;
-        this.health = data.healthPoints;
-        this.respawnPoint = data.spawnPoint;
-        UIHandler.instance.InitializeUI(coins, health);
+        coins = data.coins;
+        health = data.healthPoints;
+        respawnPoint = data.spawnPoint;
+        username = data.username;
+        
+        UIHandler.instance.InitializeUI(username, coins, health);
 
         SetRespawnPoint(respawnPoint);
         transform.position = respawnPoint;
+
+        switch (data.currentSceneIndex)
+        {
+            case 1:
+                currentLevel = "Tutorial";
+                break;
+            case 2:
+                currentLevel = "Level";
+                break;
+            case 3: currentLevel = "Boss";
+                break;
+        }
     }
 
     public void SaveData(GameData data)
