@@ -19278,7 +19278,7 @@ PrefabInstance:
     - target: {fileID: 8492394563598572887, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
       propertyPath: jumpingSound
       value: 
-      objectReference: {fileID: 8300000, guid: d7bb965501881f34ca7dc0e499e215cb, type: 3}
+      objectReference: {fileID: 8300000, guid: 8eafe759b23489f4ea0ac1c73b61dbc7, type: 3}
     - target: {fileID: 8492394563598572887, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
       propertyPath: landingSound
       value: 
@@ -19296,6 +19296,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
+--- !u!114 &1232951263 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2011190838439333245, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
+  m_PrefabInstance: {fileID: 1232951262}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ab5310189f972f418e303e33e7ee052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1243603269 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5804769084110977005, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
@@ -21310,6 +21321,14 @@ PrefabInstance:
     - target: {fileID: 5804769084110977005, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927972035250571118, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1232951263}
+    - target: {fileID: 5927972035250571118, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Die
       objectReference: {fileID: 0}
     - target: {fileID: 6288732381380341778, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
       propertyPath: m_UiScaleMode
