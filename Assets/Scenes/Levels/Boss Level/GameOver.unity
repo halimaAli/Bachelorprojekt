@@ -434,9 +434,25 @@ PrefabInstance:
       propertyPath: amountOfCoinsText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8049702344764091748, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
+      propertyPath: m_Color.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049702344764091748, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
+      propertyPath: m_Color.g
+      value: 0.41960785
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049702344764091748, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
+      propertyPath: m_Color.r
+      value: 0.25882354
+      objectReference: {fileID: 0}
     - target: {fileID: 8078018898955063419, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127389442387064121, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8147483555107898316, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
       propertyPath: m_Name
@@ -1425,11 +1441,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965051684158145850, guid: fff4aba8b63123547b988009689d1ee9, type: 3}
       propertyPath: Loop
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6965051684158145850, guid: fff4aba8b63123547b988009689d1ee9, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 83e4f570e6b4e0a4498331fd0fe45084, type: 3}
+    - target: {fileID: 6965051684158145850, guid: fff4aba8b63123547b988009689d1ee9, type: 3}
       propertyPath: m_PlayOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7167917860567901042, guid: fff4aba8b63123547b988009689d1ee9, type: 3}
       propertyPath: m_Name
