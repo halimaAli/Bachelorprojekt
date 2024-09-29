@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public bool IsGrounded;
 
     private string currentLevel;
+    internal bool isVulnerable;
 
     private void Awake()
     {
@@ -79,6 +80,11 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             return;
         }
 
+        if (!isVulnerable)
+        {
+            Physics.IgnoreLayerCollision(3, 6, false);
+        }
+
         direction = rend.flipX? -1 : 1;
 
         HandleRespawnPoint();
@@ -88,7 +94,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             healthBar.fillAmount = Mathf.Clamp((float)health / maxHealth, 0, 1);
         }
 
-        if (health <= 0)
+        if (health <= 0 || transform.position.y < -50) // if player falls from map for some reason
         {
             Die();
         }
@@ -164,6 +170,11 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void TakeDamage()
     {
+        if (isVulnerable)
+        {
+            return;
+        }
+
         health--;
         Knockback();
 
@@ -187,6 +198,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void SetRespawnPoint(Vector3 position)
     {
+        DataPersistenceManager.Instance.SetLastPosition(position);
         respawnPoint = position;
     }
 
@@ -205,17 +217,18 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         //Re-Init the Health UI
         health = maxHealth;
-        UIHandler.instance.UpdateHealth(maxHealth);
+        UIHandler.instance.UpdateHealth(health);
 
         //Only needed during Tutorial Level
         if (TutorialLevelManager.instance != null)
         {
-            TutorialLevelManager.instance.attempts++;
+            TutorialLevelManager.instance.CheckIfAttempted();
         }
     }
 
     private IEnumerator BecomeInvulnerable()
     {
+        isVulnerable = true;
         Physics.IgnoreLayerCollision(3, 6, true);
         color.a = 0.5f;
         rend.material.color = color;
@@ -223,6 +236,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         Physics.IgnoreLayerCollision(3, 6, false);
         color.a = 1f;
         rend.material.color = color;
+        isVulnerable = false;
     }
 
     private void OnTriggerEnter(Collider other)

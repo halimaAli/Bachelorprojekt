@@ -70,7 +70,6 @@ public class PlayerCombat : CombatController
             animator.SetTrigger("Melee");
             isMeleeAttacking = true;
             SoundFXManager.instance.PlaySoundFXClip(swordSoundClip, transform, 1, false);
-            // playerMovement.enabled = false;
         }
     }
 
@@ -86,12 +85,12 @@ public class PlayerCombat : CombatController
         Quaternion rotation = currentSwordSlash.transform.rotation;
         rotation.y = transform.rotation.y;
         currentSwordSlash.transform.rotation = rotation;
+        Destroy(currentSwordSlash, 1);
     }
 
     public void OnMeleeAttackAnimationComplete()
     {
         isMeleeAttacking = false;
-        playerMovement.enabled = true; // Re-enable movement after melee attack
 
         if (currentSwordSlash != null)
         {

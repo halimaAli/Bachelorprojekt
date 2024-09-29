@@ -10,6 +10,7 @@ public class SoundFXManager : MonoBehaviour
     [SerializeField] private AudioSource soundFXObject;
     [SerializeField] private LoadingScene loadingScene;
     [SerializeField] private SoundMixerManager soundMixerManager;
+    [SerializeField] private AudioSource backgroundMusic;
    
 
     private Dictionary<Transform, AudioSource> audioSources = new Dictionary<Transform, AudioSource>();
@@ -82,6 +83,7 @@ public class SoundFXManager : MonoBehaviour
 
     private IEnumerator HandleExit(float delay)
     {
+        if (backgroundMusic != null) backgroundMusic.Pause();
         yield return new WaitForSeconds(delay);
         loadingScene.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

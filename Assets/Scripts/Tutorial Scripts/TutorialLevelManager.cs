@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -28,8 +29,7 @@ public class TutorialLevelManager : MonoBehaviour
     private void Start()
     {
         if (instance == null) { instance = this; };
-        PlayerController.instance.health = 10;
-      //  CameraManager.instance.DisableViewSwitch();
+        CameraManager.instance.DisableViewSwitch();
     }
 
     private void Update()
@@ -95,8 +95,8 @@ public class TutorialLevelManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         PlayerController.instance.active = true;
         triggerDialogue.isPlayerClose = true;
-        CameraManager.instance.allowViewModeChange = true;
-        // displayedText.text = "Just kidding \n"+"It is time to change your Perspective!";
+        CameraManager.instance.EnableViewSwitch();
+
         displayedText.text = string.Empty;
         pressButtonText.text = "Press Q";
         pressButtonText.color = Color.white;
@@ -110,5 +110,13 @@ public class TutorialLevelManager : MonoBehaviour
             hiddenBarrier.SetActive(false);
         }
 
+    }
+
+    internal void CheckIfAttempted()
+    {
+        if (section == Section.Lava)
+        {
+            attempts++;
+        } 
     }
 }

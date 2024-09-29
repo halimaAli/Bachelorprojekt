@@ -23,6 +23,7 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private bool cantPause;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject controlsMenu;
     [SerializeField] private GameObject gameOverScreen;
 
     [Header("Audio Clips")]
@@ -46,6 +47,11 @@ public class UIHandler : MonoBehaviour
 
     private void Update()
     {
+
+        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 5)
+        {
+            return;
+        }
 
         if (cantPause) return;
 
@@ -82,6 +88,7 @@ public class UIHandler : MonoBehaviour
         isPaused = false;
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
+       if (controlsMenu !=  null) controlsMenu.SetActive(false);
     }
 
     public void OnSaveSlotMenu()

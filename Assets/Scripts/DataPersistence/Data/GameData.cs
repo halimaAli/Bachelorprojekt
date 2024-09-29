@@ -17,7 +17,7 @@ public class GameData
     public GameData() {
         username = "Nexus";
         coins = 0;
-        healthPoints = 9;
+        healthPoints = 10;
         spawnPoint = Vector3.zero;
         currentSceneIndex = 1;
         lastUpdated = 0;
@@ -25,4 +25,12 @@ public class GameData
         spawnPointReached = new SerializableDictionary<string, bool>();
     }                  
           
+
+    public void ResetGameData() // Reset Game Data when player ascend to next level
+    {
+        healthPoints = 10;
+        spawnPoint = Vector3.zero;
+        coinsCollected = new SerializableDictionary<string, bool>();
+        spawnPointReached = new SerializableDictionary<string, bool>();
+    }
 }

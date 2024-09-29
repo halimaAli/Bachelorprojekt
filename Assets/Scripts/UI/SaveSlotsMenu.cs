@@ -13,6 +13,8 @@ public class SaveSlotsMenu : MonoBehaviour
     private SaveSlot[] saveSlots;
     [SerializeField] private LoadingScene sceneLoader;
 
+    private Dictionary<string, GameData> profilesGameData;
+
     private void Awake()
     {
         saveSlots = GetComponentsInChildren<SaveSlot>();
@@ -29,7 +31,7 @@ public class SaveSlotsMenu : MonoBehaviour
         } 
         else
         {
-            sceneLoader.LoadScene(1);
+            sceneLoader.LoadScene(saveSlot.currentLevel);
         }
     }
 
@@ -37,7 +39,7 @@ public class SaveSlotsMenu : MonoBehaviour
     {
         this.gameObject.SetActive(true);
 
-        Dictionary<string, GameData> profilesGameData = DataPersistenceManager.Instance.GetAllProfilesGameData();
+        profilesGameData = DataPersistenceManager.Instance.GetAllProfilesGameData();
 
         // loop through each save slot in the UI and set the content appropriately
         foreach (SaveSlot saveSlot in saveSlots)

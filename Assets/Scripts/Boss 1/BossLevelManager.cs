@@ -49,7 +49,7 @@ public class BossLevelManager : MonoBehaviour
         if (instance == null) { instance = this; }
 
         spawnManager.SetActive(false);
-        CameraManager.instance.DisableViewSwitch();
+       // CameraManager.instance.DisableViewSwitch();
         endingDialogue = GetComponent<EndingDialogue>();
     }
 
@@ -57,26 +57,28 @@ public class BossLevelManager : MonoBehaviour
     {
         if (currentPhase == Phase.SummonPhase)
         {
-            CameraManager.instance.allowViewModeChange = false;
-            CameraManager.instance.Set3DView();
-            
+            if (Camera.main.orthographic)
+            {
+                CameraManager.instance.Set3DView();
+            }
 
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
                 spawnManager.SetActive(true);
             }
-         } 
+        } 
         else if (currentPhase == Phase.AttackPhase1 || currentPhase == Phase.AttackPhase2)
         {
-            CameraManager.instance.Set2DView();
+            
+            if (!Camera.main.orthographic) CameraManager.instance.Set2DView();
         }
 
         _3DBackground.SetActive(!Camera.main.orthographic);
         
     }
 
-    internal void setPhase(int phaseNum)
+    public void setPhase(int phaseNum)
     {
        switch(phaseNum)
        {
@@ -102,25 +104,6 @@ public class BossLevelManager : MonoBehaviour
     {
         PlayerController.instance.active = false;
         endingDialogue.isPlayerClose = true;
-       // StartCoroutine(FadeInScreen(gameWonScreen, gameWontext));
-    }
-
-    private IEnumerator FadeInScreen(Image panel, TMP_Text text)
-    {
-        yield return new WaitForSeconds(2f);
-        panel.gameObject.SetActive(true);
-        text.gameObject.SetActive(true);
-        Color panelColor = panel.color;
-        Color textColor = text.color;
-
-        while (panelColor.a < 1 || textColor.a < 1)
-        {
-            panelColor.a += fadeSpeed * Time.deltaTime;
-            textColor.a += fadeSpeed * Time.deltaTime;
-            panel.color = panelColor;
-            text.color = textColor;
-            yield return null;
-        }
     }
 
     public void Result(bool won)

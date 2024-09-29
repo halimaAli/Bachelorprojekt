@@ -1,5 +1,6 @@
 using Cinemachine;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +8,15 @@ public class BossStateController : MonoBehaviour
 {
     public static BossStateController instance;
 
+    [Header("Demo")]
+    public Demo demo;
+
     [Header("Components")]
     public GameObject player;
     private Animator animator;
     private Rigidbody rb;
     private SpriteRenderer spriteRenderer;
+    private BoxCollider boxcollider;
     private GroundChecker groundChecker;
     private JumpAttackState jumpAttackState;
     private BossDialogue bossDialogue;
@@ -23,7 +28,7 @@ public class BossStateController : MonoBehaviour
     [Header("Boss Stats")]
     public bool attacking;
     public Attack nextAttack;
-    [SerializeField] internal int health;
+    public int health;
     private int maxHealth;
     public bool introPlaying;
 
@@ -47,6 +52,7 @@ public class BossStateController : MonoBehaviour
 
     [Header("UI Elements")]
     [SerializeField] private Image healthBar;
+    [SerializeField] private TMP_Text hp;
 
     [Header("AudioClips")]
     [SerializeField] private AudioClip landingSoundClip;
@@ -59,7 +65,7 @@ public class BossStateController : MonoBehaviour
     private bool lookAtPlayer;
 
     public bool reached;
-    private bool inactive;
+    internal bool inactive;
 
     private BossLevelManager.Phase currentPhase;
     
@@ -87,9 +93,11 @@ public class BossStateController : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        boxcollider = GetComponent<BoxCollider>();
         groundChecker = GetComponent<GroundChecker>();
         jumpAttackState = GetComponent<JumpAttackState>();
         bossDialogue = GetComponent<BossDialogue>();
+        demo = GetComponent<Demo>();
 
         localScaleX = transform.localScale.x;
         maxHealth = health;
@@ -125,6 +133,11 @@ public class BossStateController : MonoBehaviour
         {
             InitiateSummonPhase();
             return; 
+        }
+
+        if (demo != null && demo.isDemo)
+        {
+            return;
         }
         
         if (currentPhase != BossLevelManager.Phase.SummonPhase)
@@ -273,7 +286,7 @@ public class BossStateController : MonoBehaviour
     #region Health Management
     private void CheckHealth()
     {
-        if (health == 40 && currentPhase != BossLevelManager.Phase.SummonPhase && !isSummoning)
+        if (health == 20 && currentPhase != BossLevelManager.Phase.SummonPhase && !isSummoning)
         {
             isSummoning = true;
         }
@@ -282,6 +295,7 @@ public class BossStateController : MonoBehaviour
     public void TakeDamage()
     {
         health--;
+        UpdateHealthBar();
 
         if (health == 0)
         {
@@ -293,8 +307,15 @@ public class BossStateController : MonoBehaviour
         }
     }
 
+    public void DemoBossDie()
+    {
+        StartCoroutine(Die());
+    }
+
     private IEnumerator Die()
     {
+        rb.useGravity = false;
+        boxcollider.enabled = false;
         inactive = true;
         animator.SetTrigger("Dead");
         SoundFXManager.instance.PlaySoundFXClip(defeatSoundClip, transform, 1, false);
@@ -312,6 +333,7 @@ public class BossStateController : MonoBehaviour
 
     private void UpdateHealthBar()
     {
+        hp.text = health.ToString();
         healthBar.fillAmount = Mathf.Clamp((float)health / maxHealth, 0, 1);
     }
     #endregion
@@ -387,10 +409,11 @@ public class BossStateController : MonoBehaviour
         animator.SetTrigger("Taunt");
         SoundFXManager.instance.PlaySoundFXClip(roarSoundClip, transform, 1, false);
         isSummoning = false;
-        health = 39;
+        health = 15;
         jumpAttackState.SetTarget(player);
         wall.MoveBack();
-        
+        attacking = false;
+        nextAttack = Attack.Empty;
     }
     #endregion
 
@@ -400,21 +423,24 @@ public class BossStateController : MonoBehaviour
         introPlaying = true;
         rb.useGravity = true;
         yield return new WaitForSeconds(.5f);
-        PlayerController.instance.active = false;
-
-        animator.SetTrigger("Intro");
-
-        // Boss smash into the ground
-        float smashForce = -500f;
-        rb.velocity = Vector3.zero;
-        rb.AddForce(new Vector3(0, smashForce, 0), ForceMode.Impulse);
-        SoundFXManager.instance.PlaySoundFXClip(landingSoundClip, transform, 1, false);
+        
+        SmashIntoGround();
 
         yield return new WaitUntil(() => isGrounded);
         yield return new WaitForSeconds(.5f);
 
         animator.SetTrigger("Taunt");
         SoundFXManager.instance.PlaySoundFXClip(roarSoundClip, transform, 1, false);
+    }
+
+    private void SmashIntoGround()
+    {
+        PlayerController.instance.active = false;
+        animator.SetTrigger("Intro");
+        float smashForce = -500f;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(new Vector3(0, smashForce, 0), ForceMode.Impulse);
+        SoundFXManager.instance.PlaySoundFXClip(landingSoundClip, transform, 1, false);
     }
 
     public void IntroEnd()
@@ -464,7 +490,6 @@ public class BossStateController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Wall"))
         {
             reached = true;
-           // StopMoving();
         }
     }
 
@@ -473,8 +498,15 @@ public class BossStateController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Wall"))
         {
             reached = false;
-            // StopMoving();
         }
+    }
+
+    internal void Respawn() //Sometimes Boss just dashes throught the level borders
+    {
+        rb.velocity = Vector3.zero;
+        attacking = false;
+        nextAttack = Attack.Empty;
+        transform.position = new Vector3(-20, 0, 0f);
     }
 
     #endregion

@@ -44,7 +44,6 @@ public class HammerController : MonoBehaviour
     public void SetPlayerPosition()
     {
         direction = jumpAttackState.direction;
-      //  direction.x += (5 * BossStateController.instance.direction);
     }
 
 

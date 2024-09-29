@@ -15,11 +15,12 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private TMP_Text healthPoints;
 
     [Header("Prefabs")]
+    [SerializeField] private GameObject introSlotPrefab;
     [SerializeField] private GameObject tutorialSlotPrefab;
     [SerializeField] private GameObject level1SlotPrefab;
     [SerializeField] private GameObject boss1SlotPrefab;
 
-    private int currentLevel;
+    public int currentLevel;
     private Button saveSlotButton;
     public bool newGame; 
 
@@ -51,9 +52,10 @@ public class SaveSlot : MonoBehaviour
     private void LoadSaveSlotUI(GameData data)
     {
         currentLevel = data.currentSceneIndex;
-        tutorialSlotPrefab.SetActive(currentLevel == 1);
-        level1SlotPrefab.SetActive(currentLevel == 2);
-        boss1SlotPrefab.SetActive(currentLevel == 3);
+        introSlotPrefab.SetActive(currentLevel == 1);
+        tutorialSlotPrefab.SetActive(currentLevel == 2);
+        level1SlotPrefab.SetActive(currentLevel == 3);
+        boss1SlotPrefab.SetActive(currentLevel == 4 || currentLevel == 5);
 
         // load stats
         username.text = data.username;

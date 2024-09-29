@@ -44,8 +44,10 @@ public class JumpAttackState : MonoBehaviour
     {
         if (!isGrounded)
         {
+            Vector3 landingPosition = direction;
+            landingPosition.x += (5 * BossStateController.instance.direction);
             animator.speed = 0;
-            transform.Translate(direction * dashForce * Time.deltaTime);
+            transform.Translate(landingPosition * dashForce * Time.deltaTime);
         }
         else
         {
@@ -56,7 +58,6 @@ public class JumpAttackState : MonoBehaviour
 
     public void OnStartJumpAttack()
     {
-        BossStateController.instance.enabled = false;
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         SoundFXManager.instance.PlaySoundFXClip(jumpUpSoundClip, transform, 1, false);
     }

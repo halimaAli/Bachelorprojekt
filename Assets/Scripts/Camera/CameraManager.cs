@@ -28,6 +28,7 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
+        _switchTimer.TurnTimerOff();
         if (Input.GetKeyUp(KeyCode.Q) && allowViewModeChange)
         {
             if (Camera.main.orthographic)
@@ -78,7 +79,7 @@ public class CameraManager : MonoBehaviour
             {
                 _3DCameras[i].Priority = (i == _3DCameraIndex) ? 1 : 0;
             }
-            PlayerController.instance.active = false; // TODO: make animations stop
+            PlayerController.instance.active = false;
             yield return new WaitForSeconds(1f);
             PlayerController.instance.active = true;
             currentCamera = _3DCameras[_3DCameraIndex];
@@ -89,7 +90,13 @@ public class CameraManager : MonoBehaviour
     {
         allowViewModeChange = false;
         _switchTimer.TurnTimerOff();
-    } 
+    }
+
+    public void EnableViewSwitch()
+    {
+        allowViewModeChange = true;
+        _switchTimer.TurnTimerOn();
+    }
 
     public void Set2DCamera(CinemachineVirtualCamera camera)
     {

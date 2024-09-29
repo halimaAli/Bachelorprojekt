@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     private float knockback = 200;
 
     [SerializeField] private AudioClip movingSoundClip;
-
+    [SerializeField] private bool isFlyingEnemy;
 
     public virtual void Start()
     {
@@ -70,9 +70,22 @@ public class Enemy : MonoBehaviour
             return;
         }
         FaceDirection(player.position);
-        transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+
+        if (!isFlyingEnemy)
+        {
+            Vector3 groundPosition = new Vector3(player.position.x, transform.position.y, player.position.z); //only follow on the X and Z axis
+            transform.position = Vector3.MoveTowards(transform.position, groundPosition, speed * Time.deltaTime);
+        }
+        else
+        {
+            //if its a flying enemy follow the player on all axes
+            transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+        }
+
         _animator.SetBool("isWalking", true);
     }
+
+
 
     protected virtual bool ReturnToOriginalPosition()
     {

@@ -16,6 +16,7 @@ public class DataPersistenceManager : MonoBehaviour
     private Vector3 lastPosition;
     private string selectedProfileId = "";
     private string username = "Nexus";
+    private bool resetSaveOnNewLevel;
 
     [Header("Debugging")]
     [SerializeField] private bool initializeDataIfNull = false;
@@ -24,7 +25,6 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Awake()
     {
-
         if (disableDataPersistenceInEditor && Application.isEditor)
         {
             Debug.Log("Data Persistence Manager is disabled in the editor.");
@@ -43,12 +43,6 @@ public class DataPersistenceManager : MonoBehaviour
 
         dataHandler = new FileDataHandler(Application.persistentDataPath, "SaveSlot");
 
-        //InitializeSelectedProfileId();
-    }
-
-    private void InitializeSelectedProfileId()
-    {
-        selectedProfileId = dataHandler.GetMostRecentlyUpdatedProfileId();
     }
 
     private void OnEnable()
@@ -63,6 +57,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        resetSaveOnNewLevel = false;
         dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
     }
@@ -104,10 +99,14 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
 
-        foreach (var dataPersistenceObj in dataPersistenceObjects)
+        if (!resetSaveOnNewLevel)
         {
-            dataPersistenceObj.SaveData(gameData);
+            foreach (var dataPersistenceObj in dataPersistenceObjects)
+            {
+                dataPersistenceObj.SaveData(gameData);
+            }
         }
+
 
         gameData.currentSceneIndex = currentLevel;
         gameData.lastUpdated = DateTime.Now.ToBinary();
@@ -147,9 +146,20 @@ public class DataPersistenceManager : MonoBehaviour
         return currentLevel;
     }
 
-    public void SetPositionToDefault()
+    public void ResetPlayerToDefault()
     {
-        lastPosition = Vector3.zero;
+        if (gameData != null)
+        {
+            gameData.ResetGameData();
+        }
+        
+        lastPosition = gameData.spawnPoint;
+        resetSaveOnNewLevel = true;
+    }
+
+    public void SetLastPosition(Vector3 position)
+    {
+        lastPosition = position;
     }
 
     public void SetUsername(string username)

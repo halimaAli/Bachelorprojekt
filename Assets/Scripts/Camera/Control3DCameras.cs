@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class Control3DCameras : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    [SerializeField] private Direction direction;
+
+    private enum Direction
     {
-        if (other.gameObject.tag.Equals("Player"))
-        {
-            CameraManager.instance.Switch3DCameraDirection(0);
-            CameraManager.instance.isBackwards3D = true;
-        }
-       
+        Backwards,
+        Forwards
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            CameraManager.instance.Switch3DCameraDirection(1);
-            CameraManager.instance.isBackwards3D = false;
+            if (direction == Direction.Backwards && !CameraManager.instance.isBackwards3D)
+            {
+                CameraManager.instance.Switch3DCameraDirection(0);
+                CameraManager.instance.isBackwards3D = true;
+            }
+            else if (direction == Direction.Forwards && CameraManager.instance.isBackwards3D)
+            {
+                CameraManager.instance.Switch3DCameraDirection(1);
+                CameraManager.instance.isBackwards3D = false;
+            }
         }
     }
 }
