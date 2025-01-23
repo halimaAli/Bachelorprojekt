@@ -8,7 +8,9 @@ public class LevelExit : MonoBehaviour
     [SerializeField] private GameObject toolTip;
     [SerializeField] private LoadingScene loadingScene;
     [SerializeField] private AudioClip exitSoundClip;
+    [SerializeField] private bool skipNextLevel;
     private bool entered;
+
 
     private void Start()
     {
@@ -24,21 +26,30 @@ public class LevelExit : MonoBehaviour
     {
         if (enterAllowed && Input.GetKeyDown(KeyCode.Return) && !entered)
         {
-            PlayerController.instance.active = false;
-            entered = true;
-            DataPersistenceManager.Instance.ResetPlayerToDefault();
-            if (SceneManager.GetActiveScene().buildIndex == 4)
-            {
-                BossLevelManager.instance.ShowGameWonScreen();
-            }
-            else if (exitSoundClip != null)
-            {
-                SoundFXManager.instance.PlaySoundFXClip(exitSoundClip, transform, 1, true);
-            } 
-            else
-            {   
-                loadingScene.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
+            EnterNextLevel();
+        }
+    }
+
+    public void EnterNextLevel()
+    {
+        PlayerController.instance.active = false;
+        entered = true;
+        DataPersistenceManager.Instance.ResetPlayerToDefault();
+        if (SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            BossLevelManager.instance.ShowGameWonScreen();
+        }
+        else if (exitSoundClip != null)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(exitSoundClip, transform, 1, true);
+        } 
+        else if (skipNextLevel)
+        {
+            loadingScene.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        }
+        else 
+        {   
+            loadingScene.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
