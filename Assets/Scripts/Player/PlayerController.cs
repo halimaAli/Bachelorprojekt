@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -148,9 +147,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void Die()
     {
+        Physics.IgnoreLayerCollision(3, 6, true);
         active = false;
         SoundFXManager.instance.PlaySoundFXClip(deathSound, transform, 1, false);
-        Physics.IgnoreLayerCollision(3, 6, true);
         animator.SetBool("isDead", true);
     }
 
@@ -175,7 +174,13 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             return;
         }
 
-        health--;
+        if (health != 0 ) health--;
+
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = Mathf.Clamp((float)health / maxHealth, 0, 1);
+        }
+
         Knockback();
 
         if (health <= 0)
@@ -198,7 +203,11 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void SetRespawnPoint(Vector3 position)
     {
-        DataPersistenceManager.Instance.SetLastPosition(position);
+        if (DataPersistenceManager.Instance != null)
+        {
+            DataPersistenceManager.Instance.SetLastPosition(position);
+        }
+       
         respawnPoint = position;
     }
 
@@ -271,7 +280,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         health = data.healthPoints;
         respawnPoint = data.spawnPoint;
         username = data.username;
-        
+
+        if (health <= 0)
+        {
+            health = maxHealth;
+        }
+
         UIHandler.instance.InitializeUI(username, coins, health);
 
         SetRespawnPoint(respawnPoint);

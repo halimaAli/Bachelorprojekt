@@ -93,7 +93,7 @@ public class TutorialLevelManager : MonoBehaviour
     {
         PlayerController.instance.active = false;
         yield return new WaitForSeconds(1);
-        PlayerController.instance.active = true;
+        //PlayerController.instance.active = true;
         triggerDialogue.isPlayerClose = true;
         CameraManager.instance.EnableViewSwitch();
 

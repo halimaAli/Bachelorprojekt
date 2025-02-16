@@ -15,8 +15,11 @@ public class NameEntryMenu : MonoBehaviour
     public void OnStartGameClicked()
     {
         string enteredUsername = usernameInputField.text;
-        DataPersistenceManager.Instance.SetUsername(enteredUsername);
-
-        sceneLoader.LoadScene(1); // TODO: get current level from save slot
+        if (DataPersistenceManager.Instance != null)
+        {
+            DataPersistenceManager.Instance.SetUsername(enteredUsername);
+        }
+        
+        sceneLoader.LoadScene(1);
     }
 }

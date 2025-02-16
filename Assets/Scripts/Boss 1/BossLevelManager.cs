@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Threading;
+
 using TMPro;
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
 
 public class BossLevelManager : MonoBehaviour
@@ -49,7 +46,7 @@ public class BossLevelManager : MonoBehaviour
         if (instance == null) { instance = this; }
 
         spawnManager.SetActive(false);
-       // CameraManager.instance.DisableViewSwitch();
+        CameraManager.instance.DisableViewSwitch();
         endingDialogue = GetComponent<EndingDialogue>();
     }
 

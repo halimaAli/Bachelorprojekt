@@ -237,7 +237,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && isGrounded)
         {
             playerFXController.Walking = false;
-            playerFXController.Sliding = true;
             isSliding = true;
             bool isMoving;
             if (Camera.main.orthographic)
@@ -258,7 +257,6 @@ public class PlayerMovement : MonoBehaviour
                 walkingSpeed = 7.5f;
                 animator.SetBool("isCrouching", false);
                 animator.SetBool("isSliding", false);
-                playerFXController.Sliding = false;
             }
             
         } 

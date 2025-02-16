@@ -25,7 +25,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Awake()
     {
-        if (disableDataPersistenceInEditor && Application.isEditor)
+        if (disableDataPersistenceInEditor)
         {
             Debug.Log("Data Persistence Manager is disabled in the editor.");
             return;
@@ -47,11 +47,21 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void OnEnable()
     {
+        if (disableDataPersistenceInEditor)
+        {
+            Debug.Log("Data Persistence Manager is disabled in the editor.");
+            return;
+        }
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
+        if (disableDataPersistenceInEditor)
+        {
+            Debug.Log("Data Persistence Manager is disabled in the editor.");
+            return;
+        }
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
