@@ -742,7 +742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &207328325
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2920,7 +2920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &684717951
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3518,6 +3518,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 920763747}
     - target: {fileID: 6414406750470115683, guid: d7ced7ba965299d48b6e4fb58fbc47b7, type: 3}
+      propertyPath: backgroundMusic
+      value: 
+      objectReference: {fileID: 2000670155}
+    - target: {fileID: 6414406750470115683, guid: d7ced7ba965299d48b6e4fb58fbc47b7, type: 3}
       propertyPath: soundMixerManager
       value: 
       objectReference: {fileID: 6090266229216847410, guid: 9d81aafcee43bf84d9395aa4e3e738ad, type: 3}
@@ -3677,6 +3681,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1971443752166115433, guid: 114fe00108d70834d9040a1497682722, type: 3}
+      propertyPath: disableDataPersistenceInEditor
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6589920857889153645, guid: 114fe00108d70834d9040a1497682722, type: 3}
       propertyPath: m_Name
       value: DataPersistenceManager
@@ -4465,7 +4473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1164998040
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4482,8 +4490,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -6.138855, y: -5.26}
-  m_SizeDelta: {x: 525.1719, y: 55.2873}
+  m_AnchoredPosition: {x: -5.57, y: -5.08}
+  m_SizeDelta: {x: 602.9727, y: 64.2643}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1164998041
 MonoBehaviour:
@@ -4552,9 +4560,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.08789876, b: 0, a: 1}
-    m_PressedColor: {r: 1, g: 0.06464232, b: 0, a: 1}
-    m_SelectedColor: {r: 1, g: 0.094653934, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.654902, g: 0.5764706, b: 0.4, a: 1}
+    m_PressedColor: {r: 0.654902, g: 0.5764706, b: 0.4, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4618,10 +4626,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Developer Tools
+  m_text: Bachelorarbeit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 962d21185d2cf804a9ab5d7562d321a9, type: 2}
-  m_sharedMaterial: {fileID: 5996489321694997600, guid: 962d21185d2cf804a9ab5d7562d321a9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8c48b84cfca5a054a96d8545832f7655, type: 2}
+  m_sharedMaterial: {fileID: -3308578729815275665, guid: 8c48b84cfca5a054a96d8545832f7655, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4645,13 +4653,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.4
-  m_fontSizeBase: 47.4
+  m_fontSize: 72.09
+  m_fontSizeBase: 72.09
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -4681,7 +4689,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 18.303864, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6089,7 +6097,7 @@ GameObject:
   - component: {fileID: 1412779374}
   - component: {fileID: 1412779373}
   m_Layer: 5
-  m_Name: Tutorial
+  m_Name: Old Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6111,8 +6119,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -228}
-  m_SizeDelta: {x: 206.31, y: 50}
+  m_AnchoredPosition: {x: -1.4, y: -238.39996}
+  m_SizeDelta: {x: 308.86, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1412779373
 MonoBehaviour:
@@ -6210,7 +6218,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6235,7 +6243,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tutorial
+  m_text: Old Tutorial
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 962d21185d2cf804a9ab5d7562d321a9, type: 2}
   m_sharedMaterial: {fileID: 5996489321694997600, guid: 962d21185d2cf804a9ab5d7562d321a9, type: 2}
@@ -6326,7 +6334,7 @@ GameObject:
   - component: {fileID: 1416934726}
   - component: {fileID: 1416934725}
   m_Layer: 5
-  m_Name: Level 1
+  m_Name: New Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6348,8 +6356,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -309}
-  m_SizeDelta: {x: 195.25, y: 50}
+  m_AnchoredPosition: {x: 4.829998, y: -319.4}
+  m_SizeDelta: {x: 310.27, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1416934725
 MonoBehaviour:
@@ -6447,7 +6455,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6472,7 +6480,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 1
+  m_text: New Tutorial
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 962d21185d2cf804a9ab5d7562d321a9, type: 2}
   m_sharedMaterial: {fileID: 5996489321694997600, guid: 962d21185d2cf804a9ab5d7562d321a9, type: 2}
@@ -7332,7 +7340,7 @@ MonoBehaviour:
   healthPointsText: {fileID: 0}
   saveSlotsMenu: {fileID: 1886704830}
   mainMenu: {fileID: 1386758505}
-  cantPause: 0
+  cantPause: 1
   pauseMenu: {fileID: 0}
   optionsMenu: {fileID: 0}
   controlsMenu: {fileID: 0}

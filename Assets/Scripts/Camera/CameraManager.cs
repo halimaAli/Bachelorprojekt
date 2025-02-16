@@ -28,7 +28,6 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        _switchTimer.TurnTimerOff();
         if (Input.GetKeyUp(KeyCode.Q) && allowViewModeChange)
         {
             if (Camera.main.orthographic)

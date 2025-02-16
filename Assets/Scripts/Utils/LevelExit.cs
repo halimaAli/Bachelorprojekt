@@ -9,8 +9,8 @@ public class LevelExit : MonoBehaviour
     [SerializeField] private LoadingScene loadingScene;
     [SerializeField] private AudioClip exitSoundClip;
     [SerializeField] private bool skipNextLevel;
+    [SerializeField] private bool goToMenu;
     private bool entered;
-
 
     private void Start()
     {
@@ -34,7 +34,11 @@ public class LevelExit : MonoBehaviour
     {
         PlayerController.instance.active = false;
         entered = true;
-        DataPersistenceManager.Instance.ResetPlayerToDefault();
+        if (DataPersistenceManager.Instance != null)
+        {
+            DataPersistenceManager.Instance.ResetPlayerToDefault();
+        }
+       
         if (SceneManager.GetActiveScene().buildIndex == 4)
         {
             BossLevelManager.instance.ShowGameWonScreen();
@@ -43,6 +47,10 @@ public class LevelExit : MonoBehaviour
         {
             SoundFXManager.instance.PlaySoundFXClip(exitSoundClip, transform, 1, true);
         } 
+        else if (goToMenu)
+        {
+            loadingScene.LoadScene(0);
+        }
         else if (skipNextLevel)
         {
             loadingScene.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);

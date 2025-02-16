@@ -6150,7 +6150,7 @@ MonoBehaviour:
   isPlayerClose: 0
   boxCollider: {fileID: 0}
   dialogue: "Hah! Is that all you\u2019ve got? Stand again if you dare, weakling!"
-  sound: {fileID: 8300000, guid: 48c65cc9676bb5f4db72441761e22275, type: 3}
+  sound: {fileID: 8300000, guid: 749b13f2e201fed4b9b03176d52a17f6, type: 3}
   sceneLoader: {fileID: 1847562394}
 --- !u!1 &707733279
 GameObject:
@@ -8451,6 +8451,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1363163199}
     - target: {fileID: 4849414579924592939, guid: e8fb66d3ab0c9834a9863eb989e44011, type: 3}
+      propertyPath: boxCollider
+      value: 
+      objectReference: {fileID: 1121005727}
+    - target: {fileID: 4849414579924592939, guid: e8fb66d3ab0c9834a9863eb989e44011, type: 3}
       propertyPath: dialogPanel
       value: 
       objectReference: {fileID: 1363163200}
@@ -9465,6 +9469,11 @@ SpriteRenderer:
 --- !u!4 &1121005724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6800937594321762400, guid: e8fb66d3ab0c9834a9863eb989e44011, type: 3}
+  m_PrefabInstance: {fileID: 1018857552}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1121005727 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 6463728291450179225, guid: e8fb66d3ab0c9834a9863eb989e44011, type: 3}
   m_PrefabInstance: {fileID: 1018857552}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1122102059
@@ -11837,6 +11846,10 @@ PrefabInstance:
       propertyPath: loadingScene
       value: 
       objectReference: {fileID: 1847562394}
+    - target: {fileID: 4615654857322879009, guid: fff4aba8b63123547b988009689d1ee9, type: 3}
+      propertyPath: backgroundMusic
+      value: 
+      objectReference: {fileID: 1407209113}
     - target: {fileID: 6965051684158145850, guid: fff4aba8b63123547b988009689d1ee9, type: 3}
       propertyPath: m_Volume
       value: 0.15
@@ -11894,6 +11907,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fff4aba8b63123547b988009689d1ee9, type: 3}
+--- !u!82 &1407209113 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6965051684158145850, guid: fff4aba8b63123547b988009689d1ee9, type: 3}
+  m_PrefabInstance: {fileID: 1407209112}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1421775551
 GameObject:
   m_ObjectHideFlags: 0
@@ -13959,6 +13977,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5927972035250571118, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 602096517}
+    - target: {fileID: 5927972035250571118, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Die
+      objectReference: {fileID: 0}
     - target: {fileID: 6288732381380341778, guid: bcf4b8646c0f1704b8c4154981dbb8fe, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
@@ -14810,7 +14836,7 @@ PrefabInstance:
     - target: {fileID: 8506297148706118893, guid: 849034c74bbadf7439c6e86ce2c8a47c, type: 3}
       propertyPath: demo
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1770733077}
     - target: {fileID: 8506297148706118893, guid: 849034c74bbadf7439c6e86ce2c8a47c, type: 3}
       propertyPath: wall
       value: 
@@ -15629,8 +15655,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.4871006, y: 2.4728498, z: 0}
-    m_Extent: {x: 20.7815, y: 11.25265, z: 0}
+    m_Center: {x: 0.49480057, y: 2.4730997, z: 0}
+    m_Extent: {x: 20.775, y: 11.255, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -15977,6 +16003,10 @@ PrefabInstance:
     - target: {fileID: 1036041783116113563, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011190838439333245, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
+      propertyPath: health
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2011190838439333245, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
       propertyPath: healthBar
@@ -17920,6 +17950,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1803305713}
     m_Modifications:
     - target: {fileID: 4830253562838794970, guid: f7c539a5b4a6cd44880ac291879b3056, type: 3}
+      propertyPath: nextLevel
+      value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830253562838794970, guid: f7c539a5b4a6cd44880ac291879b3056, type: 3}
       propertyPath: loadingScene
       value: 
       objectReference: {fileID: 1847562394}
@@ -18580,5 +18614,5 @@ SceneRoots:
   - {fileID: 43420563}
   - {fileID: 607508134}
   - {fileID: 130284208}
-  - {fileID: 1491784803}
   - {fileID: 473430246}
+  - {fileID: 1491784803}

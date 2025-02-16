@@ -13,16 +13,19 @@ public class LoadingScene : MonoBehaviour
 
     public void LoadScene(int sceneId)
     {
-        if (sceneId > 0 && sceneId != 5)
+        if (DataPersistenceManager.Instance != null)
         {
-            if (sceneId == 4) //When Boss Level gets Loaded, always reset Game Data except of coins
+            if (sceneId > 0 && sceneId != 5)
             {
-                DataPersistenceManager.Instance.ResetPlayerToDefault();
+                if (sceneId == 4) //When Boss Level gets Loaded, always reset Game Data except of coins
+                {
+                    DataPersistenceManager.Instance.ResetPlayerToDefault();
+                }
+                DataPersistenceManager.Instance.SetCurrentLevel(sceneId);
             }
-            DataPersistenceManager.Instance.SetCurrentLevel(sceneId);
+            DataPersistenceManager.Instance.SaveGame();
         }
-
-        DataPersistenceManager.Instance.SaveGame();
+       
 
         StartCoroutine(LoadSceneAsync(sceneId));
 

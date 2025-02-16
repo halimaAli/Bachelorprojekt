@@ -742,7 +742,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1036041783116113563, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 167.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1036041783116113563, guid: e70f29665d86cc24faee26cd751fd6eb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1748,6 +1748,7 @@ MonoBehaviour:
   loadingScene: {fileID: 1309005512}
   exitSoundClip: {fileID: 0}
   skipNextLevel: 1
+  goToMenu: 0
 --- !u!1 &300752334
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,7 +2745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7446365318446602095, guid: f7c539a5b4a6cd44880ac291879b3056, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00577
+      value: -0.002
       objectReference: {fileID: 0}
     - target: {fileID: 7446365318446602095, guid: f7c539a5b4a6cd44880ac291879b3056, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3511,6 +3512,7 @@ MonoBehaviour:
   loadingScene: {fileID: 1309005512}
   exitSoundClip: {fileID: 0}
   skipNextLevel: 0
+  goToMenu: 0
 --- !u!1 &890632618
 GameObject:
   m_ObjectHideFlags: 0
@@ -4426,7 +4428,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 279512408104417469, guid: 86051efe569ef2f4cb691fbc98db977a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 243.7
+      value: 76.5
       objectReference: {fileID: 0}
     - target: {fileID: 279512408104417469, guid: 86051efe569ef2f4cb691fbc98db977a, type: 3}
       propertyPath: m_LocalPosition.y

@@ -101,7 +101,10 @@ public class UIHandler : MonoBehaviour
     {
         Time.timeScale = 1;
         isPaused = false;
-        DataPersistenceManager.Instance.SaveGame();
+        if (DataPersistenceManager.Instance != null)
+        {
+            DataPersistenceManager.Instance.SaveGame();
+        }
         SceneManager.LoadScene("Main Menu");
     }
 
